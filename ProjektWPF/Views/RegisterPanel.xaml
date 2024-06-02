@@ -4,46 +4,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
+             xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
+             xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="819.2">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Bottom" Text="Rejestracja" FontSize="50" Foreground="White"></TextBlock>
+    <UserControl.Resources>
+        <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+    </UserControl.Resources>
+    <Border Background="#2A629A" CornerRadius="50">
+        <Grid>
+         
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Bottom" Text="Rejestracja" FontSize="50" Foreground="White"></TextBlock>
 
-        <TextBlock Grid.Column="0" Grid.Row="1" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Login:" FontSize="40" Foreground="White"></TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="2" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Hasło:" FontSize="40" Foreground="White"></TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="3" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="E-mail:" FontSize="40" Foreground="White"></TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="4" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Wiek:" FontSize="40" Foreground="White"></TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="5" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Płeć:" FontSize="40" Foreground="White"></TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="6" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Waga:" FontSize="40" Foreground="White"></TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="7" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Wzrost:" FontSize="40" Foreground="White"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Login:" FontSize="40" Foreground="White" ></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Hasło:" FontSize="40" Foreground="White"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="E-mail:" FontSize="40" Foreground="White"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Wiek:" FontSize="40" Foreground="White"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="5" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Płeć:" FontSize="40" Foreground="White"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="6" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Waga:" FontSize="40" Foreground="White"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="7" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Wzrost:" FontSize="40" Foreground="White"></TextBlock>
 
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
-        <PasswordBox Grid.Column="1" Grid.Row="2" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></PasswordBox>
-        <TextBox Grid.Column="1" Grid.Row="3" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="4" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
-        <ComboBox Grid.Column="1" Grid.Row="5" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" ItemsSource="{Binding Sex}" SelectedItem="{Binding SelectedSex, Mode=TwoWay}"></ComboBox>
-        <TextBox Grid.Column="1" Grid.Row="6" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
-        <TextBox Grid.Column="1" Grid.Row="7" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
-        <StackPanel Grid.Column="1" Grid.Row="8">
-            <Button Margin="20" Content="Zarejestruj się" VerticalAlignment="Top" FontSize="30"></Button>
-            <TextBlock Text="Uwaga: Wzrost prosimy podać w cm, a wagę w kg" TextAlignment="Center" FontSize="20" Foreground="White"/>
-        </StackPanel>
-        
-    </Grid>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Username, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <PasswordBox Grid.Column="1" Grid.Row="2" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" conv:PasswordBoxHelper.BoundPassword="{Binding Path=Password, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
+            <TextBox Grid.Column="1" Grid.Row="3" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="4" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Age, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <ComboBox Grid.Column="1" Grid.Row="5" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" ItemsSource="{Binding Gender}" SelectedItem="{Binding SelectedGender, Mode=TwoWay}"></ComboBox>
+            <TextBox Grid.Column="1" Grid.Row="6" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="7" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
+            <StackPanel Grid.Column="1" Grid.Row="8">
+                <Button Margin="20" Content="Zarejestruj się" VerticalAlignment="Top" FontSize="30" Command="{Binding RegisterClick}"></Button>
+                <TextBlock Text="Uwaga: Wzrost prosimy podać w cm, a wagę w kg" TextAlignment="Center" FontSize="20" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>

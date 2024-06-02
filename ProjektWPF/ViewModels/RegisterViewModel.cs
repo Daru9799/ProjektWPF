@@ -4,7 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows;
 using ProjektWPF.Core;
+using ProjektWPF.Models;
+using ProjektWPF.Data;
+using System.Security.Cryptography;
+using ProjektWPF.ViewModels.Converters;
 
 namespace ProjektWPF.ViewModels
 {
@@ -35,10 +41,99 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
+
+        private string? _username { get; set; }
+        private string? _password { get; set; }
+        private string? _email { get; set; }
+        private int? _age { get; set; }
+        private string? _weight { get; set; }
+        private string? _height { get; set; }
+        public string? Username
+        {
+            get => _username;
+            set
+            {
+                if (_username != value)
+                {
+                    _username = value;
+                    OnPropertyChanged(nameof(Username));
+                }
+            }
+        }
+        public string? Password
+        {
+            get => _password;
+            set
+            {
+                if (_password != value)
+                {
+                    _password = value;
+                    OnPropertyChanged(nameof(Password));
+                }
+            }
+        }
+        public int? Age
+        {
+            get => _age;
+            set
+            {
+                if (_age != value)
+                {
+                    _age = value;
+                    OnPropertyChanged(nameof(Age));
+                }
+            }
+        }
         public RegisterViewModel()
         {
             Gender = ["Mężczyzna", "Kobieta"];
             SelectedGender = "Mężczyzna";
+        }
+
+        private ICommand _registerClick = null;
+        public ICommand RegisterClick
+        {
+            get
+            {
+                if (_registerClick == null)
+                {
+                    _registerClick = new RelayCommand(
+                        arg => { Register(); }, arg => CanRegister()); ;
+                }
+
+                return _registerClick;
+            }
+        }
+        private void Register()
+        {
+            string sex = GenderToEnum();
+            string hPassword = PasswordEncryptionAndDecryption.HashPassword(Password);
+            Console.WriteLine(hPassword);
+            User user1 = new User(0, this.Username, hPassword, "johnpaulosecundo@example.com", this.Age, sex, 80.5f, 180.0f, 0, 0, TimeSpan.FromHours(0), DateTime.Now, DateTime.Now);
+            DbUsers.AddUserToDb(user1);
+        }
+        //Funkcja bedzie sprawdzac czy wszystkie pola są poprawne i wypelnione jesli nie beda wyswietlane bledy po prawej stronie
+        private bool CanRegister()
+        {
+            if((Username != null) && (Password != null) && (Age != null))
+            {
+                if(Username.Length>2 && Username.Length < 20)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private string GenderToEnum()
+        {
+            if(this.SelectedGender == "Mężczyzna")
+            {
+                return "M";
+            } 
+            else 
+            {
+                return "F";
+            }
         }
     }
 }
