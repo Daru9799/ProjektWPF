@@ -27,7 +27,7 @@
             <TextBox Grid.Column="1" Grid.Row="1" Margin="23" Height="40" VerticalAlignment="Bottom" FontSize="25"></TextBox>
             <PasswordBox Grid.Column="1" Grid.Row="2" Margin="23" Height="40" VerticalAlignment="Top" FontSize="25"></PasswordBox>
 
-            <Button Grid.Column="1" Grid.Row="3" Margin="20" Content="Zaloguj się" VerticalAlignment="Top" FontSize="30"></Button>
+            <Button Grid.Column="1" Grid.Row="3" Margin="20" Content="Zaloguj się" VerticalAlignment="Top" FontSize="30" Command="{Binding LoginClick}"></Button>
         </Grid>
     </Border>
 </UserControl>

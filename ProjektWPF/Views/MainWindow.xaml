@@ -32,9 +32,9 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Bottom">
-                    <Button Content="Zaloguj się" Margin="5" FontSize="20" Command="{Binding LoginViewCommand}"></Button>
-                    <Button Content="Zarejestruj się" Margin="5" FontSize="20" Command="{Binding RegisterViewCommand}"></Button>
-                    <Button Content="Wyloguj się" Margin="5" FontSize="20" Visibility="Collapsed"></Button>
+                    <Button Content="Zaloguj się" Margin="5" FontSize="20" Command="{Binding LoginViewCommand}" Visibility="{Binding LogRegVisibility}"></Button>
+                    <Button Content="Zarejestruj się" Margin="5" FontSize="20" Command="{Binding RegisterViewCommand}" Visibility="{Binding LogRegVisibility}"></Button>
+                    <Button Content="Wyloguj się" Margin="5" FontSize="20" Command="{Binding LogOutClick}" Visibility="{Binding LogOutVisibility}"></Button>
                 </StackPanel>
             </Grid>
             <!-- Panel odpowiedzalny za wyswietlanie podstron -->

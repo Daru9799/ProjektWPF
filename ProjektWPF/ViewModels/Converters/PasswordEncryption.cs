@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjektWPF.ViewModels.Converters
 {
     //Klasa odpowiedzialna za szyfrowanie i deszyfrowanie haseł przy pomocy BCrypt (dlugosc hasha 60 znaków)
-    public static class PasswordEncryptionAndDecryption
+    public static class PasswordEncryption
     {
         // Hashowanie hasła
         public static string HashPassword(string password)

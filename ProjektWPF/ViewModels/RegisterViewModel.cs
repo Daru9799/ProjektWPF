@@ -107,7 +107,7 @@ namespace ProjektWPF.ViewModels
         private void Register()
         {
             string sex = GenderToEnum();
-            string hPassword = PasswordEncryptionAndDecryption.HashPassword(Password);
+            string hPassword = PasswordEncryption.HashPassword(Password);
             Console.WriteLine(hPassword);
             User user1 = new User(0, this.Username, hPassword, "johnpaulosecundo@example.com", this.Age, sex, 80.5f, 180.0f, 0, 0, TimeSpan.FromHours(0), DateTime.Now, DateTime.Now);
             DbUsers.AddUserToDb(user1);
