@@ -16,8 +16,12 @@ namespace ProjektWPF.ViewModels
         //ViewModele do poszczególnych podstron (tutaj trzeba kazdy nowy dodac zeby go obsluzyc razem z RelayCommand)
         public LoginViewModel LoginVm { get; set; }
         public RegisterViewModel RegisterVm { get; set; }
+        public ProfileViewModel ProfileVm { get; set; }
+        public ExercisesViewModel ExercisesVm { get; set; }
         public RelayCommand LoginViewCommand { get; set; }
         public RelayCommand RegisterViewCommand { get; set; }
+        public RelayCommand ProfileViewCommand { get; set; }
+        public RelayCommand ExercisesViewCommand { get; set; }
 
         //Aktualny widok
         private object _currentView;
@@ -34,12 +38,19 @@ namespace ProjektWPF.ViewModels
         {
             LoginVm = new LoginViewModel(this); //Przekazuje referencje na potrzeby zmiany zmiennej id
             RegisterVm = new RegisterViewModel();
+            ProfileVm = new ProfileViewModel();
+            ExercisesVm = new ExercisesViewModel();
+
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
             RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
+            ProfileViewCommand = new RelayCommand(arg => { CurrentView = ProfileVm; }, null);
+            ExercisesViewCommand = new RelayCommand(arg => { CurrentView = ExercisesVm; }, null);
+
             //Ustawienie poczatkowego widoku na ekran logowania
             CurrentView = LoginVm;
 
-            //przed zalogowaniem ustawiam zmienną CurrentUserId na null (przy testach zmiana tego jest rownowazna z byciem zalogowanym)
+            //przed zalogowaniem ustawiam zmienną CurrentUserId na null
+            //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
             CurrentUserId = null;
         }
 
@@ -59,6 +70,7 @@ namespace ProjektWPF.ViewModels
                     {
                         LogRegVisibility = Visibility.Collapsed;
                         LogOutVisibility = Visibility.Visible;
+                        CurrentView = ProfileVm;
                     }
                     else
                     {

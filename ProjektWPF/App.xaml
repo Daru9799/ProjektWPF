@@ -12,5 +12,11 @@
         <DataTemplate DataType="{x:Type viewModel:RegisterViewModel}">
             <view:RegisterPanel/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProfileViewModel}">
+            <view:ProfilePanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ExercisesViewModel}">
+            <view:ExercisesPanel/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
