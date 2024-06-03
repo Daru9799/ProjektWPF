@@ -9,11 +9,6 @@ namespace ProjektWPF.ViewModels
 {
     public class SessionViewModel : ViewModelBase
     {
-        private MainViewModel _mainViewModel;
-        public SessionViewModel() { }
-        public SessionViewModel(MainViewModel mainViewModel)
-        {
-            _mainViewModel = mainViewModel;
-        }
+        
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjektWPF.Core;
+using ProjektWPF.Models;
 
 namespace ProjektWPF.ViewModels
 {

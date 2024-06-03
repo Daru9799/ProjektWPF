@@ -9,11 +9,6 @@ namespace ProjektWPF.ViewModels
 {
     public class WorkoutsViewModel : ViewModelBase
     {
-        private MainViewModel _mainViewModel;
-        public WorkoutsViewModel() { }
-        public WorkoutsViewModel(MainViewModel mainViewModel) 
-        {
-            _mainViewModel = mainViewModel;
-        }
+        
     }
 }

@@ -5,20 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ProjektWPF.Core;
+using ProjektWPF.Models;
 
 namespace ProjektWPF.ViewModels
 {
     //ViewModel powiązany z panelem logowania
     public class LoginViewModel : ViewModelBase
     {
-        private MainViewModel _mainViewModel;
-        public LoginViewModel() { }
-        public LoginViewModel(MainViewModel mainViewModel)
-        {
-            _mainViewModel = mainViewModel;
-        }
-
-
         private ICommand _loginClick = null;
         public ICommand LoginClick
         {
@@ -36,7 +29,7 @@ namespace ProjektWPF.ViewModels
         //Potem będzie tutaj logika logowania się i przypisywania Id, aktualnie jest to robione na sztywno
         private void Login()
         {
-            _mainViewModel.CurrentUserId = 1;
+            UserSession.CurrentUserId = 1;
         }
     }
 }

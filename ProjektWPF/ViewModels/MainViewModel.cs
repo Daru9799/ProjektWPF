@@ -42,14 +42,16 @@ namespace ProjektWPF.ViewModels
         }
         public MainViewModel() 
         {
-            //Przekazuje referencje do MainView aby poszczególne widoki miały dostęp do zmiennej CurrentUserId 
-            LoginVm = new LoginViewModel(this);
+            //Podpięcie śledzenia zmian w ID usera z sesji
+            UserSession.UserIdChanged += OnUserIdChanged;
+            
+            LoginVm = new LoginViewModel();
             RegisterVm = new RegisterViewModel();
-            ProfileVm = new ProfileViewModel(this);
+            ProfileVm = new ProfileViewModel();
             ExercisesVm = new ExercisesViewModel();
-            WorkoutsVm = new WorkoutsViewModel(this);
-            SessionVm = new SessionViewModel(this);
-            ProgressVm = new ProgressViewModel(this);
+            WorkoutsVm = new WorkoutsViewModel();
+            SessionVm = new SessionViewModel();
+            ProgressVm = new ProgressViewModel();
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
             RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
@@ -64,33 +66,24 @@ namespace ProjektWPF.ViewModels
 
             //przed zalogowaniem ustawiam zmienną CurrentUserId na null
             //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
-            CurrentUserId = null;
+            UserSession.CurrentUserId = null;
         }
 
-        //Zmienna CurrentUserId przechowuje id aktualnie zalogowanego uzytkownika
-        private int? _currentUserId;
-        public int? CurrentUserId
+        //Funkcja reagująca na zamiany w id usera (sprawdza czy jestesmy zalogowani czy nie)
+        private void OnUserIdChanged(int? newUserId)
         {
-            get => _currentUserId;
-            set
+
+            // Zmiana widoczności
+            if (newUserId != null)
             {
-                if (_currentUserId != value)
-                {
-                    _currentUserId = value;
-                    OnPropertyChanged(nameof(CurrentUserId));
-                    //Zmiana widocznosci jesli mamy przechwycone id zalogowanego uzytkownika
-                    if(CurrentUserId != null) 
-                    {
-                        LogRegVisibility = Visibility.Collapsed;
-                        LogOutVisibility = Visibility.Visible;
-                        CurrentView = ProfileVm;
-                    }
-                    else
-                    {
-                        LogRegVisibility = Visibility.Visible;
-                        LogOutVisibility = Visibility.Collapsed;
-                    }
-                }
+                LogRegVisibility = Visibility.Collapsed;
+                LogOutVisibility = Visibility.Visible;
+                CurrentView = ProfileVm;
+            }
+            else
+            {
+                LogRegVisibility = Visibility.Visible;
+                LogOutVisibility = Visibility.Collapsed;
             }
         }
 
@@ -133,7 +126,7 @@ namespace ProjektWPF.ViewModels
         }
         private void LogOut()
         {
-            CurrentUserId = null; //Po wylogowaniu id aktualnego uzytkownika ustawiamy na null
+            UserSession.CurrentUserId = null; //Po wylogowaniu id aktualnego uzytkownika ustawiamy na null
             CurrentView = LoginVm; //Wracamy rowniez do widoku logowania
         }
     }

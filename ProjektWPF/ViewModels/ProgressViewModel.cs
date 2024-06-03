@@ -4,16 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjektWPF.Core;
+using ProjektWPF.Models;
 
 namespace ProjektWPF.ViewModels
 {
     public class ProgressViewModel : ViewModelBase
     {
-        private MainViewModel _mainViewModel;
-        public ProgressViewModel() { }
-        public ProgressViewModel(MainViewModel mainViewModel)
-        {
-            _mainViewModel = mainViewModel;
-        }
+
     }
 }
