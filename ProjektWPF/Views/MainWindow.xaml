@@ -23,9 +23,9 @@
                 <Button Content="Profil" Margin="5" Height="30" FontSize="20" Command="{Binding ProfileViewCommand}" Visibility="{Binding LogOutVisibility}"></Button>
                 <Button Content="Ćwiczenia" Margin="5" Height="30" FontSize="20" Command="{Binding ExercisesViewCommand}" Visibility="{Binding LogOutVisibility}"></Button>
                 <!-- Plany treningowe mozna rozbic na kilka buttonów np jeden do tworzenia jeden do edycji etc. -->
-                <Button Content="Plany Treningowe" Margin="5" Height="30" FontSize="20" Visibility="{Binding LogOutVisibility}"></Button>
-                <Button Content="Ćwicz Teraz" Margin="5" Height="30" FontSize="20" Visibility="{Binding LogOutVisibility}"></Button>
-                <Button Content="Postępy" Margin="5" Height="30" FontSize="20" Visibility="{Binding LogOutVisibility}"></Button>
+                <Button Content="Plany Treningowe" Margin="5" Height="30" FontSize="20" Command="{Binding WorkoutsViewCommand}" Visibility="{Binding LogOutVisibility}"></Button>
+                <Button Content="Trening" Margin="5" Height="30" FontSize="20" Command="{Binding SessionViewCommand}" Visibility="{Binding LogOutVisibility}"></Button>
+                <Button Content="Postępy" Margin="5" Height="30" FontSize="20" Command="{Binding ProgressViewCommand}" Visibility="{Binding LogOutVisibility}"></Button>
             </StackPanel>
 
             <!-- Dół Menu bocznego Logowanie i Rejestracja potem zamienia sie w jeden button Wyloguj -->

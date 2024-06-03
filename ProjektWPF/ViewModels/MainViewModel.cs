@@ -13,15 +13,21 @@ namespace ProjektWPF.ViewModels
     //Klasa główna odpowiedzialna za spięcie wszystkich innych viewmodeli i zarządzanie nimi
     public class MainViewModel : ViewModelBase
     {
-        //ViewModele do poszczególnych podstron (tutaj trzeba kazdy nowy dodac zeby go obsluzyc razem z RelayCommand)
+        //ViewModele do poszczególnych podstron
         public LoginViewModel LoginVm { get; set; }
         public RegisterViewModel RegisterVm { get; set; }
         public ProfileViewModel ProfileVm { get; set; }
         public ExercisesViewModel ExercisesVm { get; set; }
+        public WorkoutsViewModel WorkoutsVm { get; set; }
+        public SessionViewModel SessionVm { get; set; }
+        public ProgressViewModel ProgressVm { get; set; }
         public RelayCommand LoginViewCommand { get; set; }
         public RelayCommand RegisterViewCommand { get; set; }
         public RelayCommand ProfileViewCommand { get; set; }
         public RelayCommand ExercisesViewCommand { get; set; }
+        public RelayCommand WorkoutsViewCommand { get; set; }
+        public RelayCommand SessionViewCommand { get; set; }
+        public RelayCommand ProgressViewCommand { get; set; }
 
         //Aktualny widok
         private object _currentView;
@@ -36,15 +42,22 @@ namespace ProjektWPF.ViewModels
         }
         public MainViewModel() 
         {
-            LoginVm = new LoginViewModel(this); //Przekazuje referencje na potrzeby zmiany zmiennej id
+            //Przekazuje referencje do MainView aby poszczególne widoki miały dostęp do zmiennej CurrentUserId 
+            LoginVm = new LoginViewModel(this);
             RegisterVm = new RegisterViewModel();
-            ProfileVm = new ProfileViewModel();
+            ProfileVm = new ProfileViewModel(this);
             ExercisesVm = new ExercisesViewModel();
+            WorkoutsVm = new WorkoutsViewModel(this);
+            SessionVm = new SessionViewModel(this);
+            ProgressVm = new ProgressViewModel(this);
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
             RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
             ProfileViewCommand = new RelayCommand(arg => { CurrentView = ProfileVm; }, null);
             ExercisesViewCommand = new RelayCommand(arg => { CurrentView = ExercisesVm; }, null);
+            WorkoutsViewCommand = new RelayCommand(arg => { CurrentView = WorkoutsVm; }, null);
+            SessionViewCommand = new RelayCommand(arg => { CurrentView = SessionVm; }, null);
+            ProgressViewCommand = new RelayCommand(arg => { CurrentView = ProgressVm; }, null);
 
             //Ustawienie poczatkowego widoku na ekran logowania
             CurrentView = LoginVm;

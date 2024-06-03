@@ -7,13 +7,13 @@ using ProjektWPF.Core;
 
 namespace ProjektWPF.ViewModels
 {
-    public class ProfileViewModel : ViewModelBase
+    public class ProgressViewModel : ViewModelBase
     {
         private MainViewModel _mainViewModel;
-        public ProfileViewModel() { }
-        public ProfileViewModel(MainViewModel mainViewModel) 
-        {  
-            _mainViewModel = mainViewModel; 
+        public ProgressViewModel() { }
+        public ProgressViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
         }
     }
 }

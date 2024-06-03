@@ -7,13 +7,13 @@ using ProjektWPF.Core;
 
 namespace ProjektWPF.ViewModels
 {
-    public class ProfileViewModel : ViewModelBase
+    public class SessionViewModel : ViewModelBase
     {
         private MainViewModel _mainViewModel;
-        public ProfileViewModel() { }
-        public ProfileViewModel(MainViewModel mainViewModel) 
-        {  
-            _mainViewModel = mainViewModel; 
+        public SessionViewModel() { }
+        public SessionViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
         }
     }
 }

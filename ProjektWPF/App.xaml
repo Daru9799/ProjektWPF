@@ -6,6 +6,7 @@
              xmlns:view="clr-namespace:ProjektWPF.Views"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
+        
         <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
             <view:LoginPanel/>
         </DataTemplate>
@@ -18,5 +19,15 @@
         <DataTemplate DataType="{x:Type viewModel:ExercisesViewModel}">
             <view:ExercisesPanel/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:WorkoutsViewModel}">
+            <view:WorkoutsPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:SessionViewModel}">
+            <view:SessionPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProgressViewModel}">
+            <view:ProgressPanel/>
+        </DataTemplate>
+        
     </Application.Resources>
 </Application>
