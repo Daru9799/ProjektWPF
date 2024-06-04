@@ -6,7 +6,24 @@
              xmlns:local="clr-namespace:ProjektWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="ĆWICZENIA" FontSize="50" Foreground="White"></TextBlock>
-    </Grid>
+    <Border Background="#2A629A" CornerRadius="50">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="85*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="ĆWICZENIA" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+            <ListView Grid.Row="1" 
+              d:ItemsSource="{d:SampleData ItemCount=5}"
+              Margin="50,10">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Border>
 </UserControl>

@@ -5,8 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="PLANY TRENINGOWE" FontSize="50" Foreground="White"></TextBlock>
-    </Grid>
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Border Background="#2A629A" CornerRadius="50">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="PLANY TRENINGOWE" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+            <ListView Grid.Row="1" 
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                  Margin="50,10">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid Grid.Row="2" Margin="50,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Trenuj" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Dodaj" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Modyfikuj" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Usuń" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Grid>
+
+        </Grid>
+    </Border>
+
 </UserControl>
