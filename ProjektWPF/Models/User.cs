@@ -25,7 +25,7 @@ namespace ProjektWPF.Models
         [Column("total_calories_burned")]
         public int TotalCaloriesBurned { get; set; }
         [Column("total_time_spent")]
-        public TimeSpan TotalTimeSpent { get; set; } //time mozna tylko przekonwertowac do timespan przy uzyciu datetime jest błąd
+        public int TotalTimeSpent { get; set; } //time mozna tylko przekonwertowac do timespan przy uzyciu datetime jest błąd
         [Column("join_date")]
         public DateTime JoinDate { get; set; }
         [Column("last_login")]
@@ -36,7 +36,7 @@ namespace ProjektWPF.Models
         {
             return $"{UserId}, {Username}, {Password}, {Email}, {Age}, {Gender}, {Weight}, {Height}, {TotalWorkouts}, {TotalCaloriesBurned}, {TotalTimeSpent}, {JoinDate}, {LastLogin}";
         }
-        public User(int userId, string username, string password, string email, int? age, string gender, float? weight, float? height, int totalWorkouts, int totalCaloriesBurned, TimeSpan totalTimeSpent, DateTime joinDate, DateTime lastLogin)
+        public User(int userId, string username, string password, string email, int? age, string gender, float? weight, float? height, int totalWorkouts, int totalCaloriesBurned, int totalTimeSpent, DateTime joinDate, DateTime lastLogin)
         {
             UserId = userId;
             Username = username;

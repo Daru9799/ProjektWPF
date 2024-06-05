@@ -11,6 +11,9 @@ namespace ProjektWPF.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {
+        public ProfileViewModel() 
+        {
 
+        }
     }
 }
