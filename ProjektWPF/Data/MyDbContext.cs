@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using ProjektWPF.Models;
 
 namespace ProjektWPF.Data
@@ -21,7 +23,16 @@ namespace ProjektWPF.Data
         //Polaczenie z baza
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=mysql-project-daru979.k.aivencloud.com;user=avnadmin;database=workout-project;port=19750;password=AVNS_iCL-WRfqAYjDGNJDlRx;", new MySqlServerVersion(new Version(8, 0, 21)));
+            if (!optionsBuilder.IsConfigured)
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)));
+            }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
