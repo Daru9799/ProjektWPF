@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ProjektWPF.Models;
 
 namespace ProjektWPF.Data
@@ -15,6 +16,14 @@ namespace ProjektWPF.Data
             using (var db = new MyDbContext())
             {
                 return db.plan_exercises.ToList();
+            }
+        }
+
+        public static List<Exercise> GetWorkoutExercises(int workoutID) // Zwraca listę Ćwiczeń dla PlanuTreningowego
+        {
+            using (var db = new MyDbContext())
+            {
+                return db.Database.SqlQueryRaw<Exercise>("SELECT e.* FROM plan_exercises pe Join exercises e On pe.exercise_id = e.exercise_id where pe.plan_id = {0} order by pe.order;", workoutID).ToList();
             }
         }
     }

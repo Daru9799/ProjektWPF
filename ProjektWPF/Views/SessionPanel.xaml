@@ -5,8 +5,65 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="SESJA TRENINGOWA" FontSize="50" Foreground="White"></TextBlock>
-    </Grid>
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Border Background="#2A629A" CornerRadius="50">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Sesja Ćwiczeniowa" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+            
+            <ListView Grid.Row="1" 
+                  BorderBrush="Navy"
+                  BorderThickness="3"
+                  Margin="50,10"
+                  ItemsSource="{Binding ExercisesList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID"
+                        DisplayMemberBinding="{Binding ExerciseId}"
+                        Width="30"/>
+                        <GridViewColumn Header="Nazwa"
+                        DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Część ciała"
+                        DisplayMemberBinding="{Binding BodyPart}" />
+                        <GridViewColumn Header="Poziom trudności"
+                        DisplayMemberBinding="{Binding DifficultyLevel}" />
+                        <GridViewColumn Header="Średnie spalone kalorie na minute"
+                        DisplayMemberBinding="{Binding CaloriesBurnedPerMinute}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <TextBlock Grid.Row="2"
+                       Text="Miejsce na gifa"
+                       FontSize="40" 
+                       Margin="50,10"/>
+
+
+            <Grid Grid.Row="3" Margin="50,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    
+                </Grid.ColumnDefinitions>
+                <Button Content="Następne ćwiczenie" 
+                    Grid.Column="0" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"/>
+
+                <Button Content="Pauza" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Zakończ trening" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                
+            </Grid>
+
+        </Grid>
+    </Border>
+
 </UserControl>

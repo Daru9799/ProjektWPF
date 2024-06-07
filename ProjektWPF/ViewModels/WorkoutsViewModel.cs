@@ -43,16 +43,35 @@ namespace ProjektWPF.ViewModels
 			}
 		}
 
-
 		public WorkoutPlan SelectedWorkoutPlan
         {
 			get { return selectedWorkoutPlan; }
 			set 
 			{ 
-				selectedWorkoutPlan = value; 
-				OnPropertyChanged();
+				selectedWorkoutPlan = value;
+                if(selectedWorkoutPlan== null){
+                    SelectedWorkoutPlanExercises = new List<Exercise>();
+                }
+                else
+                {
+                    SelectedWorkoutPlanExercises = DbPlanExercises.GetWorkoutExercises(selectedWorkoutPlan.PlanId);
+                }
+                
+                OnPropertyChanged();
 			}
 		}
+
+		private List<Exercise> selectedWorkoutPlanExercises;
+		public List<Exercise> SelectedWorkoutPlanExercises
+        {
+			get { return selectedWorkoutPlanExercises; }
+			set 
+            { 
+                selectedWorkoutPlanExercises = value;
+                OnPropertyChanged();
+            }
+		}
+
 
 	}
 }

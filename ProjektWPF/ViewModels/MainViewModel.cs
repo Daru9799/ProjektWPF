@@ -53,7 +53,7 @@ namespace ProjektWPF.ViewModels
             ProfileVm = new ProfileViewModel();
             ExercisesVm = new ExercisesViewModel();
             WorkoutsVm = new WorkoutsViewModel(this);
-            SessionVm = new SessionViewModel(null);
+            //SessionVm = new SessionViewModel(null);
             ProgressVm = new ProgressViewModel();
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
