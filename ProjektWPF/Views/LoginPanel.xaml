@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
+             xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
+             xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="819.2">
-    <Border Background="#2A629A" CornerRadius="50">
+    <UserControl.Resources>
+        <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+    </UserControl.Resources>
+    <Border Background="#4AA96C" CornerRadius="50">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -15,8 +20,8 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Bottom" Text="Logowanie" FontSize="50" Foreground="White"></TextBlock>
@@ -24,10 +29,12 @@
             <TextBlock Grid.Column="0" Grid.Row="1" Margin="20" TextAlignment="Right" VerticalAlignment="Bottom" Text="Login:" FontSize="40" Foreground="White"></TextBlock>
             <TextBlock Grid.Column="0" Grid.Row="2" Margin="20" TextAlignment="Right" VerticalAlignment="Top" Text="Hasło:" FontSize="40" Foreground="White"></TextBlock>
 
-            <TextBox Grid.Column="1" Grid.Row="1" Margin="23" Height="40" VerticalAlignment="Bottom" FontSize="25"></TextBox>
-            <PasswordBox Grid.Column="1" Grid.Row="2" Margin="23" Height="40" VerticalAlignment="Top" FontSize="25"></PasswordBox>
-
-            <Button Grid.Column="1" Grid.Row="3" Margin="20" Content="Zaloguj się" VerticalAlignment="Top" FontSize="30" Command="{Binding LoginClick}"></Button>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="23" Height="40" VerticalAlignment="Bottom" FontSize="25" Text="{Binding Path=Username, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <PasswordBox Grid.Column="1" Grid.Row="2" Margin="23" Height="40" VerticalAlignment="Top" FontSize="25" conv:PasswordBoxHelper.BoundPassword="{Binding Path=Password, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
+            <StackPanel Grid.Column="1" Grid.Row="3" >
+                <Button Margin="10" Content="Zaloguj się" VerticalAlignment="Top" FontSize="30" Command="{Binding LoginClick}"></Button>
+                <TextBlock TextAlignment="Center" FontSize="27" Foreground="#DA1212" Text="{Binding Path=ErrorText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
         </Grid>
     </Border>
 </UserControl>

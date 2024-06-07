@@ -11,13 +11,13 @@
     <UserControl.Resources>
         <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
     </UserControl.Resources>
-    <Border Background="#2A629A" CornerRadius="50">
+    <Border Background="#6962AD" CornerRadius="50">
         <Grid>
          
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="0.6*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
@@ -37,19 +37,19 @@
             <TextBlock Grid.Column="0" Grid.Row="3" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="E-mail:" FontSize="40" Foreground="White"></TextBlock>
             <TextBlock Grid.Column="0" Grid.Row="4" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Wiek:" FontSize="40" Foreground="White"></TextBlock>
             <TextBlock Grid.Column="0" Grid.Row="5" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Płeć:" FontSize="40" Foreground="White"></TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="6" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Waga:" FontSize="40" Foreground="White"></TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="7" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Wzrost:" FontSize="40" Foreground="White"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="6" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Waga[kg]:" FontSize="40" Foreground="White"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="7" Margin="10" TextAlignment="Right" VerticalAlignment="Center" Text="Wzrost[cm]:" FontSize="40" Foreground="White"></TextBlock>
 
             <TextBox Grid.Column="1" Grid.Row="1" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Username, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <PasswordBox Grid.Column="1" Grid.Row="2" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" conv:PasswordBoxHelper.BoundPassword="{Binding Path=Password, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
-            <TextBox Grid.Column="1" Grid.Row="3" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Email, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="4" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Age, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <ComboBox Grid.Column="1" Grid.Row="5" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" ItemsSource="{Binding Gender}" SelectedItem="{Binding SelectedGender, Mode=TwoWay}"></ComboBox>
-            <TextBox Grid.Column="1" Grid.Row="6" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="7" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="6" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Weight, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="7" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <StackPanel Grid.Column="1" Grid.Row="8">
                 <Button Margin="20" Content="Zarejestruj się" VerticalAlignment="Top" FontSize="30" Command="{Binding RegisterClick}"></Button>
-                <TextBlock Text="Uwaga: Wzrost prosimy podać w cm, a wagę w kg" TextAlignment="Center" FontSize="20" Foreground="White"/>
+                <TextBlock TextAlignment="Center" FontSize="25" Foreground="#FC4100" Text="{Binding Path=ErrorText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>
     </Border>

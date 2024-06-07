@@ -41,5 +41,31 @@ namespace ProjektWPF.Data
                 }
             }
         }
+        //Uzyskanie Id uzytkownika o podanej nazwie (gdy nie istnieje taki zwraca 0)
+        public static int GetIdByName(string name)
+        {
+            using (var db = new MyDbContext())
+            {
+                var user = db.users.FirstOrDefault(u => u.Username == name);
+                if(user != null)
+                {
+                    return user.UserId;
+                }
+                return 0;
+            }
+        }
+        public static string GetHashById(int id)
+        {
+            using (var db = new MyDbContext())
+            {
+                var user = db.users.FirstOrDefault(u => u.UserId == id);
+                if (user != null)
+                {
+                    string hash = user.Password;
+                    return hash;
+                }
+                return null;
+            }
+        }
     }
 }

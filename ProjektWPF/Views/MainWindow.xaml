@@ -12,7 +12,7 @@
     <Window.DataContext>
         <vm:MainViewModel x:Name="MainViewModel"/>
     </Window.DataContext>
-    <Border Background="#26355D" >
+    <Border Background="#21243D" >
         <Grid>
             <!-- Menu boczne -->
             <Grid.ColumnDefinitions>

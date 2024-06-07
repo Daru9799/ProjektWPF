@@ -50,14 +50,14 @@ namespace ProjektWPF
                 Console.WriteLine(user.ToString());
             }
             //Select z tabeli workout_plans do listy
-            Console.WriteLine("Users:");
+            Console.WriteLine("Workout_plans:");
             var workouts = DbWorkoutPlans.GetWorkouts();
             foreach (var workout in workouts)
             {
                 Console.WriteLine(workout.ToString());
             }
             //Select z tabeli workout_sessions do listy
-            Console.WriteLine("Users:");
+            Console.WriteLine("Workout_sessions:");
             var sessions = DbWorkoutSessions.GetWorkoutSessions();
             foreach (var session in sessions)
             {

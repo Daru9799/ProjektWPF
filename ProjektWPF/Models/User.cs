@@ -25,7 +25,7 @@ namespace ProjektWPF.Models
         [Column("total_calories_burned")]
         public int TotalCaloriesBurned { get; set; }
         [Column("total_time_spent")]
-        public int TotalTimeSpent { get; set; } //time mozna tylko przekonwertowac do timespan przy uzyciu datetime jest błąd
+        public int TotalTimeSpent { get; set; }
         [Column("join_date")]
         public DateTime JoinDate { get; set; }
         [Column("last_login")]

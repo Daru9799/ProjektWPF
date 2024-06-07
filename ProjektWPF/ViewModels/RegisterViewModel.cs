@@ -41,13 +41,25 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-
+        private string? _errorText { get; set; }
+        public string ErrorText
+        {
+            get { return _errorText; }
+            set
+            {
+                if (_errorText != value)
+                {
+                    _errorText = value;
+                    OnPropertyChanged(nameof(ErrorText));
+                }
+            }
+        }
         private string? _username { get; set; }
         private string? _password { get; set; }
         private string? _email { get; set; }
         private int? _age { get; set; }
-        private string? _weight { get; set; }
-        private string? _height { get; set; }
+        private float? _weight { get; set; }
+        private float? _height { get; set; }
         public string? Username
         {
             get => _username;
@@ -84,6 +96,42 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
+        public string? Email
+        {
+            get => _email;
+            set
+            {
+                if (_email != value)
+                {
+                    _email = value;
+                    OnPropertyChanged(nameof(Email));
+                }
+            }
+        }
+        public float? Weight
+        {
+            get => _weight;
+            set
+            {
+                if (_weight != value)
+                {
+                    _weight = value;
+                    OnPropertyChanged(nameof(Weight));
+                }
+            }
+        }
+        public float? Height
+        {
+            get => _height;
+            set
+            {
+                if (_height != value)
+                {
+                    _height = value;
+                    OnPropertyChanged(nameof(Height));
+                }
+            }
+        }
         public RegisterViewModel()
         {
             Gender = ["Mężczyzna", "Kobieta"];
@@ -106,18 +154,25 @@ namespace ProjektWPF.ViewModels
         }
         private void Register()
         {
-            string sex = GenderToEnum();
-            string hPassword = PasswordEncryption.HashPassword(Password);
-            Console.WriteLine(hPassword);
-            User user1 = new User(0, this.Username, hPassword, "johnpaulosecundo@example.com", this.Age, sex, 80.5f, 180.0f, 0, 0, 2137, DateTime.Now, DateTime.Now);
-            DbUsers.AddUserToDb(user1);
+            if(DbUsers.GetIdByName(this.Username) == 0)
+            {
+                string sex = GenderToEnum();
+                string hPassword = PasswordEncryption.HashPassword(this.Password);
+                User user1 = new User(0, this.Username, hPassword, this.Email, this.Age, sex, this.Weight, this.Height, 0, 0, 0, DateTime.Now, DateTime.Now);
+                DbUsers.AddUserToDb(user1);
+                UserSession.CurrentUserId = DbUsers.GetIdByName(this.Username); //Tworze sesje dla zarejestrowanego
+            }
+            else
+            { 
+                this.ErrorText = "Użytkownik o podanej nazwie istnieje!";
+            }
         }
-        //Funkcja bedzie sprawdzac czy wszystkie pola są poprawne i wypelnione jesli nie beda wyswietlane bledy po prawej stronie
+        //Funkcja bedzie sprawdzac czy wszystkie pola są poprawne (regexy) i wypelnione jesli nie beda wyswietlane bledy po prawej stronie
         private bool CanRegister()
         {
-            if((Username != null) && (Password != null) && (Age != null))
+            if((this.Username != null) && (this.Password != null) && (this.Age != null) && (this.Email != null) && (this.Weight != null) && (this.Height != null))
             {
-                if(Username.Length>2 && Username.Length < 20)
+                if(this.Username.Length>2 && this.Username.Length < 20)
                 {
                     return true;
                 }
