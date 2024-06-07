@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
+            
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
     <Border Background="#2A629A" CornerRadius="50">
@@ -17,11 +18,26 @@
 
             <TextBlock Text="PLANY TRENINGOWE" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
             <ListView Grid.Row="1" 
-                  d:ItemsSource="{d:SampleData ItemCount=5}"
-                  Margin="50,10">
+                      BorderBrush="Navy"
+                      BorderThickness="3"
+                      Margin="50,10"
+                      ItemsSource="{Binding WorkoutPlansItemSource}"
+                      SelectedItem="{Binding SelectedWorkoutPlan}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="ID"
+                                        DisplayMemberBinding="{Binding PlanId}"
+                                        Width="30"/>
+                        <GridViewColumn Header="Nazwa"
+                            DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Całkowity czas"
+                            DisplayMemberBinding="{Binding TotalTime}" />
+                        <GridViewColumn Header="Spalone kalorie"
+                            DisplayMemberBinding="{Binding TotalCaloriesBurned}" />
+                        <GridViewColumn Header="Opis"
+                            DisplayMemberBinding="{Binding Description}" />
+                        <GridViewColumn Header="Data stworzenia"
+                            DisplayMemberBinding="{Binding CreatedAt}" />
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -32,7 +48,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Trenuj" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Trenuj" 
+                        Grid.Column="0" 
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"
+                        Command="{Binding SessionViewCommand}"/>
+
                 <Button Content="Dodaj" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Button Content="Modyfikuj" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Button Content="Usuń" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>

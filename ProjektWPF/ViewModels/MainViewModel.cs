@@ -21,13 +21,16 @@ namespace ProjektWPF.ViewModels
         public WorkoutsViewModel WorkoutsVm { get; set; }
         public SessionViewModel SessionVm { get; set; }
         public ProgressViewModel ProgressVm { get; set; }
+
+        // Deklaracja RelayCommand do przycisków -------------------
         public RelayCommand LoginViewCommand { get; set; }
         public RelayCommand RegisterViewCommand { get; set; }
         public RelayCommand ProfileViewCommand { get; set; }
         public RelayCommand ExercisesViewCommand { get; set; }
         public RelayCommand WorkoutsViewCommand { get; set; }
-        public RelayCommand SessionViewCommand { get; set; }
         public RelayCommand ProgressViewCommand { get; set; }
+        //public RelayCommand SessionViewCommand { get; set; }
+
 
         //Aktualny widok
         private object _currentView;
@@ -49,17 +52,18 @@ namespace ProjektWPF.ViewModels
             RegisterVm = new RegisterViewModel();
             ProfileVm = new ProfileViewModel();
             ExercisesVm = new ExercisesViewModel();
-            WorkoutsVm = new WorkoutsViewModel();
-            SessionVm = new SessionViewModel();
+            WorkoutsVm = new WorkoutsViewModel(this);
+            SessionVm = new SessionViewModel(null);
             ProgressVm = new ProgressViewModel();
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
             RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
             ProfileViewCommand = new RelayCommand(arg => { CurrentView = ProfileVm; }, null);
             ExercisesViewCommand = new RelayCommand(arg => { CurrentView = ExercisesVm; }, null);
-            WorkoutsViewCommand = new RelayCommand(arg => { CurrentView = WorkoutsVm; }, null);
-            SessionViewCommand = new RelayCommand(arg => { CurrentView = SessionVm; }, null);
+            WorkoutsViewCommand = new RelayCommand(arg => { CurrentView = WorkoutsVm; WorkoutsVm.Update(); }, null);
             ProgressViewCommand = new RelayCommand(arg => { CurrentView = ProgressVm; }, null);
+            //SessionViewCommand = new RelayCommand(arg => { CurrentView = SessionVm; }, null);
+
 
             //Ustawienie poczatkowego widoku na ekran logowania
             CurrentView = LoginVm;
@@ -105,7 +109,7 @@ namespace ProjektWPF.ViewModels
             set
             {
                 _logOutVisibility = value;
-                OnPropertyChanged(nameof(LogOutVisibility));
+                OnPropertyChanged();
             }
         }
 
@@ -128,6 +132,12 @@ namespace ProjektWPF.ViewModels
         {
             UserSession.CurrentUserId = null; //Po wylogowaniu id aktualnego uzytkownika ustawiamy na null
             CurrentView = LoginVm; //Wracamy rowniez do widoku logowania
+        }
+
+        public void CheangeViewToSessionView(WorkoutPlan wp) // <-- Funkcja potrzeba aby WorkoutsViewModel mógł zmienić CurrentView na SessionVm
+        {
+            SessionVm = new SessionViewModel(wp);
+            CurrentView = SessionVm;
         }
     }
 }
