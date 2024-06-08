@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ProjektWPF.Core;
+using ProjektWPF.Data;
 using ProjektWPF.Models;
 
 namespace ProjektWPF.ViewModels
@@ -71,6 +72,10 @@ namespace ProjektWPF.ViewModels
             //przed zalogowaniem ustawiam zmienną CurrentUserId na null
             //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
             UserSession.CurrentUserId = null;
+
+
+            //Testy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //DbWorkoutPlans.UpdateWorkoutData(1); //Działa !
         }
 
         //Funkcja reagująca na zamiany w id usera (sprawdza czy jestesmy zalogowani czy nie)

@@ -17,7 +17,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Sesja Ćwiczeniowa" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            
+
             <ListView Grid.Row="1" 
                   BorderBrush="Navy"
                   BorderThickness="3"
@@ -51,7 +51,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    
+
                 </Grid.ColumnDefinitions>
                 <Button Content="Następne ćwiczenie" 
                     Grid.Column="0" 
@@ -60,10 +60,8 @@
 
                 <Button Content="Pauza" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Button Content="Zakończ trening" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                
-            </Grid>
 
+            </Grid>
         </Grid>
     </Border>
-
 </UserControl>

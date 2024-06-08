@@ -39,6 +39,10 @@ namespace ProjektWPF.Models
             this.Description = description;
             this.GifPath = gifPath;
         }
+
+        // Konstruktor na podstawie WorkoutExercisePreview
+
+
         public override string ToString()
         {
             return $"{ExerciseId}, {Name}, {BodyPart}, {DifficultyLevel}, {CaloriesBurnedPerMinute}, {AverageTime}, {Description}, {GifPath}";

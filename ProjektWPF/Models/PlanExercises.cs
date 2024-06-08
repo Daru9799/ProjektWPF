@@ -26,6 +26,16 @@ namespace ProjektWPF.Models
             this.Order = order;
             this.Duration = duration;
         }
+
+        public PlanExercises(WorkoutExercisePreview exercisePreview)
+        {
+            this.PlanExercisesId = exercisePreview.PlanExercisesId;
+            this.PlanId = exercisePreview.PlanId;
+            this.ExerciseId = exercisePreview.ExerciseId;
+            this.Order = exercisePreview.Order;
+            this.Duration = exercisePreview.AverageTime;
+        }
+
         public override string ToString()
         {
             return $"{PlanExercisesId}, {PlanId}, {ExerciseId}, {Order}, {Duration}";

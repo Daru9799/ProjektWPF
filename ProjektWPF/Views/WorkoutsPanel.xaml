@@ -46,12 +46,12 @@
                       BorderBrush="Navy"
                       BorderThickness="3"
                       Margin="50,10"
-                      ItemsSource="{Binding SelectedWorkoutPlanExercises}">
+                      ItemsSource="{Binding SelectedWorkoutPlanExercises}"
+                      SelectedItem="{Binding SelectedExercise}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="ID"
-                            DisplayMemberBinding="{Binding ExerciseId}"
-                            Width="30"/>
+                        <GridViewColumn Header="Kolejność"
+                            DisplayMemberBinding="{Binding Order}"/>
                         <GridViewColumn Header="Nazwa"
                             DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Część ciała"
@@ -83,7 +83,11 @@
 
                 <Button Content="Dodaj" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Button Content="Modyfikuj" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Button Content="Usuń" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Usuń Ćwiczenie"
+                        Grid.Column="3" 
+                        Command="{Binding DeleteWorkoutExerciseCommand}"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"/>
             </Grid>
 
         </Grid>

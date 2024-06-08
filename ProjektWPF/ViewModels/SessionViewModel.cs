@@ -12,7 +12,7 @@ namespace ProjektWPF.ViewModels
     public class SessionViewModel : ViewModelBase
     {
         private WorkoutPlan workoutPlan;
-        private List<Exercise> exercisesList;
+        private List<WorkoutExercisePreview> exercisesList;
 
         public SessionViewModel(WorkoutPlan wp)
         {
@@ -21,7 +21,7 @@ namespace ProjektWPF.ViewModels
         }
         
 
-        public List<Exercise> ExercisesList
+        public List<WorkoutExercisePreview> ExercisesList
         {
             get { return exercisesList; }
             set { 
