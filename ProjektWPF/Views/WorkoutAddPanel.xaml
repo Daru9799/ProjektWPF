@@ -9,9 +9,19 @@
              mc:Ignorable="d" 
              
              d:DesignHeight="768" d:DesignWidth="819.2">
+
     <UserControl.Resources>
-        <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
+
+
+
+
     <Border Background="#6962AD" CornerRadius="50">
         <Grid>
 
@@ -67,12 +77,12 @@
                  Text="{Binding Path=Description, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}">
                 </TextBox>
             </ScrollViewer>
-            
 
 
             <StackPanel Grid.Column="1" Grid.Row="8">
-                <Button Margin="20" Content="Zapisz" VerticalAlignment="Top" FontSize="30" Command="{Binding CreateWorkoutCommand}"></Button>
+                <Button Margin="20" Content="Zapisz" VerticalAlignment="Top" FontSize="30" Command="{Binding CreateWorkoutCommand}" Style="{StaticResource PurpleButton}"/>
             </StackPanel>
+
         </Grid>
     </Border>
 </UserControl>

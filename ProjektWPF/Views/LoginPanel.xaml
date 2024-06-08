@@ -8,9 +8,18 @@
              xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="819.2">
+
+
     <UserControl.Resources>
-        <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
+
+
     <Border Background="#4AA96C" CornerRadius="50">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -32,7 +41,7 @@
             <TextBox Grid.Column="1" Grid.Row="1" Margin="23" Height="40" VerticalAlignment="Bottom" FontSize="25" Text="{Binding Path=Username, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <PasswordBox Grid.Column="1" Grid.Row="2" Margin="23" Height="40" VerticalAlignment="Top" FontSize="25" conv:PasswordBoxHelper.BoundPassword="{Binding Path=Password, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
             <StackPanel Grid.Column="1" Grid.Row="3" >
-                <Button Margin="10" Content="Zaloguj się" VerticalAlignment="Top" FontSize="30" Command="{Binding LoginClick}"></Button>
+                <Button Margin="10" Content="Zaloguj się" VerticalAlignment="Top" FontSize="30" Command="{Binding LoginClick}" Style="{StaticResource BasicButtonStyle}"></Button>
                 <TextBlock TextAlignment="Center" FontSize="27" Foreground="#DA1212" Text="{Binding Path=ErrorText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>

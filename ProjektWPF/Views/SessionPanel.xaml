@@ -6,6 +6,18 @@
              xmlns:local="clr-namespace:ProjektWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+
     <Border Background="#2A629A" CornerRadius="50">
         <Grid>
             <Grid.RowDefinitions>
@@ -54,12 +66,13 @@
 
                 </Grid.ColumnDefinitions>
                 <Button Content="Następne ćwiczenie" 
+                        
                     Grid.Column="0" 
                     HorizontalAlignment="Stretch" 
-                    VerticalAlignment="Stretch"/>
+                    VerticalAlignment="Stretch"  Style="{StaticResource BlueButton}"  Margin="5,5,5,5"/>
 
-                <Button Content="Pauza" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Button Content="Zakończ trening" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Pauza"  Margin="5,5,5,5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource BlueButton}"/>
+                <Button Content="Zakończ trening"  Margin="5,5,5,5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource BlueButton}"/>
 
             </Grid>
         </Grid>

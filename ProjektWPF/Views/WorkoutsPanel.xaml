@@ -8,6 +8,15 @@
              xmlns:views="clr-namespace:ProjektWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Border Background="#2A629A" CornerRadius="50">
         <Grid>
             <Grid.RowDefinitions>
@@ -81,26 +90,26 @@
             Grid.Column="0" 
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Stretch"
-            Command="{Binding SessionViewCommand}"/>
+            Command="{Binding SessionViewCommand}" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
 
-                <Button Content="Dodaj Plan Treningowy" 
+                <Button Content="Dodaj Plan" 
             Grid.Column="1" 
             Command="{Binding ChangeViewToAddPanelCommand}"
             HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch"/>
+            VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
 
-                <Button Content="Modyfikuj Plan Treningowy" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Modyfikuj Plan" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
 
                 <Button Content="Usuń Plan" 
             Grid.Column="3"
             Command="{Binding DeleteWorkoutCommand}"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
 
                 <Button Content="Usuń Ćwiczenie"
             Grid.Column="4" 
             Command="{Binding DeleteWorkoutExerciseCommand}"
             HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch"/>
+            VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
             </Grid>
         </Grid>
             

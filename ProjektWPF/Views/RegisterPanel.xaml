@@ -8,9 +8,18 @@
              xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="819.2">
+
+
     <UserControl.Resources>
-        <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
+
+
     <Border Background="#6962AD" CornerRadius="50">
         <Grid>
          
@@ -48,7 +57,7 @@
             <TextBox Grid.Column="1" Grid.Row="6" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Weight, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="7" Margin="10" Height="40" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <StackPanel Grid.Column="1" Grid.Row="8">
-                <Button Margin="20" Content="Zarejestruj się" VerticalAlignment="Top" FontSize="30" Command="{Binding RegisterClick}"></Button>
+                <Button Margin="20" Content="Zarejestruj się" VerticalAlignment="Top" FontSize="30" Command="{Binding RegisterClick}" Style="{StaticResource PurpleButton}"></Button>
                 <TextBlock TextAlignment="Center" FontSize="25" Foreground="#FC4100" Text="{Binding Path=ErrorText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>
