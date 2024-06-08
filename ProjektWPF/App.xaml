@@ -32,5 +32,8 @@
             <view:WorkoutAddPanel/>
         </DataTemplate>
 
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Calibri" />
+        </Style>
     </Application.Resources>
 </Application>
