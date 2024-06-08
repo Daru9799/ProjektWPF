@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
-            
+             xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
+             xmlns:views="clr-namespace:ProjektWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
     <Border Background="#2A629A" CornerRadius="50">
@@ -19,78 +20,90 @@
 
             <TextBlock Text="PLANY TRENINGOWE" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
             <ListView Grid.Row="1" 
-                      BorderBrush="Navy"
-                      BorderThickness="3"
-                      Margin="50,10"
-                      ItemsSource="{Binding WorkoutPlansItemSource}"
-                      SelectedItem="{Binding SelectedWorkoutPlan}">
+            BorderBrush="Navy"
+            BorderThickness="3"
+            Margin="50,10"
+            ItemsSource="{Binding WorkoutPlansItemSource}"
+            SelectedItem="{Binding SelectedWorkoutPlan}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID"
-                                        DisplayMemberBinding="{Binding PlanId}"
-                                        Width="30"/>
+                            DisplayMemberBinding="{Binding PlanId}"
+                            Width="30"/>
                         <GridViewColumn Header="Nazwa"
-                            DisplayMemberBinding="{Binding Name}" />
+                DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Całkowity czas"
-                            DisplayMemberBinding="{Binding TotalTime}" />
+                DisplayMemberBinding="{Binding TotalTime}" />
                         <GridViewColumn Header="Spalone kalorie"
-                            DisplayMemberBinding="{Binding TotalCaloriesBurned}" />
+                DisplayMemberBinding="{Binding TotalCaloriesBurned}" />
                         <GridViewColumn Header="Opis"
-                            DisplayMemberBinding="{Binding Description}" />
+                DisplayMemberBinding="{Binding Description}" />
                         <GridViewColumn Header="Data stworzenia"
-                            DisplayMemberBinding="{Binding CreatedAt}" />
+                DisplayMemberBinding="{Binding CreatedAt}" />
                     </GridView>
                 </ListView.View>
             </ListView>
             <ListView Grid.Row="2" 
-                      BorderBrush="Navy"
-                      BorderThickness="3"
-                      Margin="50,10"
-                      ItemsSource="{Binding SelectedWorkoutPlanExercises}"
-                      SelectedItem="{Binding SelectedExercise}">
+            BorderBrush="Navy"
+            BorderThickness="3"
+            Margin="50,10"
+            ItemsSource="{Binding SelectedWorkoutPlanExercises}"
+            SelectedItem="{Binding SelectedExercise}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Kolejność"
-                            DisplayMemberBinding="{Binding Order}"/>
+                DisplayMemberBinding="{Binding Order}"/>
                         <GridViewColumn Header="Nazwa"
-                            DisplayMemberBinding="{Binding Name}" />
+                DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Część ciała"
-                            DisplayMemberBinding="{Binding BodyPart}" />
+                DisplayMemberBinding="{Binding BodyPart}" />
                         <GridViewColumn Header="Poziom trudności"
-                            DisplayMemberBinding="{Binding DifficultyLevel}" />
-                        <GridViewColumn Header="Średnie spalone kalorie na minute"
-                            DisplayMemberBinding="{Binding CaloriesBurnedPerMinute}" />
+                DisplayMemberBinding="{Binding DifficultyLevel}" />
+                        <GridViewColumn Header="Czas ćwiczenia"
+                DisplayMemberBinding="{Binding Duration}" />
                         <GridViewColumn Header="Opis"
-                            DisplayMemberBinding="{Binding Description}" />
-                        
+                DisplayMemberBinding="{Binding Description}" />
+
                     </GridView>
                 </ListView.View>
             </ListView>
-            
-            
+
+
             <Grid Grid.Row="3" Margin="50,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Content="Trenuj" 
-                        Grid.Column="0" 
-                        HorizontalAlignment="Stretch" 
-                        VerticalAlignment="Stretch"
-                        Command="{Binding SessionViewCommand}"/>
+            Grid.Column="0" 
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
+            Command="{Binding SessionViewCommand}"/>
 
-                <Button Content="Dodaj" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Button Content="Modyfikuj" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Button Content="Dodaj Plan Treningowy" 
+            Grid.Column="1" 
+            Command="{Binding ChangeViewToAddPanelCommand}"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"/>
+
+                <Button Content="Modyfikuj Plan Treningowy" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                <Button Content="Usuń Plan" 
+            Grid.Column="3"
+            Command="{Binding DeleteWorkoutCommand}"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
                 <Button Content="Usuń Ćwiczenie"
-                        Grid.Column="3" 
-                        Command="{Binding DeleteWorkoutExerciseCommand}"
-                        HorizontalAlignment="Stretch" 
-                        VerticalAlignment="Stretch"/>
+            Grid.Column="4" 
+            Command="{Binding DeleteWorkoutExerciseCommand}"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"/>
             </Grid>
-
         </Grid>
+            
     </Border>
 
 </UserControl>

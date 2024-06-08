@@ -30,18 +30,38 @@ namespace ProjektWPF.Data
             }
         }
 
-        public static void UpdateWorkoutData(int workoutID)
+        public static void AddWorkoutPlan(WorkoutPlan wp)
+        {
+            using (var db = new MyDbContext())
+            {
+                db.workout_plans.Add(wp);
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteWorkoutPlan(WorkoutPlan wp)
+        {
+            using (var db = new MyDbContext())
+            {
+
+                db.Database.ExecuteSqlRaw("DELETE FROM workout_plans " +
+                                          "WHERE workout_plans.plan_id = {0};", wp.PlanId);
+                db.SaveChanges();
+            }
+        }
+
+        public static void UpdateWorkoutData(int workoutID) // czas trwania ćwiczenia jest brany z PlanExercises
         {
             using (var db = new MyDbContext())
             {
                 //Pobranie zsumowanych wartości 
-                List<Double> sumCalories = db.Database.SqlQueryRaw<Double>("SELECT Sum(ex.calories_burned_per_minute*ex.average_time) " +
-                    "FROM plan_exercises pe JOIN exercises ex ON pe.exercise_id = ex.exercise_id " +
-                    "WHERE plan_id = {0};", workoutID).ToList();
+                List<Double> sumCalories = db.Database.SqlQueryRaw<Double>("SELECT Sum(ex.calories_burned_per_minute*pe.duration) " +
+                    "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
+                    "where plan_id = 1;", workoutID).ToList();
 
-                List<Double> sumTime = db.Database.SqlQueryRaw<Double>("SELECT Sum(ex.average_time)" +
-                    "FROM plan_exercises pe JOIN exercises ex ON pe.exercise_id = ex.exercise_id " +
-                    "WHERE plan_id = {0};", workoutID).ToList();
+                List<Double> sumTime = db.Database.SqlQueryRaw<Double>("SELECT Sum(pe.duration) " +
+                    "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
+                    "where plan_id = 1;", workoutID).ToList();
 
                 //Update WorkoutPlan
                 db.Database.ExecuteSqlRaw(

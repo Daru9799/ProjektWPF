@@ -21,6 +21,8 @@ namespace ProjektWPF.ViewModels
         private WorkoutExercisePreview selectedExercise = null;
         public RelayCommand SessionViewCommand { get; private set; }
         public RelayCommand DeleteWorkoutExerciseCommand { get; set; }
+        public RelayCommand DeleteWorkoutCommand { get; set; }
+        public RelayCommand ChangeViewToAddPanelCommand { get; set; }
         public WorkoutsViewModel(MainViewModel mainViewModel)
         {
             this.mainViewModel = mainViewModel;
@@ -37,6 +39,13 @@ namespace ProjektWPF.ViewModels
                     if (SelectedExercise == null) return false;
                     else return true;
                 });
+            DeleteWorkoutCommand = new RelayCommand(execute => { DeleteWorkout(); },
+                canExecute =>
+                {
+                    if (SelectedWorkoutPlan == null) return false;
+                    else return true;
+                });
+            ChangeViewToAddPanelCommand = new RelayCommand(execute => { ChangeToAddPanel(); },canExecute => { return true; });
         }
 
         public void Update()
@@ -51,8 +60,23 @@ namespace ProjektWPF.ViewModels
             if (result == MessageBoxResult.Yes) 
             {
                 DbPlanExercises.DeleteWorkoutExercise(SelectedExercise);
-                SelectedWorkoutPlanExercises = DbPlanExercises.GetWorkoutExercises(selectedWorkoutPlan.PlanId);
+                SelectedWorkoutPlanExercises = DbPlanExercises.GetWorkoutExercises(selectedWorkoutPlan.PlanId); // odświerzenie widoku ExercisePreview
             }
+        }
+
+        public void DeleteWorkout()
+        {
+            var result = MessageBox.Show($"Jesteś pewny że chcesz usunąć plan {selectedWorkoutPlan.Name}?", "Ostrzeżenie", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                DbWorkoutPlans.DeleteWorkoutPlan(SelectedWorkoutPlan);
+                Update(); // odświerzenie widoku Planów
+            }
+        }
+
+        public void ChangeToAddPanel()
+        {
+            mainViewModel.CheangeViewToWorkoutAddView();
         }
 
 		public List<WorkoutPlan> WorkoutPlansItemSource

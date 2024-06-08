@@ -22,6 +22,7 @@ namespace ProjektWPF.ViewModels
         public WorkoutsViewModel WorkoutsVm { get; set; }
         public SessionViewModel SessionVm { get; set; }
         public ProgressViewModel ProgressVm { get; set; }
+        public WorkoutsAddViewModel WorkoutsAddVm { get; set; }
 
         // Deklaracja RelayCommand do przycisków -------------------
         public RelayCommand LoginViewCommand { get; set; }
@@ -56,6 +57,7 @@ namespace ProjektWPF.ViewModels
             WorkoutsVm = new WorkoutsViewModel(this);
             //SessionVm = new SessionViewModel(null);
             ProgressVm = new ProgressViewModel();
+            WorkoutsAddVm = new WorkoutsAddViewModel(this);
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
             RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
@@ -143,6 +145,11 @@ namespace ProjektWPF.ViewModels
         {
             SessionVm = new SessionViewModel(wp);
             CurrentView = SessionVm;
+        }
+
+        public void CheangeViewToWorkoutAddView()
+        {
+            CurrentView = WorkoutsAddVm;
         }
     }
 }
