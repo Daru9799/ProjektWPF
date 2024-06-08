@@ -70,6 +70,8 @@ namespace ProjektWPF.ViewModels
 
             //Ustawienie poczatkowego widoku na ekran logowania
             CurrentView = LoginVm;
+            LoginFrontButton = true;
+            ProfileFrontButton = true;
 
             //przed zalogowaniem ustawiam zmienną CurrentUserId na null
             //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
@@ -139,6 +141,8 @@ namespace ProjektWPF.ViewModels
         {
             UserSession.CurrentUserId = null; //Po wylogowaniu id aktualnego uzytkownika ustawiamy na null
             CurrentView = LoginVm; //Wracamy rowniez do widoku logowania
+            LoginFrontButton = true;
+            ProfileFrontButton = true;
         }
 
         public void CheangeViewToSessionView(WorkoutPlan wp) // <-- Funkcja potrzeba aby WorkoutsViewModel mógł zmienić CurrentView na SessionVm
@@ -150,6 +154,29 @@ namespace ProjektWPF.ViewModels
         public void CheangeViewToWorkoutAddView()
         {
             CurrentView = WorkoutsAddVm;
+        }
+
+        //Sterowanie zaznaczeniem buttonów
+        private bool _loginFrontButton;
+        public bool LoginFrontButton
+        {
+            get { return _loginFrontButton; }
+            set
+            {
+                _loginFrontButton = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _profileFrontButton;
+        public bool ProfileFrontButton
+        {
+            get { return _profileFrontButton; }
+            set
+            {
+                _profileFrontButton = value;
+                OnPropertyChanged();
+            }
         }
     }
 }
