@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ProjektWPF.Views"
              xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
              xmlns:views="clr-namespace:ProjektWPF.Views"
+             xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
 
@@ -14,6 +15,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Style/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <conv:DateOnlyConverter x:Key="DateOnlyConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -49,7 +51,7 @@
                         <GridViewColumn Header="Opis"
                 DisplayMemberBinding="{Binding Description}" />
                         <GridViewColumn Header="Data stworzenia"
-                DisplayMemberBinding="{Binding CreatedAt}" />
+                DisplayMemberBinding="{Binding CreatedAt, Converter={StaticResource DateOnlyConverter}}" />
                     </GridView>
                 </ListView.View>
             </ListView>

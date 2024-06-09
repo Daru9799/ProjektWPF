@@ -8,9 +8,6 @@
         mc:Ignorable="d"
         Background="Transparent"
         ResizeMode="CanResizeWithGrip"
-        Title="WorkoutAndFitness" 
-        Height="768" Width="1024"
-        MinHeight="500" MinWidth="800">
         Title="WorkoutAndFitness" Height="768" Width="1024"
         Icon="pack://application:,,,/Style/Img/logo.ico">
         
