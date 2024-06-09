@@ -53,6 +53,38 @@
                 <ComboBox Grid.Column="1" Grid.Row="4" Margin="10" Height="50" VerticalAlignment="Center" FontSize="30" ItemsSource="{Binding Gender}" SelectedItem="{Binding SelectedGender, Mode=TwoWay}"></ComboBox>
                 <TextBox Style="{StaticResource FormTextBoxStyle}" Grid.Column="1" Grid.Row="5" Margin="10" Height="50" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Weight, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <TextBox Style="{StaticResource FormTextBoxStyle}" Grid.Column="1" Grid.Row="6" Margin="10" Height="50" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                <Image Visibility="{Binding LoginWarningVisibility}" Grid.Column="2" Grid.Row="0" Source="/Style/Img/warning.png" Width="40" Height="40">
+                    <Image.ToolTip>
+                        <ToolTip Content="{Binding Path=LoginWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Image.ToolTip>
+                </Image>
+                <Image Visibility="{Binding PasswordWarningVisibility}" Grid.Column="2" Grid.Row="1" Source="/Style/Img/warning.png" Width="40" Height="40">
+                    <Image.ToolTip>
+                        <ToolTip Content="{Binding Path=PasswordWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Image.ToolTip>
+                </Image>
+                <Image Visibility="{Binding EmailWarningVisibility}" Grid.Column="2" Grid.Row="2" Source="/Style/Img/warning.png" Width="40" Height="40">
+                    <Image.ToolTip>
+                        <ToolTip Content="{Binding Path=EmailWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Image.ToolTip>
+                </Image>
+                <Image Visibility="{Binding AgeWarningVisibility}" Grid.Column="2" Grid.Row="3" Source="/Style/Img/warning.png" Width="40" Height="40">
+                    <Image.ToolTip>
+                        <ToolTip Content="{Binding Path=AgeWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Image.ToolTip>
+                </Image>
+                <Image Visibility="{Binding WeightWarningVisibility}" Grid.Column="2" Grid.Row="5" Source="/Style/Img/warning.png" Width="40" Height="40">
+                    <Image.ToolTip>
+                        <ToolTip Content="{Binding Path=WeightWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Image.ToolTip>
+                </Image>
+                <Image Visibility="{Binding HeightWarningVisibility}" Grid.Column="2" Grid.Row="6" Source="/Style/Img/warning.png" Width="40" Height="40">
+                    <Image.ToolTip>
+                        <ToolTip Content="{Binding Path=HeightWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Image.ToolTip>
+                </Image>
+
             </Grid>
             
             <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Bottom" Text="Zarejestruj się" FontSize="50" Foreground="Black"></TextBlock>

@@ -42,7 +42,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Orientation="Horizontal">
-                            <TextBlock Tag="Twój login" Text="Login:" FontSize="40" Foreground="Black" VerticalAlignment="Center" Margin="20,-10,40,0"/>
+                            <TextBlock Tag="Twój login" Text="Login:" FontSize="40" Foreground="Black" VerticalAlignment="Center" Margin="24,-10,40,0"/>
                             <TextBox Style="{StaticResource FormTextBoxStyle}"  Width="450" Height="50" FontSize="25" Text="{Binding Path=Username, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
