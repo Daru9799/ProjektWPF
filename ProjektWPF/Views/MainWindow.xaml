@@ -8,7 +8,9 @@
         mc:Ignorable="d"
         Background="Transparent"
         ResizeMode="CanResizeWithGrip"
-        Title="WorkoutAndFitness" Height="768" Width="1024" >
+        Title="WorkoutAndFitness" Height="768" Width="1024"
+        Icon="pack://application:,,,/Style/Img/logo.ico">
+        
     <Window.DataContext>
         <vm:MainViewModel x:Name="MainViewModel"/>
     </Window.DataContext>
