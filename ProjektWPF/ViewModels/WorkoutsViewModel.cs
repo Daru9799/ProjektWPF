@@ -19,13 +19,20 @@ namespace ProjektWPF.ViewModels
         private List<WorkoutExercisePreview> selectedWorkoutPlanExercises;
         private WorkoutPlan selectedWorkoutPlan = null;
         private WorkoutExercisePreview selectedExercise = null;
+
         public RelayCommand SessionViewCommand { get; private set; }
         public RelayCommand DeleteWorkoutExerciseCommand { get; set; }
         public RelayCommand DeleteWorkoutCommand { get; set; }
         public RelayCommand ChangeViewToAddPanelCommand { get; set; }
+        public RelayCommand ChangeViewToModifyWorkoutCommand { get;set; }
+        public RelayCommand ChangeViewToMenageExercisesCommand { get; set; }
+
+
         public WorkoutsViewModel(MainViewModel mainViewModel)
         {
             this.mainViewModel = mainViewModel;
+            ChangeViewToAddPanelCommand = new RelayCommand(execute => { ChangeToAddPanel(); }, canExecute => { return true; });
+
             SessionViewCommand = new RelayCommand(execute => { mainViewModel.CheangeViewToSessionView(selectedWorkoutPlan); }, 
                 canExecute => 
                 {
@@ -39,18 +46,34 @@ namespace ProjektWPF.ViewModels
                     if (SelectedExercise == null) return false;
                     else return true;
                 });
+
             DeleteWorkoutCommand = new RelayCommand(execute => { DeleteWorkout(); },
                 canExecute =>
                 {
                     if (SelectedWorkoutPlan == null) return false;
                     else return true;
                 });
-            ChangeViewToAddPanelCommand = new RelayCommand(execute => { ChangeToAddPanel(); },canExecute => { return true; });
+
+            ChangeViewToModifyWorkoutCommand = new RelayCommand(execute => { ChangeToModifyWorkoutPanel(); },
+                canExecute =>
+                {
+                    if (SelectedWorkoutPlan == null) return false;
+                    else return true;
+                });
+
+            ChangeViewToMenageExercisesCommand = new RelayCommand(execute => { ChangeToMenageExercisesPanel(); },
+                canExecute =>
+                {
+                    if (SelectedWorkoutPlan == null) return false;
+                    else return true;
+                });
         }
 
         public void Update()
 		{
             WorkoutPlansItemSource = DbWorkoutPlans.GetCurrentUserWorkouts();
+            SelectedWorkoutPlan = null;
+            SelectedExercise = null;
             OnPropertyChanged();
         }
 
@@ -76,10 +99,20 @@ namespace ProjektWPF.ViewModels
 
         public void ChangeToAddPanel()
         {
-            mainViewModel.CheangeViewToWorkoutAddView();
+            mainViewModel.CheangeViewToWorkoutAddPanel();
         }
 
-		public List<WorkoutPlan> WorkoutPlansItemSource
+        public void ChangeToModifyWorkoutPanel()
+        {
+            mainViewModel.CheangeViewToWorkoutModifyPanel(SelectedWorkoutPlan);
+        }
+
+        public void ChangeToMenageExercisesPanel()
+        {
+            mainViewModel.ChangeViewToWorkoutMenageExercisesPanel();
+        }
+
+        public List<WorkoutPlan> WorkoutPlansItemSource
         {
 			get { return workoutPlansItemSource; }
 			set 

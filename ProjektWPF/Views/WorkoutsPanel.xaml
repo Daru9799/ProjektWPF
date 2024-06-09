@@ -22,9 +22,10 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="25*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="PLANY TRENINGOWE" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
@@ -86,31 +87,50 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Trenuj" 
-            Grid.Column="0" 
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch"
-            Command="{Binding SessionViewCommand}" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
+                
 
                 <Button Content="Dodaj Plan" 
-            Grid.Column="1" 
-            Command="{Binding ChangeViewToAddPanelCommand}"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
+                        Grid.Column="0" 
+                        Command="{Binding ChangeViewToAddPanelCommand}"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
 
-                <Button Content="Modyfikuj Plan" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
+                <Button Content="Modyfikuj Plan"
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Style="{StaticResource BlueButton}"
+                        Command="{Binding ChangeViewToModifyWorkoutCommand}"
+                        Margin="5"
+                        FontSize="15"/>
+                
+                <Button Content="Zarządzaj Ćwiczeniami" 
+                        Grid.Column="2"
+                        Margin="5,5"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"
+                        Command="{Binding ChangeViewToMenageExercisesCommand}" 
+                        Style="{StaticResource BlueButton}"  
+                        FontSize="15"/>
 
                 <Button Content="Usuń Plan" 
-            Grid.Column="3"
-            Command="{Binding DeleteWorkoutCommand}"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
+                        Grid.Column="3"
+                        Command="{Binding DeleteWorkoutCommand}"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
 
                 <Button Content="Usuń Ćwiczenie"
-            Grid.Column="4" 
-            Command="{Binding DeleteWorkoutExerciseCommand}"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>
+                        Grid.Column="4" 
+                        Command="{Binding DeleteWorkoutExerciseCommand}"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" Style="{StaticResource BlueButton}"  Margin="5,5,5,5" FontSize="15"/>   
             </Grid>
+            <Button Content="Trenuj" 
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Margin="200,5"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Command="{Binding SessionViewCommand}" Style="{StaticResource BlueButton}"  FontSize="15"/>
         </Grid>
             
     </Border>

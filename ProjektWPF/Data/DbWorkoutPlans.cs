@@ -39,6 +39,15 @@ namespace ProjektWPF.Data
             }
         }
 
+        public static void ModifyWorkoutPlan(WorkoutPlan wp)
+        {
+            using (var db = new MyDbContext())
+            {
+                db.workout_plans.Update(wp);
+                db.SaveChanges();
+            }
+        }
+
         public static void DeleteWorkoutPlan(WorkoutPlan wp)
         {
             using (var db = new MyDbContext())

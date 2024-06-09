@@ -23,6 +23,8 @@ namespace ProjektWPF.ViewModels
         public SessionViewModel SessionVm { get; set; }
         public ProgressViewModel ProgressVm { get; set; }
         public WorkoutsAddViewModel WorkoutsAddVm { get; set; }
+        public WorkoutModifyViewModel WorkoutModifyVm { get; set; }
+        public WorkoutMenageExercisesViewModel WorkoutMenageExercisesVm { get; set; }
 
         // Deklaracja RelayCommand do przycisków -------------------
         public RelayCommand LoginViewCommand { get; set; }
@@ -58,6 +60,8 @@ namespace ProjektWPF.ViewModels
             //SessionVm = new SessionViewModel(null);
             ProgressVm = new ProgressViewModel();
             WorkoutsAddVm = new WorkoutsAddViewModel(this);
+            WorkoutModifyVm = new WorkoutModifyViewModel(this);
+            WorkoutMenageExercisesVm = new WorkoutMenageExercisesViewModel(this);
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
             RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
@@ -151,9 +155,24 @@ namespace ProjektWPF.ViewModels
             CurrentView = SessionVm;
         }
 
-        public void CheangeViewToWorkoutAddView()
+        public void CheangeViewToWorkoutAddPanel()
         {
             CurrentView = WorkoutsAddVm;
+        }
+
+        public void CheangeViewToWorkoutsPanel()
+        {
+            CurrentView = WorkoutsVm;
+        }
+        public void CheangeViewToWorkoutModifyPanel(WorkoutPlan wp)
+        {
+            WorkoutModifyVm.LoadDataToModify(wp);
+            CurrentView = WorkoutModifyVm;
+        }
+
+        public void ChangeViewToWorkoutMenageExercisesPanel()
+        {
+            CurrentView = WorkoutMenageExercisesVm;
         }
 
         //Sterowanie zaznaczeniem buttonów

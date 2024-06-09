@@ -15,6 +15,8 @@ namespace ProjektWPF.ViewModels
     {
         MainViewModel mainViewModel;
         public RelayCommand CreateWorkoutCommand { get; set; }
+        public RelayCommand ReturnToWorkoutPlansCommand { get; set; }
+
 
         public WorkoutsAddViewModel(MainViewModel mainViewModel)
         {
@@ -23,16 +25,27 @@ namespace ProjektWPF.ViewModels
                 canExecute =>{
                     if (this.Name != null) return true;
                     else return false; });
+            ReturnToWorkoutPlansCommand = new RelayCommand(execute => { ReturnToWorkoutPlans(); },canExecute => { return true; });
         }
 
 
         public void CreateWorkout()
         {
+            if (this.Description == null) this.Description = "";
             var newWorkoutPlan = new WorkoutPlan(0, this.Name, UserSession.CurrentUserId.Value, 0, 0, this.Description, DateTime.Now);
             DbWorkoutPlans.AddWorkoutPlan(newWorkoutPlan);
             MessageBox.Show($"Plan {this.Name} został dodany.","Informacja",MessageBoxButton.OK, MessageBoxImage.Information);
             this.Name = "";
             this.Description = "";
+            
+        }
+
+        public void ReturnToWorkoutPlans()
+        {
+            this.Name = "";
+            this.Description = "";
+            mainViewModel.WorkoutsVm.Update();
+            mainViewModel.CheangeViewToWorkoutsPanel();
         }
 
         

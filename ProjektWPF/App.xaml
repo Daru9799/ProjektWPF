@@ -31,6 +31,12 @@
         <DataTemplate DataType="{x:Type viewModel:WorkoutsAddViewModel}">
             <view:WorkoutAddPanel/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:WorkoutModifyViewModel}">
+            <view:WorkoutModifyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:WorkoutMenageExercisesViewModel}">
+            <view:WorkoutMenageExercisesPanel/>
+        </DataTemplate>
 
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Calibri" />
