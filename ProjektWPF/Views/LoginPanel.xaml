@@ -20,7 +20,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-            <Border Grid.Row="1" Grid.Column="1" Background="#FFFFFF" CornerRadius="75">
+            <Border Grid.Row="1" Grid.Column="1" Background="#FFFFFF" CornerRadius="75" MaxWidth="800">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.5*"/>
@@ -36,7 +36,7 @@
                         <RowDefinition Height="0.7*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center" Text="Zaloguj się" FontSize="50" Foreground="Black"></TextBlock>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
@@ -45,7 +45,7 @@
                             <TextBlock Tag="Twój login" Text="Login:" FontSize="40" Foreground="Black" VerticalAlignment="Center" Margin="20,-10,40,0"/>
                             <TextBox Style="{StaticResource FormTextBoxStyle}"  Width="450" Height="50" FontSize="25" Text="{Binding Path=Username, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock Text="Hasło:" FontSize="40" Foreground="Black" VerticalAlignment="Center" Margin="20,-10,40,0"></TextBlock>
                             <PasswordBox Style="{StaticResource FormPasswordBoxStyle}" Height="50" VerticalAlignment="Center" Width="450" FontSize="25" conv:PasswordBoxHelper.BoundPassword="{Binding Path=Password, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
                         </StackPanel>
