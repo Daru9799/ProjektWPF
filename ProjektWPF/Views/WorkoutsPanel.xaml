@@ -129,7 +129,7 @@
             <Button Content="Trenuj" 
                     Grid.Column="0"
                     Grid.Row="4"
-                    Margin="200,5"
+                    Margin="240,5"
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch"
                     Command="{Binding SessionViewCommand}" Style="{StaticResource BlueButton}"  FontSize="15"/>

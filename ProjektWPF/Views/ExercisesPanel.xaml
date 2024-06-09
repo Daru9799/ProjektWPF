@@ -6,24 +6,41 @@
              xmlns:local="clr-namespace:ProjektWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Border Background="#2A629A" CornerRadius="50">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
-                <RowDefinition Height="85*"/>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="ĆWICZENIA" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="Ćwiczenia" FontSize="45" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0"/>
             <ListView Grid.Row="1" 
-              d:ItemsSource="{d:SampleData ItemCount=5}"
-              Margin="50,10">
+                      d:ItemsSource="{d:SampleData ItemCount=5}"
+                      Margin="50,10,50,10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
             </ListView>
+            <Button Grid.Row="2" 
+                    Margin="230,0,230,0"
+                    Command="{Binding ReturnToWorkoutPlansCommand}"
+                    Content="Pokaż szczegóły"
+                    Style="{StaticResource BlueButton}"
+                    FontSize="24" />
         </Grid>
     </Border>
+
 </UserControl>

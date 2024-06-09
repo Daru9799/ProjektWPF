@@ -16,6 +16,8 @@
             <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
+    
+    
     <Border Background="#21243D" CornerRadius="50">
         <Grid>
             <Grid.ColumnDefinitions>
