@@ -71,18 +71,26 @@ namespace ProjektWPF.ViewModels
             {
                 if (value != null)
                 {
+                    // Sprawdzenie czy pierwszy znak jest literą
+                    string firstCharPattern = @"^[a-zA-Z]";
                     string pattern = "[^a-zA-Z0-9]";
-                    if (Regex.Matches(value, pattern).Count > 0)
+
+                    if (!Regex.IsMatch(value, firstCharPattern))
+                    {
+                        LoginWarningVisibility = Visibility.Visible;
+                        LoginWarningText = "Login musi zaczynać się literą";
+                    }
+                    else if (Regex.Matches(value, pattern).Count > 0)
                     {
                         LoginWarningVisibility = Visibility.Visible;
                         LoginWarningText = "Login zawiera niedozwolone znaki";
                     }
-                    else if(value.Length <3)
+                    else if (value.Length < 3)
                     {
                         LoginWarningVisibility = Visibility.Visible;
                         LoginWarningText = "Login jest za krótki. Musi mieć przynajmniej 3 znaki";
                     }
-                    else if(value.Length > 20)
+                    else if (value.Length > 20)
                     {
                         LoginWarningVisibility = Visibility.Visible;
                         LoginWarningText = "Login jest za długi. Musi mieć maksymalnie 20 znaków";
@@ -92,8 +100,8 @@ namespace ProjektWPF.ViewModels
                         LoginWarningVisibility = Visibility.Hidden;
                         LoginWarningText = "";
                     }
-                    
                 }
+
 
                 if (_username != value)
                 {
@@ -162,7 +170,8 @@ namespace ProjektWPF.ViewModels
             {
                 if (value != null)
                 {
-                    string pattern = @"^[^\s@]+@[^\s@]+\.[^\s@]+$";
+                    string pattern = @"^[a-zA-Z][^\s@]*@[^\s@]+\.[^\s@]+$";
+
                     if (!Regex.IsMatch(value, pattern))
                     {
                         EmailWarningVisibility = Visibility.Visible;
