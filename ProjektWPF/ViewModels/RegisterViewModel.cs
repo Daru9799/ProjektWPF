@@ -61,7 +61,7 @@ namespace ProjektWPF.ViewModels
         private string? _username { get; set; }
         private string? _password { get; set; }
         private string? _email { get; set; }
-        private string? _age { get; set; }
+        private DateTime? _age { get; set; }
         private string? _weight { get; set; }
         private string? _height { get; set; }
         public string? Username
@@ -137,18 +137,26 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-        public string? Age
+        public DateTime? Age
         {
             get => _age;
             set
             {
                 if (value != null)
                 {
-                    string pattern = @"^(1[3-9]|[2-9][0-9])$";
-                    if (!Regex.IsMatch(value, pattern))
+                    DateTime today = DateTime.Today;
+                    int age = today.Year - value.Value.Year;
+                    if (value.Value.Date > today.AddYears(-age)) age--;
+
+                    if (age < 13)
                     {
                         AgeWarningVisibility = Visibility.Visible;
-                        AgeWarningText = "Podano zły wiek. Musi to być liczba w przedziale 13-99";
+                        AgeWarningText = "Musisz mieć co najmniej 13 lat.";
+                    }
+                    else if(age > 99)
+                    {
+                        AgeWarningVisibility = Visibility.Visible;
+                        AgeWarningText = "Musisz mieć co najwyżej 99 lat.";
                     }
                     else
                     {
@@ -271,7 +279,7 @@ namespace ProjektWPF.ViewModels
             {
                 string sex = GenderToEnum();
                 string hPassword = PasswordEncryption.HashPassword(this.Password);
-                User user1 = new User(0, this.Username, hPassword, this.Email, int.Parse(this.Age), sex, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), 0, 0, 0, DateTime.Now, DateTime.Now);
+                User user1 = new User(0, this.Username, hPassword, this.Email, this.Age, sex, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), 0, 0, 0, DateTime.Now, DateTime.Now);
                 DbUsers.AddUserToDb(user1);
                 UserSession.CurrentUserId = DbUsers.GetIdByName(this.Username); //Tworze sesje dla zarejestrowanego
             }

@@ -16,7 +16,8 @@ namespace ProjektWPF.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public int? Age { get; set; } 
+        [Column("birth_date")]
+        public DateTime? BirthDate { get; set; } 
         public string Gender { get; set; } //w bazie jest enum ale normalnie dziala przy przypisaniu jako string
         public float? Weight { get; set; }
         public float? Height { get; set; }
@@ -34,15 +35,15 @@ namespace ProjektWPF.Models
         //Funkcja pomocnicza (potem do usunięcia)
         public override string ToString()
         {
-            return $"{UserId}, {Username}, {Password}, {Email}, {Age}, {Gender}, {Weight}, {Height}, {TotalWorkouts}, {TotalCaloriesBurned}, {TotalTimeSpent}, {JoinDate}, {LastLogin}";
+            return $"{UserId}, {Username}, {Password}, {Email}, {BirthDate}, {Gender}, {Weight}, {Height}, {TotalWorkouts}, {TotalCaloriesBurned}, {TotalTimeSpent}, {JoinDate}, {LastLogin}";
         }
-        public User(int userId, string username, string password, string email, int? age, string gender, float? weight, float? height, int totalWorkouts, int totalCaloriesBurned, int totalTimeSpent, DateTime joinDate, DateTime lastLogin)
+        public User(int userId, string username, string password, string email, DateTime? birthDate, string gender, float? weight, float? height, int totalWorkouts, int totalCaloriesBurned, int totalTimeSpent, DateTime joinDate, DateTime lastLogin)
         {
             UserId = userId;
             Username = username;
             Password = password;
             Email = email;
-            Age = age;
+            BirthDate = birthDate;
             Gender = gender;
             Weight = weight;
             Height = height;
