@@ -20,8 +20,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="70*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Ćwiczenia" FontSize="45" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0"/>
@@ -35,10 +34,13 @@
                 </ListView.View>
             </ListView>
             <Button Grid.Row="2" 
-                    Margin="230,0,230,0"
+                    Width="350"
+                    Height="50"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
                     Command="{Binding ReturnToWorkoutPlansCommand}"
                     Content="Pokaż szczegóły"
-                    Style="{StaticResource BlueButton}"
+                    Style="{StaticResource GreenButtonStyle}"
                     FontSize="24" />
         </Grid>
     </Border>

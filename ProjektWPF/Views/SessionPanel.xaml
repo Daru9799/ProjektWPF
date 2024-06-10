@@ -69,10 +69,10 @@
                         
                     Grid.Column="0" 
                     HorizontalAlignment="Stretch" 
-                    VerticalAlignment="Stretch"  Style="{StaticResource BlueButton}"  Margin="5,5,5,5"/>
+                    VerticalAlignment="Stretch"  Style="{StaticResource GreenButtonStyle}"  Margin="5,5,5,5" FontSize="25"/>
 
-                <Button Content="Pauza"  Margin="5,5,5,5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource BlueButton}"/>
-                <Button Content="Zakończ trening"  Margin="5,5,5,5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource BlueButton}"/>
+                <Button Content="Pauza"  Margin="5,5,5,5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource OrangeButtonStyle}" FontSize="30"/>
+                <Button Content="Zakończ trening"  Margin="5,5,5,5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource CancelButtonStyle}" FontSize="30"/>
 
             </Grid>
         </Grid>

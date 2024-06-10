@@ -51,10 +51,11 @@
             <TextBox  Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="4" Margin="0,0,50,0" VerticalAlignment="Center" Height="70"/>
 
             <Button Grid.Row="5" 
-                    Margin="230,7,230,7"
+                    Width="250"
+                    Height="40"
                     Command="{Binding ReturnToWorkoutPlansCommand}"
                     Content="Wróć"
-                    Style="{StaticResource BlueButton}"
+                    Style="{StaticResource CancelButtonStyle}"
                     FontSize="24" Grid.Column="1" Grid.ColumnSpan="3" />
         </Grid>
     </Border>
