@@ -76,6 +76,7 @@ namespace ProjektWPF.ViewModels
                 string hPassword = DbUsers.GetHashById(id);
                 if(PasswordEncryption.VerifyPassword(this.Password, hPassword))
                 {
+                    DbUsers.UpdateLastLogin(id); //Aktualizuje date ostatneigo logowania
                     UserSession.CurrentUserId = id; //Utworzenie sesji 
                     //Czyszczenie pól
                     this.ErrorText = "";

@@ -84,5 +84,20 @@ namespace ProjektWPF.Data
 
             }
         }
+
+        //Updatuje ostatnie logowanie
+        public static void UpdateLastLogin(int? id)
+        {
+            using (var db = new MyDbContext())
+            {
+                var userToUpdate = db.users.FirstOrDefault(u => u.UserId == id);
+                if (userToUpdate != null)
+                {
+                    userToUpdate.LastLogin = DateTime.Now;
+                    db.Entry(userToUpdate).Property(u => u.LastLogin).IsModified = true;
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

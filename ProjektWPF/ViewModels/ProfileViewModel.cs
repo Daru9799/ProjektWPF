@@ -21,6 +21,8 @@ namespace ProjektWPF.ViewModels
         private string? _totalWorkoutsText { get; set; }
         private string? _totalCaloriesBurnedText { get; set; }
         private string? _totalTimeSpentText { get; set; }
+        private string? _joinDateText { get; set; }
+        private string? _lastLoginText { get; set; }
 
         public string? UserNameText
         {
@@ -138,6 +140,30 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
+        public string? JoinDateText
+        {
+            get => _joinDateText;
+            set
+            {
+                if (_joinDateText != value)
+                {
+                    _joinDateText = value;
+                    OnPropertyChanged(nameof(JoinDateText));
+                }
+            }
+        }
+        public string? LastLoginText
+        {
+            get => _lastLoginText;
+            set
+            {
+                if (_lastLoginText != value)
+                {
+                    _lastLoginText = value;
+                    OnPropertyChanged(nameof(LastLoginText));
+                }
+            }
+        }
 
         public ProfileViewModel()
         {
@@ -151,6 +177,30 @@ namespace ProjektWPF.ViewModels
             {
                 User user = DbUsers.GetUserFromDb(newUserId);
                 this.UserNameText = "Witaj " + user.Username + "!";
+                this.EmailText = user.Email;
+                this.AgeText = user.Age.ToString();
+                this.WeightText = user.Weight + " kg";
+                this.GenderText = ConvertGender(user.Gender);
+                this.HeightText = user.Height + " cm";
+
+                //Te dane bedzie trzeba jakos inaczej wydobyc gdyz beda ulegac ciaglej aktualizacji ale na razie wstawiam tak
+                this.TotalWorkoutsText = user.TotalWorkouts.ToString();
+                this.TotalCaloriesBurnedText = user.TotalCaloriesBurned + " kcal";
+                this.TotalTimeSpent = user.TotalTimeSpent + " min";
+
+                this.JoinDateText = user.JoinDate.ToString("d");
+                this.LastLoginText = user.LastLogin.ToString();
+            }
+        }
+
+        public string ConvertGender(string sex)
+        {
+            if(sex == "M")
+            {
+                return "Mężczyzna";
+            } else
+            {
+                return "Kobieta";
             }
         }
     }

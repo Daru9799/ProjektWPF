@@ -7,7 +7,7 @@
              xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
              xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="768" d:DesignWidth="819.2">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,6 +17,120 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TextBlock Text="{Binding Path=UserNameText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="50" Foreground="White"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1.8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Image Source="/Style/Img/backgroundImage.jpg" Stretch="UniformToFill" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+        <TextBlock Margin="20,5,20,5" FontSize="45" Text="{Binding Path=UserNameText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White"></TextBlock>
+        <Border Background="#90333333" CornerRadius="40" Margin="10" Grid.Row="1" Grid.Column="0">
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <TextBlock  Text="Informacje osobiste" FontSize="30" Foreground="White" TextAlignment="Center"></TextBlock>
+                <Border Height="2" Background="White" Margin="20,10,20,10" VerticalAlignment="Center"/>
+
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/email.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Adres email"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="24" Text="{Binding Path=EmailText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/age.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Wiek"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="24" Text="{Binding Path=AgeText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/gender.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Płeć"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="24" Text="{Binding Path=GenderText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/weight.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Waga"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="24" Text="{Binding Path=WeightText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/height.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Wzrost"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="24" Text="{Binding Path=HeightText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <Button Style="{StaticResource LogButtonStyle}" Width="200" Height="40" Content="Zmień Dane" FontSize="25" HorizontalAlignment="Center" Margin="0,20,0,20"></Button>
+            </StackPanel>
+        </Border>
+        <Border Background="#90333333" CornerRadius="40" Margin="10" Grid.Row="1" Grid.Column="1">
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <TextBlock  Text="Statystyki Aktywności" FontSize="30" Foreground="White" TextAlignment="Center"></TextBlock>
+                <Border Height="2" Background="White" Margin="20,10,20,10" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/exercises.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Ilość wykonanych treningów"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="20" Text="{Binding Path=TotalWorkoutsText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/calories.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Ilość Spalonych kalorii"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="20" Text="{Binding Path=TotalCaloriesBurnedText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/time.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Łączny czas spędzony na ćwiczeniach"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="20" Text="{Binding Path=TotalTimeSpent, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20,100,20,10">
+                    <Image Source="/Style/Img/joindate.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Data dołączenia"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="20" Text="{Binding Path=JoinDateText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
+                    <Image Source="/Style/Img/lastlogin.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Ostatnie logowanie"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="20" Text="{Binding Path=LastLoginText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        
     </Grid>
 </UserControl>
