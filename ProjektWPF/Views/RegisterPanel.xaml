@@ -41,7 +41,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Login:" FontSize="40" Foreground="Black" ></TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Hasło:" FontSize="40" Foreground="Black"></TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="E-mail:" FontSize="40" Foreground="Black"></TextBlock>
-                <TextBlock Grid.Column="0" Grid.Row="3" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Wiek:" FontSize="40" Foreground="Black"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="3" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Data urodz:" FontSize="40" Foreground="Black"></TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="4" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Płeć:" FontSize="40" Foreground="Black"></TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="5" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Waga[kg]:" FontSize="40" Foreground="Black"></TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="6" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Wzrost[cm]:" FontSize="40" Foreground="Black"></TextBlock>

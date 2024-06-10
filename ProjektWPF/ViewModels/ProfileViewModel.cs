@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using ProjektWPF.Core;
 using ProjektWPF.Data;
 using ProjektWPF.Models;
@@ -12,6 +13,13 @@ namespace ProjektWPF.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {
+        private MainViewModel _mainViewModel;
+
+        public ProfileViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
+            UserSession.UserIdChanged += OnUserIdChanged;
+        }
         private string? _userNameText { get; set; }
         private string? _emailText { get; set; }
         private string? _ageText { get; set; }
@@ -22,7 +30,21 @@ namespace ProjektWPF.ViewModels
         private string? _totalCaloriesBurnedText { get; set; }
         private string? _totalTimeSpentText { get; set; }
         private string? _joinDateText { get; set; }
-        private string? _lastLoginText { get; set; }
+
+        private ICommand _editClick = null;
+        public ICommand EditClick
+        {
+            get
+            {
+                if (_editClick == null)
+                {
+                    _editClick = new RelayCommand(
+                        arg => { Edit(); }, null);
+                }
+
+                return _editClick;
+            }
+        }
 
         public string? UserNameText
         {
@@ -152,24 +174,6 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-        public string? LastLoginText
-        {
-            get => _lastLoginText;
-            set
-            {
-                if (_lastLoginText != value)
-                {
-                    _lastLoginText = value;
-                    OnPropertyChanged(nameof(LastLoginText));
-                }
-            }
-        }
-
-        public ProfileViewModel()
-        {
-            UserSession.UserIdChanged += OnUserIdChanged;
-        }
-
         private void OnUserIdChanged(int? newUserId)
         {
 
@@ -189,7 +193,6 @@ namespace ProjektWPF.ViewModels
                 this.TotalTimeSpent = user.TotalTimeSpent + " min";
 
                 this.JoinDateText = user.JoinDate.ToString("d");
-                this.LastLoginText = user.LastLogin.ToString();
             }
         }
 
@@ -215,6 +218,11 @@ namespace ProjektWPF.ViewModels
                 age--;
             }
             return age;
+        }
+
+        private void Edit()
+        {
+            _mainViewModel.ChangeViewToProfileEdit();
         }
 
     }

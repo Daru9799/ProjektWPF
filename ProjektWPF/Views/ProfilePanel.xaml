@@ -78,7 +78,11 @@
                     <TextBlock FontSize="24" Text="{Binding Path=HeightText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
                 </StackPanel>
 
-                <Button Style="{StaticResource LogButtonStyle}" Width="200" Height="40" Content="Zmień Dane" FontSize="25" HorizontalAlignment="Center" Margin="0,20,0,20"></Button>
+                <StackPanel Orientation="Horizontal" >
+                    <Button Style="{StaticResource LogButtonStyle}" Command="{Binding EditClick}" Width="170" Height="40" Content="Zmień Dane" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,20,0,20"></Button>
+                    <Button Style="{StaticResource LogButtonStyle}" Command="{Binding PasswordClick}" Width="170" Height="40" Content="Zmień Hasło" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,20,0,20"></Button>
+                </StackPanel>
+                
             </StackPanel>
         </Border>
         <Border Background="#90333333" CornerRadius="40" Margin="10" Grid.Row="1" Grid.Column="1">
@@ -112,22 +116,13 @@
                     <TextBlock FontSize="20" Text="{Binding Path=TotalTimeSpent, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="20,100,20,10">
+                <StackPanel Orientation="Horizontal" Margin="20,140,20,10">
                     <Image Source="/Style/Img/joindate.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
                         <Image.ToolTip>
                             <ToolTip Content="Data dołączenia"/>
                         </Image.ToolTip>
                     </Image>
                     <TextBlock FontSize="20" Text="{Binding Path=JoinDateText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="20,10,20,10">
-                    <Image Source="/Style/Img/lastlogin.png" Style="{StaticResource {x:Type Image}}" Width="24" Height="24" VerticalAlignment="Center">
-                        <Image.ToolTip>
-                            <ToolTip Content="Ostatnie logowanie"/>
-                        </Image.ToolTip>
-                    </Image>
-                    <TextBlock FontSize="20" Text="{Binding Path=LastLoginText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,0,0,0"/>
                 </StackPanel>
             </StackPanel>
         </Border>

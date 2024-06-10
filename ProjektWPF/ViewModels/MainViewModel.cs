@@ -26,6 +26,7 @@ namespace ProjektWPF.ViewModels
         public WorkoutModifyViewModel WorkoutModifyVm { get; set; }
         public WorkoutMenageExercisesViewModel WorkoutMenageExercisesVm { get; set; }
         public WorkoutExerciseViewModel WorkoutExerciseVm { get; set; }
+        public ProfileEditViewModel ProfileEditVm { get; set; }
 
         // Deklaracja RelayCommand do przycisków -------------------
         public RelayCommand LoginViewCommand { get; set; }
@@ -55,7 +56,7 @@ namespace ProjektWPF.ViewModels
             
             LoginVm = new LoginViewModel();
             RegisterVm = new RegisterViewModel();
-            ProfileVm = new ProfileViewModel();
+            ProfileVm = new ProfileViewModel(this);
             ExercisesVm = new ExercisesViewModel();
             WorkoutsVm = new WorkoutsViewModel(this);
             //SessionVm = new SessionViewModel(null);
@@ -64,6 +65,7 @@ namespace ProjektWPF.ViewModels
             WorkoutModifyVm = new WorkoutModifyViewModel(this);
             WorkoutMenageExercisesVm = new WorkoutMenageExercisesViewModel(this);
             WorkoutExerciseVm = new WorkoutExerciseViewModel();
+            ProfileEditVm = new ProfileEditViewModel(this);
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
             RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
@@ -181,6 +183,16 @@ namespace ProjektWPF.ViewModels
         public void ChangerViewToWorkoutExercise()
         {
             CurrentView = WorkoutExerciseVm;
+        }
+
+        public void ChangeViewToProfileEdit()
+        {
+            CurrentView = ProfileEditVm;
+        }
+
+        public void ChangeViewToProfile()
+        {
+            CurrentView = ProfileVm;
         }
 
         //Sterowanie zaznaczeniem buttonów
