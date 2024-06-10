@@ -18,5 +18,24 @@ namespace ProjektWPF.Data
                 return db.exercises.ToList();
             }
         }
+
+        //Pobranie konkretnego cwiczenia 
+        public static Exercise GetExcercise(int? id)
+        {
+            {
+                using (var db = new MyDbContext())
+                {
+                    var exerciseToGet = db.exercises.FirstOrDefault(e => e.ExerciseId == id);
+                    if (exerciseToGet != null)
+                    {
+                        return exerciseToGet;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
     }
 }
