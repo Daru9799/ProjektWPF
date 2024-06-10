@@ -275,13 +275,20 @@ namespace ProjektWPF.ViewModels
         }
         private void Register()
         {
-            if(DbUsers.GetIdByName(this.Username) == 0)
+            if(DbUsers.GetIdByName(this.Username) == 0) //Sprawdza czy nie ma takiego usera
             {
-                string sex = GenderToEnum();
-                string hPassword = PasswordEncryption.HashPassword(this.Password);
-                User user1 = new User(0, this.Username, hPassword, this.Email, this.Age, sex, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), 0, 0, 0, DateTime.Now, DateTime.Now);
-                DbUsers.AddUserToDb(user1);
-                UserSession.CurrentUserId = DbUsers.GetIdByName(this.Username); //Tworze sesje dla zarejestrowanego
+                if(DbUsers.GetIdByEmail(this.Email) == 0)
+                {
+                    string sex = GenderToEnum();
+                    string hPassword = PasswordEncryption.HashPassword(this.Password);
+                    User user1 = new User(0, this.Username, hPassword, this.Email, this.Age, sex, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), 0, 0, 0, DateTime.Now, DateTime.Now);
+                    DbUsers.AddUserToDb(user1);
+                    UserSession.CurrentUserId = DbUsers.GetIdByName(this.Username); //Tworze sesje dla zarejestrowanego
+                }
+                else
+                {
+                    this.ErrorText = "Użytkownik o podanym adresie email istnieje!";
+                }
             }
             else
             { 

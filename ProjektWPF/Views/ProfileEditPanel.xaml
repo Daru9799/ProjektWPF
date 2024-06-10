@@ -32,17 +32,20 @@
                 <Border Grid.Row="1" Grid.Column="1" Background="#FFFFFF" CornerRadius="75" MaxWidth="800">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.4*"/>
+                            <RowDefinition Height="0.3*"/>
                             <RowDefinition Height="1*"/>
-                            <RowDefinition Height="0.4*"/>
+                            <RowDefinition Height="0.3*"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="Formularz zmiany danych" TextAlignment="Center" VerticalAlignment="Center" FontSize="50"></TextBlock>
 
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="1.1*"/>
                                 <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1.1*"/>
                                 <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1.1*"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
@@ -51,35 +54,38 @@
                                 <ColumnDefinition Width="0.4*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Grid.Row="0" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Login:" FontSize="35" Foreground="Black" ></TextBlock>
-                            <TextBlock Grid.Column="0" Grid.Row="1" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="E-mail:" FontSize="35" Foreground="Black"></TextBlock>
-                            <TextBlock Grid.Column="0" Grid.Row="2" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Wzrost[cm]:" FontSize="35" Foreground="Black"></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="2" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="E-mail:" FontSize="35" Foreground="Black"></TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="4" Margin="30,-10,0,0" TextAlignment="Left" VerticalAlignment="Center" Text="Wzrost[cm]:" FontSize="35" Foreground="Black"></TextBlock>
 
                             <TextBox Style="{StaticResource FormTextBoxStyle}" Grid.Column="1" Grid.Row="0" Margin="10" Height="50" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Username, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            <TextBox Style="{StaticResource FormTextBoxStyle}" Grid.Column="1" Grid.Row="1" Margin="10" Height="50" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Username, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            <TextBox Style="{StaticResource FormTextBoxStyle}" Grid.Column="1" Grid.Row="2" Margin="10" Height="50" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox Style="{StaticResource FormTextBoxStyle}" Grid.Column="1" Grid.Row="2" Margin="10" Height="50" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Email, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox Style="{StaticResource FormTextBoxStyle}" Grid.Column="1" Grid.Row="4" Margin="10" Height="50" VerticalAlignment="Center" FontSize="25" Text="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                             <Image Visibility="{Binding LoginWarningVisibility}" Grid.Column="2" Grid.Row="0" Source="/Style/Img/warning.png" Width="40" Height="40">
                                 <Image.ToolTip>
                                     <ToolTip Content="{Binding Path=LoginWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Image.ToolTip>
                             </Image>
-                            <Image Visibility="{Binding EmailWarningVisibility}" Grid.Column="2" Grid.Row="1" Source="/Style/Img/warning.png" Width="40" Height="40">
+                            <Image Visibility="{Binding EmailWarningVisibility}" Grid.Column="2" Grid.Row="2" Source="/Style/Img/warning.png" Width="40" Height="40">
                                 <Image.ToolTip>
                                     <ToolTip Content="{Binding Path=EmailWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Image.ToolTip>
                             </Image>
-                            <Image Visibility="{Binding HeightWarningVisibility}" Grid.Column="2" Grid.Row="2" Source="/Style/Img/warning.png" Width="40" Height="40">
+                            <Image Visibility="{Binding HeightWarningVisibility}" Grid.Column="2" Grid.Row="4" Source="/Style/Img/warning.png" Width="40" Height="40">
                                 <Image.ToolTip>
                                     <ToolTip Content="{Binding Path=HeightWarningText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Image.ToolTip>
                             </Image>
+
+                            <Button Style="{StaticResource LogButtonStyle}" Command="{Binding LoginClick}" Grid.Row="1" Grid.Column="1"  Width="200" Height="50" Content="Zmień login" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,0"></Button>
+                            <Button Style="{StaticResource LogButtonStyle}" Command="{Binding EmailClick}" Grid.Row="3" Grid.Column="1"  Width="200" Height="50" Content="Zmień email" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,0"></Button>
+                            <Button Style="{StaticResource LogButtonStyle}" Command="{Binding HeightClick}" Grid.Row="5" Grid.Column="1"  Width="200" Height="50" Content="Zmień wzrost" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,0"></Button>
+
                         </Grid>
 
                         <Grid Grid.Row="2">
-
-                            <Button Style="{StaticResource LogButtonStyle}" Width="250" Height="60" Grid.Row="3" Content="Zapisz zmiany" FontSize="40" HorizontalAlignment="Left" Margin="30,0,0,30"></Button>
-                            <Button Style="{StaticResource CancelButtonStyle}" Width="250" Height="60" Grid.Row="3" Content="Anuluj" FontSize="40" HorizontalAlignment="Right" Margin="0,0,30,30" Command="{Binding CancelClick}"></Button>
-                            <TextBlock Text="Coś poszło nie tak" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20" Foreground="#DA1212" FontSize="25"></TextBlock>
+                            <Button Style="{StaticResource CancelButtonStyle}" Width="450" Height="60" Grid.Row="3" Content="Anuluj" FontSize="40" HorizontalAlignment="Center" Margin="0,0,30,30" Command="{Binding CancelClick}"></Button>
+                            <TextBlock Grid.Row="1" Text="{Binding Path=ErrorText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="#DA1212" FontSize="25"></TextBlock>
                         </Grid>
 
                     </Grid>

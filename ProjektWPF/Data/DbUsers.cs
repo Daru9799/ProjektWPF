@@ -54,6 +54,22 @@ namespace ProjektWPF.Data
                 return 0;
             }
         }
+
+        //Uzyskanie maila
+        public static int GetIdByEmail(string email)
+        {
+            using (var db = new MyDbContext())
+            {
+                var user = db.users.FirstOrDefault(u => u.Email == email);
+                if (user != null)
+                {
+                    return user.UserId;
+                }
+                return 0;
+            }
+        }
+
+        //Uzyskanie hasha
         public static string GetHashById(int id)
         {
             using (var db = new MyDbContext())
@@ -95,6 +111,51 @@ namespace ProjektWPF.Data
                 {
                     userToUpdate.LastLogin = DateTime.Now;
                     db.Entry(userToUpdate).Property(u => u.LastLogin).IsModified = true;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        //Zmiana loginu
+        public static void UpdateUsername(int? id, string newUsername)
+        {
+            using (var db = new MyDbContext())
+            {
+                var userToUpdate = db.users.FirstOrDefault(u => u.UserId == id);
+                if (userToUpdate != null)
+                {
+                    userToUpdate.Username = newUsername;
+                    db.Entry(userToUpdate).Property(u => u.Username).IsModified = true;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        //Zmiana maila
+        public static void UpdateEmail(int? id, string newEmail)
+        {
+            using (var db = new MyDbContext())
+            {
+                var userToUpdate = db.users.FirstOrDefault(u => u.UserId == id);
+                if (userToUpdate != null)
+                {
+                    userToUpdate.Email = newEmail;
+                    db.Entry(userToUpdate).Property(u => u.Email).IsModified = true;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        //Zmiana wzrostu
+        public static void UpdateHeight(int? id, float newHeight)
+        {
+            using (var db = new MyDbContext())
+            {
+                var userToUpdate = db.users.FirstOrDefault(u => u.UserId == id);
+                if (userToUpdate != null)
+                {
+                    userToUpdate.Height = newHeight;
+                    db.Entry(userToUpdate).Property(u => u.Height).IsModified = true;
                     db.SaveChanges();
                 }
             }
