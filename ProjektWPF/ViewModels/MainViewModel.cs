@@ -27,6 +27,7 @@ namespace ProjektWPF.ViewModels
         public WorkoutMenageExercisesViewModel WorkoutMenageExercisesVm { get; set; }
         public WorkoutExerciseViewModel WorkoutExerciseVm { get; set; }
         public ProfileEditViewModel ProfileEditVm { get; set; }
+        public ProfileChangePasswordViewModel ProfilePasswordVm { get; set; }
 
         // Deklaracja RelayCommand do przycisków -------------------
         public RelayCommand LoginViewCommand { get; set; }
@@ -66,6 +67,7 @@ namespace ProjektWPF.ViewModels
             WorkoutMenageExercisesVm = new WorkoutMenageExercisesViewModel(this);
             WorkoutExerciseVm = new WorkoutExerciseViewModel();
             ProfileEditVm = new ProfileEditViewModel(this);
+            ProfilePasswordVm = new ProfileChangePasswordViewModel(this);
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
             RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
@@ -188,6 +190,11 @@ namespace ProjektWPF.ViewModels
         public void ChangeViewToProfileEdit()
         {
             CurrentView = ProfileEditVm;
+        }
+
+        public void ChangeViewToProfilePasswordEdit()
+        {
+            CurrentView = ProfilePasswordVm;
         }
 
         public void ChangeViewToProfile()

@@ -46,6 +46,21 @@ namespace ProjektWPF.ViewModels
             }
         }
 
+        private ICommand _passwordClick = null;
+        public ICommand PasswordClick
+        {
+            get
+            {
+                if (_passwordClick == null)
+                {
+                    _passwordClick = new RelayCommand(
+                        arg => { EditPassword(); }, null);
+                }
+
+                return _passwordClick;
+            }
+        }
+
         public string? UserNameText
         {
             get => _userNameText;
@@ -223,6 +238,10 @@ namespace ProjektWPF.ViewModels
         private void Edit()
         {
             _mainViewModel.ChangeViewToProfileEdit();
+        }
+        private void EditPassword()
+        {
+            _mainViewModel.ChangeViewToProfilePasswordEdit();
         }
 
     }
