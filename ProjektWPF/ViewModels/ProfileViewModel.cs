@@ -3,161 +3,155 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ProjektWPF.Core;
+using ProjektWPF.Data;
 using ProjektWPF.Models;
 
 namespace ProjektWPF.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {
-        #region Zmienne prywatne
-        private int? _user_id { get; set; }
-        private string? _userName { get; set; }
-        private string? _email { get; set; }
-        private int? _age { get; set; }
-        private string? _gender { get; set; }
-        private int? _weight { get; set; }
-        private int? _height { get; set; }
-        private int _total_workouts { get; set; }
-        private int? _total_calories_burned { get; set; }
-        private int? _total_time_spent { get; set; }
-        #endregion
+        private string? _userNameText { get; set; }
+        private string? _emailText { get; set; }
+        private string? _ageText { get; set; }
+        private string? _genderText { get; set; }
+        private string? _weightText { get; set; }
+        private string? _heightText { get; set; }
+        private string? _totalWorkoutsText { get; set; }
+        private string? _totalCaloriesBurnedText { get; set; }
+        private string? _totalTimeSpentText { get; set; }
 
-        #region Zmienne publiczne
-        public int? User_id
+        public string? UserNameText
         {
-            get => _user_id;
+            get => _userNameText;
             set
             {
-                if (_user_id != value)
+                if (_userNameText != value)
                 {
-                    _user_id = value;
-                    OnPropertyChanged(nameof(User_id));
+                    _userNameText = value;
+                    OnPropertyChanged(nameof(UserNameText));
                 }
             }
         }
 
-        public string? UserName
+        public string? EmailText
         {
-            get => _userName;
+            get => _emailText;
             set
             {
-                if (_userName != value)
+                if (_emailText != value)
                 {
-                    _userName = value;
-                    OnPropertyChanged(nameof(UserName));
+                    _emailText = value;
+                    OnPropertyChanged(nameof(EmailText));
                 }
             }
         }
 
-        public string? Email
+        public string? AgeText
         {
-            get => _email;
+            get => _ageText;
             set
             {
-                if (_email != value)
+                if (_ageText != value)
                 {
-                    _email = value;
-                    OnPropertyChanged(nameof(Email));
+                    _ageText = value;
+                    OnPropertyChanged(nameof(AgeText));
                 }
             }
         }
 
-        public int? Age
+        public string? GenderText
         {
-            get => _age;
+            get => _genderText;
             set
             {
-                if (_age != value)
+                if (_genderText != value)
                 {
-                    _age = value;
-                    OnPropertyChanged(nameof(Age));
+                    _genderText = value;
+                    OnPropertyChanged(nameof(GenderText));
                 }
             }
         }
 
-        public string? Gender
+        public string? WeightText
         {
-            get => _gender;
+            get => _weightText;
             set
             {
-                if (_gender != value)
+                if (_weightText != value)
                 {
-                    _gender = value;
-                    OnPropertyChanged(nameof(Gender));
+                    _weightText = value;
+                    OnPropertyChanged(nameof(WeightText));
                 }
             }
         }
 
-        public int? Weight
+        public string? HeightText
         {
-            get => _weight;
+            get => _heightText;
             set
             {
-                if (_weight != value)
+                if (_heightText != value)
                 {
-                    _weight = value;
-                    OnPropertyChanged(nameof(Weight));
+                    _heightText = value;
+                    OnPropertyChanged(nameof(HeightText));
                 }
             }
         }
 
-        public int? Height
+        public string? TotalWorkoutsText
         {
-            get => _height;
+            get => _totalWorkoutsText;
             set
             {
-                if (_height != value)
+                if (_totalWorkoutsText != value)
                 {
-                    _height = value;
-                    OnPropertyChanged(nameof(Height));
+                    _totalWorkoutsText = value;
+                    OnPropertyChanged(nameof(TotalWorkoutsText));
                 }
             }
         }
 
-        public int Total_workouts
+        public string? TotalCaloriesBurnedText
         {
-            get => _total_workouts;
+            get => _totalCaloriesBurnedText;
             set
             {
-                if (_total_workouts != value)
+                if (_totalCaloriesBurnedText != value)
                 {
-                    _total_workouts = value;
-                    OnPropertyChanged(nameof(Total_workouts));
+                    _totalCaloriesBurnedText = value;
+                    OnPropertyChanged(nameof(TotalCaloriesBurnedText));
                 }
             }
         }
 
-        public int? Total_calories_burned
+        public string? TotalTimeSpent
         {
-            get => _total_calories_burned;
+            get => _totalTimeSpentText;
             set
             {
-                if (_total_calories_burned != value)
+                if (_totalTimeSpentText != value)
                 {
-                    _total_calories_burned = value;
-                    OnPropertyChanged(nameof(Total_calories_burned));
+                    _totalTimeSpentText = value;
+                    OnPropertyChanged(nameof(TotalTimeSpent));
                 }
             }
         }
-
-        public int? Total_time_spent
-        {
-            get => _total_time_spent;
-            set
-            {
-                if (_total_time_spent != value)
-                {
-                    _total_time_spent = value;
-                    OnPropertyChanged(nameof(Total_time_spent));
-                }
-            }
-        }
-        #endregion
 
         public ProfileViewModel()
         {
+            UserSession.UserIdChanged += OnUserIdChanged;
+        }
 
+        private void OnUserIdChanged(int? newUserId)
+        {
+
+            if (newUserId != null)
+            {
+                User user = DbUsers.GetUserFromDb(newUserId);
+                this.UserNameText = "Witaj " + user.Username + "!";
+            }
         }
     }
 }

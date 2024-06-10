@@ -67,5 +67,22 @@ namespace ProjektWPF.Data
                 return null;
             }
         }
+
+        //Zwraca konkretnego usera jako obiekt
+        public static User GetUserFromDb(int? id)
+        {
+            using (var db = new MyDbContext())
+            {
+                var userToGet = db.users.FirstOrDefault(u => u.UserId == id);
+                if (userToGet != null)
+                {
+                    return userToGet;
+                } else
+                {
+                    return null;
+                }
+
+            }
+        }
     }
 }
