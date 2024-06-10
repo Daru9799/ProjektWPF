@@ -170,8 +170,9 @@ namespace ProjektWPF.ViewModels
             CurrentView = WorkoutModifyVm;
         }
 
-        public void ChangeViewToWorkoutMenageExercisesPanel()
+        public void ChangeViewToWorkoutMenageExercisesPanel(WorkoutPlan wp)
         {
+            WorkoutMenageExercisesVm.LoadWorkoutExercises(wp);
             CurrentView = WorkoutMenageExercisesVm;
         }
 

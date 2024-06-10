@@ -109,7 +109,7 @@ namespace ProjektWPF.ViewModels
 
         public void ChangeToMenageExercisesPanel()
         {
-            mainViewModel.ChangeViewToWorkoutMenageExercisesPanel();
+            mainViewModel.ChangeViewToWorkoutMenageExercisesPanel(SelectedWorkoutPlan);
         }
 
         public List<WorkoutPlan> WorkoutPlansItemSource

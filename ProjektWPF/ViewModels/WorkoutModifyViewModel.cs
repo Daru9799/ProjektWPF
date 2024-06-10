@@ -45,6 +45,7 @@ namespace ProjektWPF.ViewModels
 
         public void ModifyWorkoutPlan()
         {
+            if (this.Description == null) this.Description = "";
             DbWorkoutPlans.ModifyWorkoutPlan(workoutPlan);
             MessageBox.Show($"Plan {this.Name} został zmieniony.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
         }

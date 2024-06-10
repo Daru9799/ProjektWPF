@@ -55,27 +55,26 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Row="2" 
-            BorderBrush="Navy"
-            BorderThickness="3"
-            Margin="50,10"
-            ItemsSource="{Binding SelectedWorkoutPlanExercises}"
-            SelectedItem="{Binding SelectedExercise}">
+            <ListView   Grid.Row="2" 
+                        BorderBrush="Navy"
+                        BorderThickness="3"
+                        Margin="50,10"
+                        ItemsSource="{Binding SelectedWorkoutPlanExercises}"
+                        SelectedItem="{Binding SelectedExercise}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Kolejność"
-                DisplayMemberBinding="{Binding Order}"/>
+                                        DisplayMemberBinding="{Binding Order}"/>
                         <GridViewColumn Header="Nazwa"
-                DisplayMemberBinding="{Binding Name}" />
+                                        DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Część ciała"
-                DisplayMemberBinding="{Binding BodyPart}" />
+                                        DisplayMemberBinding="{Binding BodyPart}" />
                         <GridViewColumn Header="Poziom trudności"
-                DisplayMemberBinding="{Binding DifficultyLevel}" />
+                                        DisplayMemberBinding="{Binding DifficultyLevel}" />
                         <GridViewColumn Header="Czas ćwiczenia"
-                DisplayMemberBinding="{Binding Duration}" />
+                                        DisplayMemberBinding="{Binding Duration}" />
                         <GridViewColumn Header="Opis"
-                DisplayMemberBinding="{Binding Description}" />
-
+                                        DisplayMemberBinding="{Binding Description}" />
                     </GridView>
                 </ListView.View>
             </ListView>
