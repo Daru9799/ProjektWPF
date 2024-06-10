@@ -10,11 +10,21 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Style\Img\age.png" />
+    <None Remove="Style\Img\backgroundImage.jpg" />
+    <None Remove="Style\Img\calories.png" />
+    <None Remove="Style\Img\email.png" />
     <None Remove="Style\Img\exercises.png" />
+    <None Remove="Style\Img\gender.png" />
+    <None Remove="Style\Img\height.png" />
     <None Remove="Style\Img\home.png" />
+    <None Remove="Style\Img\joindate.png" />
+    <None Remove="Style\Img\lastlogin.png" />
     <None Remove="Style\Img\logo.ico" />
     <None Remove="Style\Img\progress.png" />
+    <None Remove="Style\Img\time.png" />
     <None Remove="Style\Img\warning.png" />
+    <None Remove="Style\Img\weight.png" />
     <None Remove="Style\Img\workouts.png" />
   </ItemGroup>
 
@@ -22,10 +32,34 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Style\Img\age.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\backgroundImage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\calories.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\email.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Style\Img\exercises.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Style\Img\gender.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\height.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Style\Img\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\joindate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\lastlogin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Style\Img\logo.ico">
@@ -34,7 +68,13 @@
     <Content Include="Style\Img\progress.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Style\Img\time.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Style\Img\warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\weight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Style\Img\workouts.png">

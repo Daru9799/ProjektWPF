@@ -18,11 +18,11 @@ namespace ProjektWPF.Models
         public int? TotalTime { get; set; }
         [Column("total_calories_burned")]
         public int? TotalCaloriesBurned { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [Column("created_at")]
         public DateTime? CreatedAt { get; set; }
 
-        public WorkoutPlan(int planId, string name, int userId, int? totalTime, int? totalCaloriesBurned, string description, DateTime? createdAt)
+        public WorkoutPlan(int planId, string name, int userId, int? totalTime, int? totalCaloriesBurned, string? description, DateTime? createdAt)
         {
             PlanId = planId;
             Name = name;
