@@ -70,7 +70,7 @@ namespace ProjektWPF.Data
         }
 
         //Uzyskanie hasha
-        public static string GetHashById(int id)
+        public static string GetHashById(int? id)
         {
             using (var db = new MyDbContext())
             {
@@ -156,6 +156,21 @@ namespace ProjektWPF.Data
                 {
                     userToUpdate.Height = newHeight;
                     db.Entry(userToUpdate).Property(u => u.Height).IsModified = true;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        //Zmiana hasła
+        public static void UpdatePassword(int? id, string newPassword)
+        {
+            using (var db = new MyDbContext())
+            {
+                var userToUpdate = db.users.FirstOrDefault(u => u.UserId == id);
+                if (userToUpdate != null)
+                {
+                    userToUpdate.Password = newPassword;
+                    db.Entry(userToUpdate).Property(u => u.Password).IsModified = true;
                     db.SaveChanges();
                 }
             }

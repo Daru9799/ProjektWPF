@@ -217,9 +217,9 @@
                             <Setter TargetName="border" Property="Background" Value="#64142A" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="#A91D3A" />
-                            <Setter Property="Foreground" Value="#FFFFFF" />
-                            <Setter Property="BorderBrush" Value="#C73659" />
+                            <Setter TargetName="border" Property="Background" Value="#FFBFBFBF"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF7F7F7F"/>
+                            <Setter Property="Foreground" Value="#FF7F7F7F"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
