@@ -53,7 +53,7 @@
                 <TextBlock Text="{Binding Path=BmiText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="32" Margin="20,0,0,0" Foreground="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Path=BodyFatText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0" FontSize="32" Foreground="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
 
-                <Button Style="{StaticResource GreenButtonStyle}" Width="250" Height="60" FontSize="26" Content="Dodaj nowy pomiar" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></Button>
+                <Button Style="{StaticResource GreenButtonStyle}" Command="{Binding NewClick}" Width="250" Height="60" FontSize="26" Content="Dodaj nowy pomiar" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></Button>
             </Grid>
         </Border>
        

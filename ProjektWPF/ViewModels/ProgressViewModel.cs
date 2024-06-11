@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ProjektWPF.Core;
 using ProjektWPF.Data;
 using ProjektWPF.Models;
@@ -76,9 +77,31 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-        public ProgressViewModel()
+
+        private MainViewModel _mainViewModel;
+        public ProgressViewModel(MainViewModel mainViewModel)
         {
             UserSession.UserIdChanged += OnUserIdChanged;
+            _mainViewModel = mainViewModel;
+        }
+
+        private ICommand _newClick = null;
+        public ICommand NewClick
+        {
+            get
+            {
+                if (_newClick == null)
+                {
+                    _newClick = new RelayCommand(
+                        arg => { NewMeasurement(); }, null);
+                }
+
+                return _newClick;
+            }
+        }
+        private void NewMeasurement()
+        {
+            _mainViewModel.ChangeViewToNewMeasurement();
         }
 
         private void OnUserIdChanged(int? newUserId)
