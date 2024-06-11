@@ -197,7 +197,7 @@ namespace ProjektWPF.ViewModels
                 User user = DbUsers.GetUserFromDb(newUserId);
                 this.UserNameText = "Witaj " + user.Username + "!";
                 this.EmailText = user.Email;
-                this.AgeText = CalculateAge(user.BirthDate).ToString();
+                this.AgeText = Calculator.CalculateAge(user.BirthDate).ToString();
                 this.WeightText = user.Weight + " kg";
                 this.GenderText = ConvertGender(user.Gender);
                 this.HeightText = user.Height + " cm";
@@ -221,20 +221,6 @@ namespace ProjektWPF.ViewModels
                 return "Kobieta";
             }
         }
-
-        public static int? CalculateAge(DateTime? birthDate)
-        {
-            if (!birthDate.HasValue)
-                return null;
-            DateTime currentDate = DateTime.Today;
-            int age = currentDate.Year - birthDate.Value.Year;
-            if (birthDate.Value.Date > currentDate.AddYears(-age))
-            {
-                age--;
-            }
-            return age;
-        }
-
         private void Edit()
         {
             _mainViewModel.ChangeViewToProfileEdit();

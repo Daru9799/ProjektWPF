@@ -20,17 +20,19 @@ namespace ProjektWPF.Models
         public float? Weight { get; set; }
         [Column("body_fat_percentage")]
         public float? BodyFatPercentage { get; set; }
-        public UserProgress(int progressId, int userId, DateTime? date, float? weight, float? bodyFatPercentage) 
+        public float? Bmi { get; set; }
+        public UserProgress(int progressId, int userId, DateTime? date, float? weight, float? bodyFatPercentage, float? bmi) 
         {
             this.ProgressId = progressId;
             this.UserId = userId;
             this.Date = date;
             this.Weight = weight;
             this.BodyFatPercentage = bodyFatPercentage;
+            this.Bmi = bmi;
         }
         public override string ToString()
         {
-            return $"{ProgressId}, {UserId}, {Date}, {Weight}, {BodyFatPercentage}";
+            return $"{ProgressId}, {UserId}, {Date}, {Weight}, {BodyFatPercentage}, {Bmi}";
         }
     }
 }

@@ -7,7 +7,7 @@
              xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
              xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="768" d:DesignWidth="819.2">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -37,16 +37,23 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="POSTĘPY" FontSize="50" TextAlignment="Center" Foreground="White" Grid.Row="0" Grid.ColumnSpan="2"></TextBlock>
+                <TextBlock Text="POSTĘPY" FontSize="70" TextAlignment="Center" Foreground="White" Grid.Row="0" Grid.ColumnSpan="2"></TextBlock>
 
-                <TextBlock Text="Aktualna waga:" FontSize="28" Foreground="White" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBlock Text="Zmiana wagi:" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBlock Text="Ostatni pomiar:" FontSize="28" Foreground="White" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=WeightText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0" FontSize="32" Foreground="White" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=WeightDifferenceText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0" FontSize="32" Foreground="White" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" Grid.Row="3" Grid.Column="0">
+                    <Image Source="/Style/Img/calendar.png" Style="{StaticResource {x:Type Image}}" Width="35" Height="35" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Data ostatniego pomiaru"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="36" Text="{Binding Path=LastMeasurementText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="10,10,0,0"/>
+                </StackPanel>
 
-                <TextBlock Text="BMI:" FontSize="28" Foreground="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
-                <TextBlock Text="Procent Tkanki Tłuszczowej:" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=BmiText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="32" Margin="20,0,0,0" Foreground="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=BodyFatText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0" FontSize="32" Foreground="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
 
-                <Button Style="{StaticResource GreenButtonStyle}" Width="200" Height="40" Content="Dodaj nowy pomiar" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></Button>
+                <Button Style="{StaticResource GreenButtonStyle}" Width="250" Height="60" FontSize="26" Content="Dodaj nowy pomiar" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></Button>
             </Grid>
         </Border>
        
