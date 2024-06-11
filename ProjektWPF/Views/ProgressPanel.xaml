@@ -4,9 +4,74 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
+             xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
+             xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="STATYSTYKI I OSIĄGNIĘCIA" FontSize="50" Foreground="White"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Image Source="/Style/Img/Stats.jpg" Stretch="UniformToFill" Grid.RowSpan="4"/>
+        <Border Background="#CC007ACC" CornerRadius="40" Margin="60,10,60,10" Grid.Row="0" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="POSTĘPY" FontSize="50" TextAlignment="Center" Foreground="White" Grid.Row="0" Grid.ColumnSpan="2"></TextBlock>
+
+                <TextBlock Text="Aktualna waga:" FontSize="28" Foreground="White" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="Zmiana wagi:" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="Ostatni pomiar:" FontSize="28" Foreground="White" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+
+                <TextBlock Text="BMI:" FontSize="28" Foreground="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="Procent Tkanki Tłuszczowej:" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+
+                <Button Style="{StaticResource GreenButtonStyle}" Width="200" Height="40" Content="Dodaj nowy pomiar" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></Button>
+            </Grid>
+        </Border>
+       
+        <Border Background="#CC007ACC" CornerRadius="40" Margin="60,10,60,10" Grid.Row="1" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="OSIĄGNIĘCIA" FontSize="50" TextAlignment="Center" Foreground="White" Grid.Row="0" Grid.ColumnSpan="2"></TextBlock>
+
+                <TextBlock Text="Treningi w ostatnim tyg:" FontSize="28" Foreground="White" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="Treningi w ostatnim mies:" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="Treningi w ostatnim roku:" FontSize="28" Foreground="White" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Najchętniej wykon trening:" FontSize="28" Foreground="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="Najchętniej wykon ćwicz:" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
