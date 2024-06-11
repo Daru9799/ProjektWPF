@@ -31,6 +31,7 @@
             <ListView Grid.Row="1" 
           ItemsSource="{Binding ExercisesList}"
           SelectedItem="{Binding CurrentExercise}"
+          
           Margin="50,10,50,10">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
