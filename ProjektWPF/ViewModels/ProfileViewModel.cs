@@ -19,6 +19,7 @@ namespace ProjektWPF.ViewModels
         {
             _mainViewModel = mainViewModel;
             UserSession.UserIdChanged += OnUserIdChanged;
+            UserSession.UserWeightChanged += OnUserWeightChanged;
         }
         private string? _userNameText { get; set; }
         private string? _emailText { get; set; }
@@ -209,6 +210,12 @@ namespace ProjektWPF.ViewModels
 
                 this.JoinDateText = user.JoinDate.ToString("d");
             }
+        }
+
+        private void OnUserWeightChanged(bool? x)
+        {
+            User user = DbUsers.GetUserFromDb(UserSession.CurrentUserId);
+            this.WeightText = user.Weight + " kg";
         }
 
         public string ConvertGender(string sex)

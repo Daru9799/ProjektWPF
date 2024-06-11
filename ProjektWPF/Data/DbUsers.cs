@@ -175,5 +175,20 @@ namespace ProjektWPF.Data
                 }
             }
         }
+
+        //Zmiana wagi
+        public static void UpdateWeight(int? id, float newWeight)
+        {
+            using (var db = new MyDbContext())
+            {
+                var userToUpdate = db.users.FirstOrDefault(u => u.UserId == id);
+                if (userToUpdate != null)
+                {
+                    userToUpdate.Weight = newWeight;
+                    db.Entry(userToUpdate).Property(u => u.Weight).IsModified = true;
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

@@ -81,7 +81,7 @@ namespace ProjektWPF.ViewModels
         private MainViewModel _mainViewModel;
         public ProgressViewModel(MainViewModel mainViewModel)
         {
-            UserSession.UserIdChanged += OnUserIdChanged;
+            UserSession.UserWeightChanged += OnUserWeightChanged;
             _mainViewModel = mainViewModel;
         }
 
@@ -104,26 +104,23 @@ namespace ProjektWPF.ViewModels
             _mainViewModel.ChangeViewToNewMeasurement();
         }
 
-        private void OnUserIdChanged(int? newUserId)
+        private void OnUserWeightChanged(bool? x)
         {
-            if (newUserId != null)
-            {
-                UserProgress currentProgress = DbUserProgress.GetLatestProgressForUser(UserSession.CurrentUserId);
-                this.WeightText = "Aktualna waga: " + currentProgress.Weight + " kg";
-                this.LastMeasurementText = currentProgress.Date.Value.ToString("d");
-                this.BmiText = "BMI: " + currentProgress.Bmi;
-                this.BodyFatText = "Tkanka Tłuszcz: " + currentProgress.BodyFatPercentage + "%";
+            UserProgress currentProgress = DbUserProgress.GetLatestProgressForUser(UserSession.CurrentUserId);
+            this.WeightText = "Aktualna waga: " + currentProgress.Weight + " kg";
+            this.LastMeasurementText = currentProgress.Date.Value.ToString("d");
+            this.BmiText = "BMI: " + currentProgress.Bmi;
+            this.BodyFatText = "Tkanka Tłuszcz: " + currentProgress.BodyFatPercentage + "%";
 
-                float? oldWeight = DbUserProgress.GetSecondLatestWeightForUser(UserSession.CurrentUserId);
-                if(oldWeight != null)
-                {
-                    float? difference = Calculator.CalculateWeightDifference(oldWeight, currentProgress.Weight);
-                    this.WeightDifferenceText = $"Zmiana wagi: {difference:F1} kg";
-                }
-                else
-                {
-                    this.WeightDifferenceText = "Zmiana wagi: 0 kg";
-                }
+            float? oldWeight = DbUserProgress.GetSecondLatestWeightForUser(UserSession.CurrentUserId);
+            if(oldWeight != null)
+            {
+                float? difference = Calculator.CalculateWeightDifference(oldWeight, currentProgress.Weight);
+                this.WeightDifferenceText = $"Zmiana wagi: {difference:F1} kg";
+            }
+            else
+            {
+                this.WeightDifferenceText = "Zmiana wagi: 0 kg";
             }
         }
     }

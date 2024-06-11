@@ -24,5 +24,20 @@ namespace ProjektWPF.Models
                 }
             }
         }
+
+        private static bool? _currentUserWeight;
+        public static event Action<bool?> UserWeightChanged;
+        public static bool? CurrentUserWeight
+        {
+            get => _currentUserWeight;
+            set
+            {
+                if (_currentUserWeight != value)
+                {
+                    _currentUserWeight = value;
+                    UserWeightChanged?.Invoke(_currentUserWeight);
+                }
+            }
+        }
     }
 }
