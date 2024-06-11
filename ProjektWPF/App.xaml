@@ -49,6 +49,12 @@
         <DataTemplate DataType="{x:Type viewModel:NewMeasurementViewModel}">
             <view:NewMeasurementPanel/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:MeasurementViewModel}">
+            <view:MeasurementPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:TrainingHistoryViewModel}">
+            <view:TrainingHistoryPanel/>
+        </DataTemplate>
 
 
         <Style TargetType="TextBlock">

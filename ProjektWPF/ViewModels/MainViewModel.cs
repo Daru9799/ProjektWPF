@@ -29,6 +29,8 @@ namespace ProjektWPF.ViewModels
         public ProfileEditViewModel ProfileEditVm { get; set; }
         public ProfileChangePasswordViewModel ProfilePasswordVm { get; set; }
         public NewMeasurementViewModel NewMeasurementVm { get; set; }
+        public MeasurementViewModel MeasurementVm { get; set; }
+        public TrainingHistoryViewModel TrainingHistoryVm { get; set; }
 
         // Deklaracja RelayCommand do przycisków -------------------
         public RelayCommand LoginViewCommand { get; set; }
@@ -37,6 +39,8 @@ namespace ProjektWPF.ViewModels
         public RelayCommand ExercisesViewCommand { get; set; }
         public RelayCommand WorkoutsViewCommand { get; set; }
         public RelayCommand ProgressViewCommand { get; set; }
+        public RelayCommand MeasurementViewCommand { get; set; }
+        public RelayCommand TrainingHistoryViewCommand { get; set; }
         //public RelayCommand SessionViewCommand { get; set; }
 
 
@@ -70,6 +74,8 @@ namespace ProjektWPF.ViewModels
             ProfileEditVm = new ProfileEditViewModel(this);
             ProfilePasswordVm = new ProfileChangePasswordViewModel(this);
             NewMeasurementVm = new NewMeasurementViewModel(this);
+            MeasurementVm = new MeasurementViewModel();
+            TrainingHistoryVm = new TrainingHistoryViewModel();
 
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
@@ -78,6 +84,8 @@ namespace ProjektWPF.ViewModels
             ExercisesViewCommand = new RelayCommand(arg => { CurrentView = ExercisesVm; }, null);
             WorkoutsViewCommand = new RelayCommand(arg => { CurrentView = WorkoutsVm; WorkoutsVm.Update(); }, null);
             ProgressViewCommand = new RelayCommand(arg => { CurrentView = ProgressVm; }, null);
+            MeasurementViewCommand = new RelayCommand(arg => { CurrentView = MeasurementVm; }, null);
+            TrainingHistoryViewCommand = new RelayCommand(arg => { CurrentView = TrainingHistoryVm; }, null);
             //SessionViewCommand = new RelayCommand(arg => { CurrentView = SessionVm; }, null);
 
 

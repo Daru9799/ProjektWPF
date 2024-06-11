@@ -9,6 +9,7 @@
         Background="Transparent"
         ResizeMode="CanResizeWithGrip"
         Title="WorkoutAndFitness" Height="768" Width="1024"
+        MinHeight="768" MinWidth="1024"
         Icon="pack://application:,,,/Style/Img/logo.ico">
         
     <Window.DataContext>
@@ -35,6 +36,8 @@
                 <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/workouts.png" Content="Plany" Margin="5" FontSize="20" Command="{Binding WorkoutsViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
                 <RadioButton Style="{StaticResource MenuButtonStyle}" Content="Trening" Margin="5" FontSize="20" Command="{Binding SessionViewCommand}" Visibility="Collapsed" IsEnabled="False" ></RadioButton>
                 <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/progress.png" Content="Postępy" Margin="5" FontSize="20" Command="{Binding ProgressViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+                <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/measurement.png" Content="Lista pomiarów" Margin="5" FontSize="20" Command="{Binding MeasurementViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+                <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/trainingHistory.png" Content="Odbyte treningi" Margin="5" FontSize="20" Command="{Binding TrainingHistoryViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
             </StackPanel>
 
             <!-- Dół Menu bocznego Logowanie i Rejestracja potem zamienia sie w jeden button Wyloguj -->
