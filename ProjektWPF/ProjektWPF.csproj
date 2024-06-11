@@ -27,6 +27,8 @@
     <None Remove="Style\Gifs\7.gif" />
     <None Remove="Style\Gifs\8.gif" />
     <None Remove="Style\Gifs\9.gif" />
+    <None Remove="Style\Img\31days.png" />
+    <None Remove="Style\Img\365days.png" />
     <None Remove="Style\Img\7days.png" />
     <None Remove="Style\Img\age.png" />
     <None Remove="Style\Img\backgroundImage.jpg" />
@@ -50,6 +52,12 @@
 
   <ItemGroup>
     <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\31days.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\Img\365days.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Style\Img\7days.png">

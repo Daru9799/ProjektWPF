@@ -77,15 +77,30 @@
                             <ToolTip Content="Ilość treningów w ostatnim tygodniu"/>
                         </Image.ToolTip>
                     </Image>
-                    <TextBlock FontSize="60" Text="{Binding Path=WeekStatsText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="20,0,0,0"/>
+                    <TextBlock FontSize="57" Text="{Binding Path=WeekStatsText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="20,0,0,0"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="25,10,20,10" Grid.Row="2" Grid.Column="0">
+                    <Image Source="/Style/Img/31days.png" Style="{StaticResource {x:Type Image}}" Width="55" Height="55" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Ilość treningów w ostatnim miesiącu"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="57" Text="{Binding Path=MonthStatsText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="17,0,0,0"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="25,10,20,10" Grid.Row="3" Grid.Column="0">
+                    <Image Source="/Style/Img/365days.png" Style="{StaticResource {x:Type Image}}" Width="55" Height="55" VerticalAlignment="Center">
+                        <Image.ToolTip>
+                            <ToolTip Content="Ilość treningów w ostatnim roku"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <TextBlock FontSize="57" Text="{Binding Path=YearStatsText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White" Margin="17,0,0,0"/>
                 </StackPanel>
 
 
-                <TextBlock Text="Treningi w ostatnim mies:" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBlock Text="Treningi w ostatnim roku:" FontSize="28" Foreground="White" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-
-                <TextBlock Text="Najchętniej wykon trening:" FontSize="28" Foreground="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
-                <TextBlock Text="Najchętniej wykon ćwicz:" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="Ulubiony plan treningowy" FontSize="31" Foreground="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center"/>
+                <TextBlock Text="{Binding Path=BestPlanText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="28" Foreground="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Center"/>
 
             </Grid>
         </Border>

@@ -81,6 +81,7 @@ namespace ProjektWPF.ViewModels
         private MainViewModel _mainViewModel;
         public ProgressViewModel(MainViewModel mainViewModel)
         {
+            UserSession.UserIdChanged += OnUserIdChanged;
             UserSession.UserWeightChanged += OnUserWeightChanged;
             _mainViewModel = mainViewModel;
         }
@@ -118,15 +119,33 @@ namespace ProjektWPF.ViewModels
                 if (oldWeight != null)
                 {
                     float? difference = Calculator.CalculateWeightDifference(oldWeight, currentProgress.Weight);
-                    this.WeightDifferenceText = $"Zmiana wagi: {difference:F1} kg";
+                    if (difference >0) 
+                    {
+                        this.WeightDifferenceText = $"Zmiana wagi: +{difference:F1} kg";
+                    }
+                    else
+                    {
+                        this.WeightDifferenceText = $"Zmiana wagi: {difference:F1} kg";
+                    }
                 }
                 else
                 {
                     this.WeightDifferenceText = "Zmiana wagi: 0 kg";
                 }
+            }
+        }
 
-                //Na razie tu ale potem przerzuci sie to aktualizacji po odbytym treningu
+        private void OnUserIdChanged(int? id)
+        {
+            //Na razie tu ale potem przerzuci sie do aktualizacji po odbytym treningu
+            if (id != null)
+            {
                 this.WeekStatsText = DbWorkoutSessions.CountTrainingsLastWeek(UserSession.CurrentUserId).ToString();
+                this.MonthStatsText = DbWorkoutSessions.CountTrainingsLastMonth(UserSession.CurrentUserId).ToString();
+                this.YearStatsText = DbWorkoutSessions.CountTrainingsLastYear(UserSession.CurrentUserId).ToString();
+
+                int bestPlan = DbWorkoutSessions.GetMostFrequentPlanIdForUser(UserSession.CurrentUserId);
+                this.BestPlanText = DbWorkoutPlans.GetWorkoutName(bestPlan);
             }
         }
 
@@ -144,6 +163,44 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-
+        private string? _monthStatsText { get; set; }
+        public string? MonthStatsText
+        {
+            get => _monthStatsText;
+            set
+            {
+                if (_monthStatsText != value)
+                {
+                    _monthStatsText = value;
+                    OnPropertyChanged(nameof(MonthStatsText));
+                }
+            }
+        }
+        private string? _yearStatsText { get; set; }
+        public string? YearStatsText
+        {
+            get => _yearStatsText;
+            set
+            {
+                if (_yearStatsText != value)
+                {
+                    _yearStatsText = value;
+                    OnPropertyChanged(nameof(YearStatsText));
+                }
+            }
+        }
+        private string? _bestPlanText { get; set; }
+        public string? BestPlanText
+        {
+            get => _bestPlanText;
+            set
+            {
+                if (_bestPlanText != value)
+                {
+                    _bestPlanText = value;
+                    OnPropertyChanged(nameof(BestPlanText));
+                }
+            }
+        }
     }
 }

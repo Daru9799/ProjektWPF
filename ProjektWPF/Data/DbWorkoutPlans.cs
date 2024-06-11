@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
 using ProjektWPF.Models;
 
@@ -77,6 +78,19 @@ namespace ProjektWPF.Data
                 "UPDATE workout_plans SET total_time = {0}, total_calories_burned = {1} " +
                 "WHERE plan_id = {2};", sumTime[0], sumCalories[0], workoutID);
                 db.SaveChanges();
+            }
+        }
+
+        public static string GetWorkoutName(int workoutId)
+        {
+            using (var db = new MyDbContext())
+            {
+                var plan = db.workout_plans.FirstOrDefault(u => u.PlanId == workoutId);
+                if (plan != null)
+                {
+                    return plan.Name;
+                }
+                return "Brak Planu";
             }
         }
 
