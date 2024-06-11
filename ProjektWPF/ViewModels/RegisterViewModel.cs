@@ -102,7 +102,6 @@ namespace ProjektWPF.ViewModels
                     }
                 }
 
-
                 if (_username != value)
                 {
                     _username = value;
@@ -273,6 +272,8 @@ namespace ProjektWPF.ViewModels
                 return _registerClick;
             }
         }
+
+        //Główna funkcja po kliknieciu przycisku rejestruj
         private void Register()
         {
             if(DbUsers.GetIdByName(this.Username) == 0) //Sprawdza czy nie ma takiego usera
@@ -283,7 +284,9 @@ namespace ProjektWPF.ViewModels
                     string hPassword = PasswordEncryption.HashPassword(this.Password);
                     User user1 = new User(0, this.Username, hPassword, this.Email, this.Age, sex, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), 0, 0, 0, DateTime.Now, DateTime.Now);
                     DbUsers.AddUserToDb(user1);
-                    UserSession.CurrentUserId = DbUsers.GetIdByName(this.Username); //Tworze sesje dla zarejestrowanego
+                    int? id = DbUsers.GetIdByName(this.Username);
+                    CreateFirstMeasurement(id);
+                    UserSession.CurrentUserId = id; //Tworze sesje dla zarejestrowanego
                 }
                 else
                 {
@@ -295,6 +298,18 @@ namespace ProjektWPF.ViewModels
                 this.ErrorText = "Użytkownik o podanej nazwie istnieje!";
             }
         }
+
+        //Funckja tworząca pierwszy pomiar na podstawie dostarczonej wagi i wzrostu
+        private void CreateFirstMeasurement(int? id)
+        {
+            float? bmi = Calculator.CalculateBmi(float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")));
+            float? bodyFat = Calculator.CalculateBodyFat(float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), bmi, Calculator.CalculateAge(this.Age), Calculator.IsMale(GenderToEnum()));
+            float roundedBmi = (float)Math.Round(bmi.Value, 1);
+            float roundedBodyFat = (float)Math.Round(bodyFat.Value, 1);
+            UserProgress firstMeasurement = new UserProgress(0, (int)id, DateTime.Now, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), roundedBodyFat, roundedBmi);
+            DbUserProgress.AddMeasurementToDb(firstMeasurement);
+        }
+
         //Funkcja bedzie sprawdzac czy wszystkie pola są poprawne (regexy) i wypelnione jesli nie beda wyswietlane bledy po prawej stronie
         private bool CanRegister()
         {

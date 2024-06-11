@@ -46,6 +46,9 @@
         <DataTemplate DataType="{x:Type viewModel:SelectedExerciseViewModel}">
             <view:SelectedExercisePanel/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:NewMeasurementViewModel}">
+            <view:NewMeasurementPanel/>
+        </DataTemplate>
 
 
         <Style TargetType="TextBlock">
