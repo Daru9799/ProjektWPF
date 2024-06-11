@@ -202,6 +202,11 @@ namespace ProjektWPF.ViewModels
             CurrentView = ProfileVm;
         }
 
+        public void ChangeViewToExercises()
+        {
+            CurrentView= ExercisesVm;
+        }
+
         //Sterowanie zaznaczeniem buttonów
         private bool _loginFrontButton;
         public bool LoginFrontButton

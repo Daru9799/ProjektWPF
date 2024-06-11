@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ProjektWPF.Core;
 using ProjektWPF.Data;
 using ProjektWPF.Models;
@@ -125,8 +126,24 @@ namespace ProjektWPF.ViewModels
             }
         }
 
+        public void ChangeViewToExercises()
+        {
+            _mainViewModel.ChangeViewToExercises();
+        }
 
 
+        private ICommand _goBack = null;
+        public ICommand GoBack
+        {
+            get
+            {
+                if (_goBack == null)
+                {
+                    _goBack = new RelayCommand(arg => { ChangeViewToExercises(); }, null);
+                }
+                return _goBack;
+            }
+        }
 
 
 

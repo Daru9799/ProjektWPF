@@ -20,7 +20,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="163*"/>
-                <ColumnDefinition Width="78*"/>
+                <ColumnDefinition Width="60*"/>
                 <ColumnDefinition Width="149*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -33,27 +33,41 @@
             </Grid.RowDefinitions>
 
 
-            <Image x:Name="GifImage" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Margin="10" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Style/Img/home.png"/>
+            <Image x:Name="GifImage" Grid.Row="3" Grid.Column="1"  Margin="0" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Style/Img/home.png"/>
 
 
             <TextBlock Text="Nazwa ćwiczenia" FontSize="35" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3" />
 
-            <TextBlock Grid.Column="2" Grid.Row="1" Text="Część ciała:" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" Height="19"/>
-            <TextBox  Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="1" Margin="0,0,50,0" VerticalAlignment="Center" Height="18" />
+            <TextBlock  Grid.Column="2" Grid.Row="1" Text="Część ciała:" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" Height="19"/>
+            <TextBox  Text="kkskskk " Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="1" Margin="0,0,50,0" VerticalAlignment="Center"  />
 
-            <TextBlock Grid.Column="2" Grid.Row="2" Text="Poziom trudności" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" Height="20"/>
-            <TextBox  Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="2" Margin="0,0,50,0" VerticalAlignment="Center" Height="18"/>
+            <TextBlock Grid.Column="2" Grid.Row="2" Text="Poziom trudności" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" />
+            <TextBox  Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="2" Margin="0,0,50,0" VerticalAlignment="Center" />
 
-            <TextBlock Grid.Column="2" Grid.Row="3" Text="Spalone kaloreie/min:" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" Height="19"/>
-            <TextBox  Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="3" Margin="0,0,50,0" VerticalAlignment="Center" Height="17"/>
+            <TextBlock Grid.Column="2" Grid.Row="3" 
+           Text="Spalone kalorie/min:" 
+           Foreground="White" 
+           FontSize="16" 
+           VerticalAlignment="Center" 
+           Margin="5,0,5,0" 
+           TextWrapping="Wrap" 
+           HorizontalAlignment="Stretch"/>
+
+            <TextBox  Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="3" Margin="0,0,50,0" VerticalAlignment="Center"/>
 
             <TextBlock Grid.Column="2" Grid.Row="4" Text="Opis:" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" Height="20"/>
-            <TextBox  Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="4" Margin="0,0,50,0" VerticalAlignment="Center" Height="70"/>
+            <TextBox Style="{StaticResource FormTextBoxStyle}" 
+                 Grid.Column="3" Grid.Row="4" 
+                 Margin="0,0,50,0" 
+                 VerticalAlignment="Center"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 />
 
             <Button Grid.Row="5" 
                     Width="250"
                     Height="40"
-                    Command="{Binding ReturnToWorkoutPlansCommand}"
+                    Command="{Binding GoBack}"
                     Content="Wróć"
                     Style="{StaticResource CancelButtonStyle}"
                     FontSize="24" Grid.Column="1" Grid.ColumnSpan="3" />
