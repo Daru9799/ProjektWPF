@@ -46,5 +46,22 @@ namespace ProjektWPF.Models
             Description = description;
             GifPath = gifPath;
         }
+
+        public WorkoutExercisePreview(Exercise exercise, int workoutID, int order, int duration) 
+        {
+            this.ExerciseId = exercise.ExerciseId;
+            this.Name = exercise.Name;
+            this.BodyPart = exercise.BodyPart;
+            this.DifficultyLevel = exercise.DifficultyLevel;
+            this.CaloriesBurnedPerMinute = exercise.CaloriesBurnedPerMinute;
+            this.AverageTime = 0;
+            this.Description = exercise.Description;
+            this.GifPath = exercise.GifPath;
+            
+            this.PlanId = workoutID;
+            this.Order = order;
+            this.Duration = duration;
+        }
+
     }
 }

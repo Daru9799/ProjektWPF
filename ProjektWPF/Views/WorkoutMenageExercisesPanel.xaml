@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
              xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
-             xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="819.2">
     <UserControl.Resources>
@@ -26,7 +25,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -54,11 +53,34 @@
                        VerticalAlignment="Center"
                        FontSize="36" Foreground="White"/>
 
+            <ScrollViewer Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto" Margin="5">
+                <ListView VerticalAlignment="Stretch" 
+              HorizontalAlignment="Stretch"
+              BorderBrush="Navy"
+              BorderThickness="3"
+              ItemsSource="{Binding ExercisesList}"
+              SelectedItem="{Binding SelectedExercise, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Nazwa"
+                                DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Część ciała"
+                                DisplayMemberBinding="{Binding BodyPart}" />
+                            <GridViewColumn Header="Poziom trudności"
+                                DisplayMemberBinding="{Binding DifficultyLevel}" />
+                            <GridViewColumn Header="Cal/Min"
+                                DisplayMemberBinding="{Binding CaloriesBurnedPerMinute}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+
+
             <ScrollViewer Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto" Margin="5">
                 <ListView BorderBrush="Navy"
                           BorderThickness="3"
-                          ItemsSource="{Binding WorkoutExercisesPreviewList}"
-                          SelectedItem="{Binding SelectedExercise}">
+                          ItemsSource="{Binding WorkoutExercisesPreviewList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedWorkoutExercise, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Kolejność"
@@ -71,53 +93,18 @@
                             DisplayMemberBinding="{Binding DifficultyLevel}" />
                             <GridViewColumn Header="Czas ćwiczenia"
                             DisplayMemberBinding="{Binding Duration}" />
-                            <GridViewColumn Header="Opis"
-                            DisplayMemberBinding="{Binding Description}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
 
-            <ScrollViewer Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto" Margin="5">
-                <ListView VerticalAlignment="Stretch" 
-                          HorizontalAlignment="Stretch"
-                          BorderBrush="Navy"
-                          BorderThickness="3"
-                          ItemsSource="{Binding ExercisesList}"
-                          SelectedItem="{Binding SelectedExercise}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Nazwa"
-                                            DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Część ciała"
-                                            DisplayMemberBinding="{Binding BodyPart}" />
-                            <GridViewColumn Header="Poziom trudności"
-                                            DisplayMemberBinding="{Binding DifficultyLevel}" />
-                            <GridViewColumn Header="Cal/Min"
-                                            DisplayMemberBinding="{Binding CaloriesBurnedPerMinute}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
+            
 
-
-            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7">
-                <Button Margin="0,10,0,0" Content="Zapisz" VerticalAlignment="Center" FontSize="30" Command="{Binding CreateWorkoutCommand}" Style="{StaticResource GreenButtonStyle}" Width="450" Height="60"/>
-            </StackPanel>
-
-            <Button Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2"
-                    Margin="0,20,0,0"
-                    Command="{Binding ReturnToWorkoutPlansCommand}"
-                    Content="Wróć"
-                    VerticalAlignment="Top" 
-                    Style="{StaticResource CancelButtonStyle}"
-                    FontSize="30"
-                    Width="300"
-                    Height="50"/>
             <Button Grid.Column="1" 
                     Grid.Row="5"
                     Height="60"
                     Content="Dodaj" 
+                    Command="{Binding AddExerciseToWorkoutCommand}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Margin="30,20"
@@ -128,6 +115,7 @@
                 <Button Grid.Column="1" 
                         Grid.Row="5"
                         Content="Góra" 
+                        Command="{Binding MoveExerciseUpCommand}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Width="85"
@@ -138,6 +126,7 @@
                 <Button Grid.Column="1" 
                         Grid.Row="5"
                         Content="Dół" 
+                        Command="{Binding MoveExerciseDownCommand}"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Padding="12"
@@ -158,17 +147,31 @@
             <TextBox Grid.Column="2" 
                      Grid.Row="6"
                      Margin="20,5"
+                     Width="80"
                      HorizontalAlignment="Left"  
                      TextWrapping="Wrap" 
-                     Text="          " 
+                     Text="{Binding DurationValue, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="22"
                      VerticalAlignment="Center" 
                      />
 
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7">
+                <Button Margin="0,10,0,0" Content="Zapisz" 
+                        VerticalAlignment="Center" FontSize="30" 
+                        Command="{Binding SaveExercisesChangesCommand}" Style="{StaticResource GreenButtonStyle}" 
+                        Width="450" Height="60"/>
+            </StackPanel>
 
 
-
-
+            <Button Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2"
+                    Margin="0,20,0,0"
+                    Command="{Binding ReturnToWorkoutPlansCommand}"
+                    Content="Wróć"
+                    VerticalAlignment="Top" 
+                    Style="{StaticResource CancelButtonStyle}"
+                    FontSize="30"
+                    Width="300"
+                    Height="50"/>   
 
         </Grid>
     </Border>
