@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +44,43 @@ namespace ProjektWPF.Data
 
                     DbWorkoutPlans.UpdateWorkoutData(wep.PlanId); // Przeliczenie czasu i kalori
                 }
+            }
+        }
+
+        public static void SaveModifiedPlanExercises(ObservableCollection<WorkoutExercisePreview> wep)
+        {
+            List<PlanExercises> tmpList = new List<PlanExercises>();
+            foreach(var i in wep)
+            {
+                tmpList.Add(new PlanExercises(i));
+            }
+            var tmp1 = tmpList;
+            using (var db = new MyDbContext())
+            {
+                foreach (var item in wep)
+                {
+                    var existingPlanExercise = db.plan_exercises.FirstOrDefault(pe => pe.PlanExercisesId == item.PlanExercisesId);
+
+                    if (existingPlanExercise != null)
+                    {
+                        // Jeśli istnieje wpis, zaktualizuj wartość Order, jeśli jest inna niż w elemencie WorkoutExercisePreview
+                        if (existingPlanExercise.Order != item.Order || existingPlanExercise.Duration != item.Duration)
+                        {
+                            existingPlanExercise.Order = item.Order;
+                            existingPlanExercise.Duration = item.Duration;
+                            db.Entry(existingPlanExercise).State = EntityState.Modified;
+                        }
+                    }
+                    else
+                    {
+                        // Jeśli nie istnieje, dodaj nowy wpis do tabeli plan_exercises
+                        var newPlanExercise = new PlanExercises(item);
+                        db.plan_exercises.Add(newPlanExercise);
+                    }
+                }
+
+                // Zapisz zmiany w bazie danych
+                db.SaveChanges();
             }
         }
     }

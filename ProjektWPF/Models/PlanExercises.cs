@@ -33,7 +33,7 @@ namespace ProjektWPF.Models
             this.PlanId = exercisePreview.PlanId;
             this.ExerciseId = exercisePreview.ExerciseId;
             this.Order = exercisePreview.Order;
-            this.Duration = exercisePreview.AverageTime;
+            this.Duration = exercisePreview.Duration;
         }
 
         public override string ToString()

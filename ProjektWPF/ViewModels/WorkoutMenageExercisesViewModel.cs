@@ -39,7 +39,7 @@ namespace ProjektWPF.ViewModels
             ExercisesList = DbExercises.GetExercises();
 
             ReturnToWorkoutPlansCommand = new RelayCommand(execute => { ReturnToWorkoutPlans(); }, canExecute => { return true; });
-            SaveExercisesChangesCommand = new RelayCommand(execute => { SaveExerciseChanges(); }, canExecute => { return false; });
+            SaveExercisesChangesCommand = new RelayCommand(execute => { SaveExerciseChanges(); }, canExecute => { return true; });
             RefreshdWorkoutExerciseCommand = new RelayCommand(execute => { UpdateWorkoutExercises(); }, canExecute => { return true; });
             AddExerciseToWorkoutCommand = new RelayCommand(execute => { AddExerciseToWorkout(); }, 
                 canExecute => 
@@ -133,7 +133,7 @@ namespace ProjektWPF.ViewModels
 
         public void SaveExerciseChanges()
         {
-
+            DbPlanExercises.SaveModifiedPlanExercises(WorkoutExercisesPreviewList);
         }
 
         public void AddExerciseToWorkout()
@@ -193,8 +193,8 @@ namespace ProjektWPF.ViewModels
         public WorkoutExercisePreview SelectedWorkoutExercise
         {
             get { return selectedWorkoutExercise; }
-            set 
-            { 
+            set
+            {
                 selectedWorkoutExercise = value;
                 if (selectedWorkoutExercise != null)
                 {
