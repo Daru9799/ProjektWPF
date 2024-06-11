@@ -86,8 +86,9 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                
+                
                 
 
                 <Button Content="Dodaj Plan" 
@@ -125,11 +126,14 @@
                         Command="{Binding DeleteWorkoutCommand}"
                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource CancelButtonStyle}"  Margin="5,5,5,5" FontSize="15"/>
 
-                <Button Content="Usuń Ćwiczenie"
+
+                <!--    <Button Content="Usuń Ćwiczenie"
                         Grid.Column="4" 
                         Command="{Binding DeleteWorkoutExerciseCommand}"
                         HorizontalAlignment="Stretch" 
-                        VerticalAlignment="Stretch" Style="{StaticResource CancelButtonStyle}"  Margin="5,5,5,5" FontSize="15"/>   
+                        VerticalAlignment="Stretch" Style="{StaticResource CancelButtonStyle}"  Margin="5,5,5,5" FontSize="15"/>  -->
+                
+                
             </Grid>
             <Button Content="Trenuj" 
                     Grid.Column="0"

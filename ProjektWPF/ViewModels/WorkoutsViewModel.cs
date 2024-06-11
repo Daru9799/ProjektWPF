@@ -21,7 +21,7 @@ namespace ProjektWPF.ViewModels
         private WorkoutExercisePreview selectedExercise = null;
 
         public RelayCommand SessionViewCommand { get; private set; }
-        public RelayCommand DeleteWorkoutExerciseCommand { get; set; }
+        //public RelayCommand DeleteWorkoutExerciseCommand { get; set; }
         public RelayCommand DeleteWorkoutCommand { get; set; }
         public RelayCommand ChangeViewToAddPanelCommand { get; set; }
         public RelayCommand ChangeViewToModifyWorkoutCommand { get;set; }
@@ -40,12 +40,12 @@ namespace ProjektWPF.ViewModels
                     else return true;
                 });
 
-            DeleteWorkoutExerciseCommand = new RelayCommand(execute => { DeleteWorkoutExercise(); },
+            /*DeleteWorkoutExerciseCommand = new RelayCommand(execute => { DeleteWorkoutExercise(); },
                 canExecute =>
                 {
                     if (SelectedExercise == null) return false;
                     else return true;
-                });
+                });*/
 
             DeleteWorkoutCommand = new RelayCommand(execute => { DeleteWorkout(); },
                 canExecute =>
@@ -77,7 +77,7 @@ namespace ProjektWPF.ViewModels
             OnPropertyChanged();
         }
 
-        public void DeleteWorkoutExercise()
+        /*public void DeleteWorkoutExercise()
         {
             var result = MessageBox.Show($"Jesteś pewny że chcesz usunąć ćwiczenie {SelectedExercise.Name}?", "Ostrzeżenie", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes) 
@@ -85,7 +85,7 @@ namespace ProjektWPF.ViewModels
                 DbPlanExercises.DeleteWorkoutExercise(SelectedExercise);
                 SelectedWorkoutPlanExercises = DbPlanExercises.GetWorkoutExercises(selectedWorkoutPlan.PlanId); // odświerzenie widoku ExercisePreview
             }
-        }
+        }*/
 
         public void DeleteWorkout()
         {

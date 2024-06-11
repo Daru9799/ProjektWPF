@@ -66,11 +66,11 @@ namespace ProjektWPF.Data
                 //Pobranie zsumowanych wartości 
                 List<Double> sumCalories = db.Database.SqlQueryRaw<Double>("SELECT Sum(ex.calories_burned_per_minute*pe.duration) " +
                     "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
-                    "where plan_id = 1;", workoutID).ToList();
+                    "where plan_id = {0};", workoutID).ToList();
 
                 List<Double> sumTime = db.Database.SqlQueryRaw<Double>("SELECT Sum(pe.duration) " +
                     "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
-                    "where plan_id = 1;", workoutID).ToList();
+                    "where plan_id = {0};", workoutID).ToList();
 
                 //Update WorkoutPlan
                 db.Database.ExecuteSqlRaw(

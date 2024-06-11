@@ -168,6 +168,7 @@ namespace ProjektWPF.ViewModels
 
         public void CheangeViewToWorkoutsPanel()
         {
+            WorkoutsVm.Update();
             CurrentView = WorkoutsVm;
         }
         public void CheangeViewToWorkoutModifyPanel(WorkoutPlan wp)

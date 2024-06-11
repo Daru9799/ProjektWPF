@@ -23,10 +23,10 @@
         <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
@@ -98,7 +98,7 @@
                 </ListView>
             </ScrollViewer>
 
-            
+
 
             <Button Grid.Column="1" 
                     Grid.Row="5"
@@ -107,7 +107,7 @@
                     Command="{Binding AddExerciseToWorkoutCommand}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Margin="30,20"
+                    Margin="30,0,30,68"
                     Style="{StaticResource GreenButtonStyle}"/>
 
             <StackPanel Grid.Column="2" 
@@ -171,7 +171,15 @@
                     Style="{StaticResource CancelButtonStyle}"
                     FontSize="30"
                     Width="300"
-                    Height="50"/>   
+                    Height="50"/>
+            <Button Grid.Column="1" 
+                Grid.Row="5"
+                Content="Usuń" 
+                Command="{Binding DeleteExerciseFromWorkoutCommand}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="30,60,30,0"
+                Style="{StaticResource CancelButtonStyle}"/>
 
         </Grid>
     </Border>

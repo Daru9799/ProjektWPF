@@ -28,6 +28,7 @@ namespace ProjektWPF.ViewModels
         public RelayCommand ReturnToWorkoutPlansCommand { get; set; }
         public RelayCommand SaveExercisesChangesCommand { get; set; }
         public RelayCommand AddExerciseToWorkoutCommand { get; set; }
+        public RelayCommand DeleteExerciseFromWorkoutCommand { get; set; }
         public RelayCommand RefreshdWorkoutExerciseCommand {  get; set; }
 
         public RelayCommand MoveExerciseUpCommand { get; set; }
@@ -47,6 +48,12 @@ namespace ProjektWPF.ViewModels
                     if (SelectedExercise == null) return false;
                     else return true;
                 });
+            DeleteExerciseFromWorkoutCommand = new RelayCommand(execute => { DeleteExerciseFromWorkout(); },
+                canExecute =>
+                {
+                    if (SelectedWorkoutExercise == null) return false;
+                    else return true;
+                });
             MoveExerciseUpCommand = new RelayCommand(execute => { MoveUp(); }, 
                 canExecute => 
                 {
@@ -63,6 +70,7 @@ namespace ProjektWPF.ViewModels
 
         public void ReturnToWorkoutPlans()
         {
+
             mainViewModel.WorkoutsVm.Update();
             mainViewModel.CheangeViewToWorkoutsPanel();
         }
@@ -71,6 +79,7 @@ namespace ProjektWPF.ViewModels
         {
             SelectedWorkout = wp;
             SelectedExercise = null;
+            SelectedWorkoutExercise = null;
             DurationValue = 0;
             var tmpList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
             WorkoutExercisesPreviewList = new ObservableCollection<WorkoutExercisePreview>(tmpList);
@@ -134,6 +143,7 @@ namespace ProjektWPF.ViewModels
         public void SaveExerciseChanges()
         {
             DbPlanExercises.SaveModifiedPlanExercises(WorkoutExercisesPreviewList);
+            DbWorkoutPlans.UpdateWorkoutData(SelectedWorkout.PlanId);
         }
 
         public void AddExerciseToWorkout()
@@ -141,6 +151,16 @@ namespace ProjektWPF.ViewModels
             var tmpOrder = workoutExercisesPreviewList.Count() + 1;
             var tmpWorkoutEP= new WorkoutExercisePreview(SelectedExercise,SelectedWorkout.PlanId,tmpOrder,DurationValue);
             WorkoutExercisesPreviewList.Add(tmpWorkoutEP);
+        }
+
+        public void DeleteExerciseFromWorkout()
+        {
+            WorkoutExercisesPreviewList.RemoveAt(WorkoutExercisesPreviewList.IndexOf(SelectedWorkoutExercise));
+            for (int i = 0; i < WorkoutExercisesPreviewList.Count; i++)
+            {
+                WorkoutExercisesPreviewList[i].Order = i + 1;
+            }
+            UpdateWorkoutExercises();
         }
 
         public Exercise SelectedExercise

@@ -30,7 +30,7 @@ namespace ProjektWPF.Data
             }
         }
 
-        public static void DeleteWorkoutExercise(WorkoutExercisePreview wep)
+        /*public static void DeleteWorkoutExercise(WorkoutExercisePreview wep)
         {
             using (var db = new MyDbContext())
             {
@@ -45,7 +45,7 @@ namespace ProjektWPF.Data
                     DbWorkoutPlans.UpdateWorkoutData(wep.PlanId); // Przeliczenie czasu i kalori
                 }
             }
-        }
+        }*/
 
         public static void SaveModifiedPlanExercises(ObservableCollection<WorkoutExercisePreview> wep)
         {
@@ -57,9 +57,13 @@ namespace ProjektWPF.Data
             var tmp1 = tmpList;
             using (var db = new MyDbContext())
             {
+                // Pobierz wszystkie wpisy PlanExercises z bazy danych związane z bieżącym planem
+                var existingPlanExercises = db.plan_exercises.Where(pe => pe.PlanId == wep[0].PlanId).ToList();
+
+                // Przetwórz każdy element w kolekcji WorkoutExercisePreview
                 foreach (var item in wep)
                 {
-                    var existingPlanExercise = db.plan_exercises.FirstOrDefault(pe => pe.PlanExercisesId == item.PlanExercisesId);
+                    var existingPlanExercise = existingPlanExercises.FirstOrDefault(pe => pe.PlanExercisesId == item.PlanExercisesId);
 
                     if (existingPlanExercise != null)
                     {
@@ -70,6 +74,9 @@ namespace ProjektWPF.Data
                             existingPlanExercise.Duration = item.Duration;
                             db.Entry(existingPlanExercise).State = EntityState.Modified;
                         }
+
+                        // Usuń element z listy existingPlanExercises, aby na końcu pozostały tylko usunięte elementy
+                        existingPlanExercises.Remove(existingPlanExercise);
                     }
                     else
                     {
@@ -77,6 +84,12 @@ namespace ProjektWPF.Data
                         var newPlanExercise = new PlanExercises(item);
                         db.plan_exercises.Add(newPlanExercise);
                     }
+                }
+
+                // Usuń elementy, które nie są już obecne w kolekcji WorkoutExercisePreview
+                foreach (var item in existingPlanExercises)
+                {
+                    db.plan_exercises.Remove(item);
                 }
 
                 // Zapisz zmiany w bazie danych
