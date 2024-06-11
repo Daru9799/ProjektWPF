@@ -43,6 +43,10 @@
         <DataTemplate DataType="{x:Type viewModel:ProfileChangePasswordViewModel}">
             <view:ProfileChangePasswordPanel/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:SelectedExerciseViewModel}">
+            <view:SelectedExercisePanel/>
+        </DataTemplate>
+
 
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Calibri" />

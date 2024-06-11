@@ -25,7 +25,7 @@ namespace ProjektWPF.ViewModels
         public WorkoutsAddViewModel WorkoutsAddVm { get; set; }
         public WorkoutModifyViewModel WorkoutModifyVm { get; set; }
         public WorkoutMenageExercisesViewModel WorkoutMenageExercisesVm { get; set; }
-        public WorkoutExerciseViewModel WorkoutExerciseVm { get; set; }
+        public SelectedExerciseViewModel SelectedExerciseVm { get; set; }
         public ProfileEditViewModel ProfileEditVm { get; set; }
         public ProfileChangePasswordViewModel ProfilePasswordVm { get; set; }
 
@@ -58,14 +58,14 @@ namespace ProjektWPF.ViewModels
             LoginVm = new LoginViewModel();
             RegisterVm = new RegisterViewModel();
             ProfileVm = new ProfileViewModel(this);
-            ExercisesVm = new ExercisesViewModel();
+            ExercisesVm = new ExercisesViewModel(this);
             WorkoutsVm = new WorkoutsViewModel(this);
             //SessionVm = new SessionViewModel(null);
             ProgressVm = new ProgressViewModel();
             WorkoutsAddVm = new WorkoutsAddViewModel(this);
             WorkoutModifyVm = new WorkoutModifyViewModel(this);
             WorkoutMenageExercisesVm = new WorkoutMenageExercisesViewModel(this);
-            WorkoutExerciseVm = new WorkoutExerciseViewModel();
+            SelectedExerciseVm = new SelectedExerciseViewModel(this);
             ProfileEditVm = new ProfileEditViewModel(this);
             ProfilePasswordVm = new ProfileChangePasswordViewModel(this);
 
@@ -182,9 +182,9 @@ namespace ProjektWPF.ViewModels
             CurrentView = WorkoutMenageExercisesVm;
         }
 
-        public void ChangerViewToWorkoutExercise()
+        public void ChangerViewToSelectedExercise()
         {
-            CurrentView = WorkoutExerciseVm;
+            CurrentView = SelectedExerciseVm;
         }
 
         public void ChangeViewToProfileEdit()
@@ -200,6 +200,11 @@ namespace ProjektWPF.ViewModels
         public void ChangeViewToProfile()
         {
             CurrentView = ProfileVm;
+        }
+
+        public void ChangeViewToExercises()
+        {
+            CurrentView= ExercisesVm;
         }
 
         //Sterowanie zaznaczeniem buttonów

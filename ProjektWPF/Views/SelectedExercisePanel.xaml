@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="ProjektWPF.Views.SelectedExercisePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjektWPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Background="#2A629A" CornerRadius="50">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="163*"/>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="149*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="90*"/>
+                <RowDefinition Height="60*"/>
+            </Grid.RowDefinitions>
+
+
+            <Image x:Name="GifImage" Grid.Row="3" Grid.Column="1"  Margin="0" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Style/Img/home.png"/>
+
+
+            <TextBlock TextWrapping="Wrap"  Text="{Binding ExerciseTitle}" FontSize="35" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3" />
+
+            <TextBlock TextWrapping="Wrap"   Grid.Column="2" Grid.Row="1" Text="Część ciała:" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" Height="19"/>
+            <TextBox  Text="{Binding ExerciseBodyPart}" Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="1" Margin="0,0,50,0" VerticalAlignment="Center"  />
+
+            <TextBlock TextWrapping="Wrap"  Grid.Column="2" Grid.Row="2" Text="Poziom trudności" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" />
+            <TextBox  Text="{Binding ExerciseDifficultyLevel}" Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="2" Margin="0,0,50,0" VerticalAlignment="Center" />
+
+            <TextBlock Grid.Column="2" Grid.Row="3" 
+           Text="Spalone kalorie/min:" 
+           Foreground="White" 
+           FontSize="16" 
+           VerticalAlignment="Center" 
+           Margin="5,0,5,0" 
+           TextWrapping="Wrap" 
+           HorizontalAlignment="Stretch"/>
+
+            <TextBox TextWrapping="Wrap"   Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="3" Margin="0,0,50,0" VerticalAlignment="Center" Text="{Binding ExerciseCalories}"/>
+
+            <TextBlock Grid.Column="2" Grid.Row="4" Text="Opis:" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" Height="20"/>
+            <TextBox Style="{StaticResource FormTextBoxStyle}" 
+                 Grid.Column="3" Grid.Row="4" 
+                 Margin="0,0,50,0" 
+                 VerticalAlignment="Center"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 Text="{Binding ExerciseDescription}"
+                 />
+
+            <Button Grid.Row="5" 
+                    Width="250"
+                    Height="40"
+                    Command="{Binding GoBack}"
+                    Content="Wróć"
+                    Style="{StaticResource CancelButtonStyle}"
+                    FontSize="24" Grid.Column="1" Grid.ColumnSpan="3" />
+        </Grid>
+    </Border>
+
+</UserControl>

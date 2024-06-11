@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ProjektWPF.Core;
 using ProjektWPF.Data;
 using ProjektWPF.Models;
 
 namespace ProjektWPF.ViewModels
 {
-    public class WorkoutExerciseViewModel:ViewModelBase
+    public class SelectedExerciseViewModel:ViewModelBase
     {
         #region zmienne
         private int _exerciseId;
@@ -19,6 +20,8 @@ namespace ProjektWPF.ViewModels
         private string? _exerciseCalories;
         private string? _exerciseDifficultyLevel;
         private string? _exerciseGifPath;
+        private MainViewModel _mainViewModel;
+
 
 
         public string? ExerciseDifficultyLevel
@@ -98,12 +101,12 @@ namespace ProjektWPF.ViewModels
         }
 #endregion
 
-        public WorkoutExerciseViewModel()
+        public SelectedExerciseViewModel(MainViewModel mainViewModel)
         {
-
+            _mainViewModel = mainViewModel;
         }
 
-        public WorkoutExerciseViewModel(int id)
+        public SelectedExerciseViewModel(int id)
         {
             _exerciseId = id;
             SetValues(id);
@@ -113,7 +116,7 @@ namespace ProjektWPF.ViewModels
         {
             if(workoutId!=null)
             {
-                Exercise exercise = DbExercises.GetExcercise(workoutId);
+                Exercise exercise = DbExercises.GetOneExcercise(workoutId);
                 this.ExerciseTitle = exercise.Name;
                 this.ExerciseBodyPart = exercise.BodyPart;
                 this.ExerciseDescription = exercise.Description;
@@ -123,8 +126,24 @@ namespace ProjektWPF.ViewModels
             }
         }
 
+        public void ChangeViewToExercises()
+        {
+            _mainViewModel.ChangeViewToExercises();
+        }
 
 
+        private ICommand _goBack = null;
+        public ICommand GoBack
+        {
+            get
+            {
+                if (_goBack == null)
+                {
+                    _goBack = new RelayCommand(arg => { ChangeViewToExercises(); }, null);
+                }
+                return _goBack;
+            }
+        }
 
 
 

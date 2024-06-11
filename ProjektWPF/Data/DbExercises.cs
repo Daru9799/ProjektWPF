@@ -20,7 +20,7 @@ namespace ProjektWPF.Data
         }
 
         //Pobranie konkretnego cwiczenia 
-        public static Exercise GetExcercise(int? id)
+        public static Exercise GetOneExcercise(int? id)
         {
             {
                 using (var db = new MyDbContext())
