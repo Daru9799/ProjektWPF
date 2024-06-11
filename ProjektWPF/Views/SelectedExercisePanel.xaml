@@ -36,7 +36,7 @@
             <Image x:Name="GifImage" Grid.Row="3" Grid.Column="1"  Margin="0" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Style/Img/home.png"/>
 
 
-            <TextBlock TextWrapping="Wrap"  Text="{Binding ExerciseTitle}" FontSize="35" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3" />
+            <TextBlock TextWrapping="Wrap"  Text="{Binding ExerciseTitle}" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3" />
 
             <TextBlock TextWrapping="Wrap"   Grid.Column="2" Grid.Row="1" Text="Część ciała:" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="5,0,5,0" Height="19"/>
             <TextBox  Text="{Binding ExerciseBodyPart}" Style="{StaticResource FormTextBoxStyle}" Grid.Column="3" Grid.Row="1" Margin="0,0,50,0" VerticalAlignment="Center"  />

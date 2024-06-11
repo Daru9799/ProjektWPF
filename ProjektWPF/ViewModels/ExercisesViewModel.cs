@@ -12,28 +12,17 @@ namespace ProjektWPF.ViewModels
 {
     public class ExercisesViewModel : ViewModelBase
     {
+        public event EventHandler<ExerciseChangedEventArgs> CurrentExerciseChanged;
+
         private MainViewModel _mainViewModel;
         private List<Exercise> exercisesList;
-        private Exercise? currentExercise=null;
-
-        public string? CurrentExerciseName
-        {
-            get => currentExercise.Name;
-            set
-            {
-                if (currentExercise.Name != value)
-                {
-                    currentExercise.Name = value;
-                    OnPropertyChanged(nameof(CurrentExerciseName));
-                }
-            }
-        }
+        private Exercise? currentExercise = null;
 
         public ExercisesViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
             ExercisesList = DbExercises.GetExercises();
-
+            CurrentExercise = ExercisesList[0];
         }
 
         public List<Exercise> ExercisesList
@@ -42,7 +31,8 @@ namespace ProjektWPF.ViewModels
             set
             {
                 exercisesList = value;
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
 
         public Exercise? CurrentExercise
@@ -54,29 +44,45 @@ namespace ProjektWPF.ViewModels
                 {
                     currentExercise = value;
                     OnPropertyChanged();
+                    OnCurrentExerciseChanged(new ExerciseChangedEventArgs(value));
                 }
             }
+        }
+
+        protected virtual void OnCurrentExerciseChanged(ExerciseChangedEventArgs e)
+        {
+            CurrentExerciseChanged?.Invoke(this, e);
         }
 
         private void ChangeViewToSelected()
         {
             _mainViewModel.ChangerViewToSelectedExercise();
+            _mainViewModel.SelectedExerciseVm.Update(CurrentExercise?.ExerciseId);
         }
 
 
         private ICommand? _detailsClikc = null;
 
-
         public ICommand? DetailClikc
         {
             get
             {
-                if(_detailsClikc == null)
+                if (_detailsClikc == null)
                 {
-                    _detailsClikc=new RelayCommand(arg => { ChangeViewToSelected(); },null);
+                    _detailsClikc = new RelayCommand(arg => { ChangeViewToSelected(); }, null);
                 }
                 return _detailsClikc;
             }
+        }
+    }
+
+    public class ExerciseChangedEventArgs : EventArgs
+    {
+        public Exercise? NewExercise { get; }
+
+        public ExerciseChangedEventArgs(Exercise? newExercise)
+        {
+            NewExercise = newExercise;
         }
     }
 }

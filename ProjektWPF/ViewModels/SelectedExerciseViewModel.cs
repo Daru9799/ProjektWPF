@@ -10,9 +10,8 @@ using ProjektWPF.Models;
 
 namespace ProjektWPF.ViewModels
 {
-    public class SelectedExerciseViewModel:ViewModelBase
+    public class SelectedExerciseViewModel : ViewModelBase
     {
-        #region zmienne
         private int _exerciseId;
         private string? _exerciseTitle;
         private string? _exerciseBodyPart;
@@ -21,8 +20,6 @@ namespace ProjektWPF.ViewModels
         private string? _exerciseDifficultyLevel;
         private string? _exerciseGifPath;
         private MainViewModel _mainViewModel;
-
-
 
         public string? ExerciseDifficultyLevel
         {
@@ -36,6 +33,7 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
+
         public string? ExerciseGifPath
         {
             get => _exerciseGifPath;
@@ -48,6 +46,7 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
+
         public string? ExerciseTitle
         {
             get => _exerciseTitle;
@@ -99,29 +98,22 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-#endregion
 
         public SelectedExerciseViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
         }
 
-        public SelectedExerciseViewModel(int id)
+        public void Update(int? workoutId)
         {
-            _exerciseId = id;
-            SetValues(id);
-        }
-
-        private void SetValues(int? workoutId)
-        {
-            if(workoutId!=null)
+            if (workoutId != null)
             {
                 Exercise exercise = DbExercises.GetOneExcercise(workoutId);
                 this.ExerciseTitle = exercise.Name;
                 this.ExerciseBodyPart = exercise.BodyPart;
                 this.ExerciseDescription = exercise.Description;
-                this.ExerciseCalories= exercise.CaloriesBurnedPerMinute.ToString()+" kcal/min";
-                this.ExerciseDifficultyLevel=exercise.DifficultyLevel;
+                this.ExerciseCalories = exercise.CaloriesBurnedPerMinute.ToString() + " kcal/min";
+                this.ExerciseDifficultyLevel = exercise.DifficultyLevel;
                 this.ExerciseGifPath = exercise.GifPath;
             }
         }
@@ -130,7 +122,6 @@ namespace ProjektWPF.ViewModels
         {
             _mainViewModel.ChangeViewToExercises();
         }
-
 
         private ICommand _goBack = null;
         public ICommand GoBack
@@ -144,10 +135,6 @@ namespace ProjektWPF.ViewModels
                 return _goBack;
             }
         }
-
-
-
-
-
     }
 }
+
