@@ -107,21 +107,43 @@ namespace ProjektWPF.ViewModels
         private void OnUserWeightChanged(bool? x)
         {
             UserProgress currentProgress = DbUserProgress.GetLatestProgressForUser(UserSession.CurrentUserId);
-            this.WeightText = "Aktualna waga: " + currentProgress.Weight + " kg";
-            this.LastMeasurementText = currentProgress.Date.Value.ToString("d");
-            this.BmiText = "BMI: " + currentProgress.Bmi;
-            this.BodyFatText = "Tkanka Tłuszcz: " + currentProgress.BodyFatPercentage + "%";
+            if(currentProgress != null)
+            {
+                this.WeightText = "Aktualna waga: " + currentProgress.Weight + " kg";
+                this.LastMeasurementText = currentProgress.Date.Value.ToString("d");
+                this.BmiText = "BMI: " + currentProgress.Bmi;
+                this.BodyFatText = "Tkanka Tłuszcz: " + currentProgress.BodyFatPercentage + "%";
 
-            float? oldWeight = DbUserProgress.GetSecondLatestWeightForUser(UserSession.CurrentUserId);
-            if(oldWeight != null)
-            {
-                float? difference = Calculator.CalculateWeightDifference(oldWeight, currentProgress.Weight);
-                this.WeightDifferenceText = $"Zmiana wagi: {difference:F1} kg";
-            }
-            else
-            {
-                this.WeightDifferenceText = "Zmiana wagi: 0 kg";
+                float? oldWeight = DbUserProgress.GetSecondLatestWeightForUser(UserSession.CurrentUserId);
+                if (oldWeight != null)
+                {
+                    float? difference = Calculator.CalculateWeightDifference(oldWeight, currentProgress.Weight);
+                    this.WeightDifferenceText = $"Zmiana wagi: {difference:F1} kg";
+                }
+                else
+                {
+                    this.WeightDifferenceText = "Zmiana wagi: 0 kg";
+                }
+
+                //Na razie tu ale potem przerzuci sie to aktualizacji po odbytym treningu
+                this.WeekStatsText = DbWorkoutSessions.CountTrainingsLastWeek(UserSession.CurrentUserId).ToString();
             }
         }
+
+        //OSIAGNIECIA
+        private string? _weekStatsText { get; set; }
+        public string? WeekStatsText
+        {
+            get => _weekStatsText;
+            set
+            {
+                if (_weekStatsText != value)
+                {
+                    _weekStatsText = value;
+                    OnPropertyChanged(nameof(WeekStatsText));
+                }
+            }
+        }
+
     }
 }

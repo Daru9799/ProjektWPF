@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ProjektWPF.Models;
 
 namespace ProjektWPF.Data
@@ -15,6 +16,16 @@ namespace ProjektWPF.Data
             using (var db = new MyDbContext())
             {
                 return db.workout_sessions.ToList();
+            }
+        }
+
+        //Ilosc treningow w ostatnim tygodniu
+        public static int CountTrainingsLastWeek(int? userId)
+        {
+            DateTime oneWeekAgo = DateTime.Now.AddDays(-7);
+            using (var db = new MyDbContext())
+            {
+                return db.workout_sessions.Count(s => s.UserId == userId && s.Date >= oneWeekAgo);
             }
         }
     }

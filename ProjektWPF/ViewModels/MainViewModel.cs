@@ -88,7 +88,7 @@ namespace ProjektWPF.ViewModels
 
             //przed zalogowaniem ustawiam zmienną CurrentUserId na null
             //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
-            UserSession.CurrentUserId = 1;
+            UserSession.CurrentUserId = null;
             UserSession.CurrentUserWeight = true;
 
             //Testy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -110,6 +110,15 @@ namespace ProjektWPF.ViewModels
             {
                 LogRegVisibility = Visibility.Visible;
                 LogOutVisibility = Visibility.Collapsed;
+            }
+
+            if (UserSession.CurrentUserWeight == true)
+            {
+                UserSession.CurrentUserWeight = false;
+            }
+            else
+            {
+                UserSession.CurrentUserWeight = true;
             }
         }
 
@@ -153,6 +162,7 @@ namespace ProjektWPF.ViewModels
         private void LogOut()
         {
             UserSession.CurrentUserId = null; //Po wylogowaniu id aktualnego uzytkownika ustawiamy na null
+            
             CurrentView = LoginVm; //Wracamy rowniez do widoku logowania
             LoginFrontButton = true;
             ProfileFrontButton = true;

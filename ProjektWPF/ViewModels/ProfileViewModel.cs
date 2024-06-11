@@ -215,7 +215,10 @@ namespace ProjektWPF.ViewModels
         private void OnUserWeightChanged(bool? x)
         {
             User user = DbUsers.GetUserFromDb(UserSession.CurrentUserId);
-            this.WeightText = user.Weight + " kg";
+            if (UserSession.CurrentUserId != null)
+            {
+                this.WeightText = user.Weight + " kg";
+            }
         }
 
         public string ConvertGender(string sex)
