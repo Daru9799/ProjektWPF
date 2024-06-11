@@ -9,7 +9,7 @@ using ProjektWPF.Models;
 
 namespace ProjektWPF.ViewModels
 {
-    public class WorkoutExerciseViewModel:ViewModelBase
+    public class SelectedExerciseViewModel:ViewModelBase
     {
         #region zmienne
         private int _exerciseId;
@@ -19,6 +19,8 @@ namespace ProjektWPF.ViewModels
         private string? _exerciseCalories;
         private string? _exerciseDifficultyLevel;
         private string? _exerciseGifPath;
+        private MainViewModel _mainViewModel;
+
 
 
         public string? ExerciseDifficultyLevel
@@ -98,12 +100,12 @@ namespace ProjektWPF.ViewModels
         }
 #endregion
 
-        public WorkoutExerciseViewModel()
+        public SelectedExerciseViewModel(MainViewModel mainViewModel)
         {
-
+            _mainViewModel = mainViewModel;
         }
 
-        public WorkoutExerciseViewModel(int id)
+        public SelectedExerciseViewModel(int id)
         {
             _exerciseId = id;
             SetValues(id);
@@ -113,7 +115,7 @@ namespace ProjektWPF.ViewModels
         {
             if(workoutId!=null)
             {
-                Exercise exercise = DbExercises.GetExcercise(workoutId);
+                Exercise exercise = DbExercises.GetOneExcercise(workoutId);
                 this.ExerciseTitle = exercise.Name;
                 this.ExerciseBodyPart = exercise.BodyPart;
                 this.ExerciseDescription = exercise.Description;

@@ -15,13 +15,13 @@ using System.Windows.Shapes;
 namespace ProjektWPF.Views
 {
     /// <summary>
-    /// Logika interakcji dla klasy SpecificExercisePanel.xaml
+    /// Logika interakcji dla klasy SelectedExercisePanel.xaml
     /// </summary>
-    public partial class SpecificExercisePanel : UserControl
+    public partial class SelectedExercisePanel : UserControl
     {
-        public SpecificExercisePanel()
+        public SelectedExercisePanel()
         {
-           InitializeComponent();
+            InitializeComponent();
         }
     }
 }
