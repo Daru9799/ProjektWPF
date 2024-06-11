@@ -14,7 +14,7 @@ namespace ProjektWPF.ViewModels
     {
         private MainViewModel _mainViewModel;
         private List<Exercise> exercisesList;
-        private Exercise currentExercise;
+        private Exercise? currentExercise=null;
 
         public string? CurrentExerciseName
         {
@@ -43,6 +43,19 @@ namespace ProjektWPF.ViewModels
             {
                 exercisesList = value;
                 OnPropertyChanged(); }
+        }
+
+        public Exercise? CurrentExercise
+        {
+            get { return currentExercise; }
+            set
+            {
+                if (currentExercise != value)
+                {
+                    currentExercise = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private void ChangeViewToSelected()
