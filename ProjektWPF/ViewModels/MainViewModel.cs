@@ -75,7 +75,7 @@ namespace ProjektWPF.ViewModels
             ProfilePasswordVm = new ProfileChangePasswordViewModel(this);
             NewMeasurementVm = new NewMeasurementViewModel(this);
             MeasurementVm = new MeasurementViewModel();
-            TrainingHistoryVm = new TrainingHistoryViewModel(this);
+            TrainingHistoryVm = new TrainingHistoryViewModel();
 
 
             LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);

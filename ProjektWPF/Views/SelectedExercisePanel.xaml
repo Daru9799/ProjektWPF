@@ -76,7 +76,7 @@
                              TextWrapping="Wrap"
                              AcceptsReturn="True"
                              Text="{Binding ExerciseDescription}"
-                             FontSize="20"
+                             FontSize="15"
                              TextAlignment="Justify" />
 
 

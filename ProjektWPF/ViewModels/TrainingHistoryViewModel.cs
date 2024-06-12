@@ -11,15 +11,10 @@ namespace ProjektWPF.ViewModels
 {
     public  class TrainingHistoryViewModel : ViewModelBase
     {
-        private MainViewModel? _mainViewModel;
         private int? _userId;
         private List<WorkoutSession> sessionsList;
 
-        public TrainingHistoryViewModel(MainViewModel mainViewModel)
-        {
-            _mainViewModel = mainViewModel;
-            _userId = DbUsers.GetIdByName(mainViewModel.ProfileVm.UserNameText);
-        }
+        public TrainingHistoryViewModel() {}
 
         public int? UserId
         {

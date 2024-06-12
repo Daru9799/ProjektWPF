@@ -62,11 +62,35 @@ namespace ProjektWPF.Data
 
         public static List<WorkoutSession> GetUserSessions(int? userId)
         {
-            using (var db=new MyDbContext())
+            using (var db = new MyDbContext())
             {
-                var UserList=db.workout_sessions.Where(s=>s.UserId == userId).ToList();
+                var UserList = db.workout_sessions.Where(s => s.UserId == userId).ToList();
                 return UserList;
             }
         }
+
+        //public static List<WorkoutSessionDetailsDto> GetWorkoutSessionsWithPlanDetails()
+        //{
+        //    using (var db = new MyDbContext())
+        //    {
+        //        string query = @"
+        //    SELECT p.name, s.date, s.time_spent, s.calories_burned
+        //    FROM workout_sessions AS s
+        //    JOIN workout_plans AS p ON s.plan_id = p.plan_id;
+        //";
+
+        //        return db.Database.SqlQuery<WorkoutSessionDetailsDto>(query).ToList();
+        //    }
+        
+
+
+        //public class WorkoutSessionDetailsDto
+        //{
+        //    public string PlanName { get; set; }
+        //    public DateTime Date { get; set; }
+        //    public int TimeSpent { get; set; }
+        //    public int CaloriesBurned { get; set; }
+        //}
+
     }
 }
