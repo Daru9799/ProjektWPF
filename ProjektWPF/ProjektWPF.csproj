@@ -30,6 +30,7 @@
     <None Remove="Style\Img\31days.png" />
     <None Remove="Style\Img\365days.png" />
     <None Remove="Style\Img\7days.png" />
+    <None Remove="Style\Img\afterWorkout.jpg" />
     <None Remove="Style\Img\age.png" />
     <None Remove="Style\Img\backgroundImage.jpg" />
     <None Remove="Style\Img\calendar.png" />
@@ -187,6 +188,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Style\Gifs\9.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Style\Img\afterWorkout.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

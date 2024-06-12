@@ -58,5 +58,15 @@ namespace ProjektWPF.Data
                 return mostFrequentPlanId;
             }
         }
+
+
+        public static List<WorkoutSession> GetUserSessions(int? userId)
+        {
+            using (var db=new MyDbContext())
+            {
+                var UserList=db.workout_sessions.Where(s=>s.UserId == userId).ToList();
+                return UserList;
+            }
+        }
     }
 }

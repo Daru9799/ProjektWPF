@@ -202,6 +202,7 @@ namespace ProjektWPF.ViewModels
                 this.WeightText = user.Weight + " kg";
                 this.GenderText = ConvertGender(user.Gender);
                 this.HeightText = user.Height + " cm";
+                _mainViewModel.TrainingHistoryVm.UserId = newUserId;
 
                 //Te dane bedzie trzeba jakos inaczej wydobyc gdyz beda ulegac ciaglej aktualizacji ale na razie wstawiam tak
                 this.TotalWorkoutsText = user.TotalWorkouts.ToString();
