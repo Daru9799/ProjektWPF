@@ -31,15 +31,14 @@
             <TextBlock Text="Sesja Ćwiczeniowa" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
 
             <ListView Grid.Row="1" 
-                  BorderBrush="Navy"
-                  BorderThickness="3"
-                  Margin="50,10"
-                  ItemsSource="{Binding ExercisesList}">
+                      BorderBrush="Navy"
+                      BorderThickness="3"
+                      Margin="50,10"
+                      ItemsSource="{Binding ExercisesList}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="ID"
-                        DisplayMemberBinding="{Binding ExerciseId}"
-                        Width="30"/>
+                        <GridViewColumn Header="Kolejność"
+                        DisplayMemberBinding="{Binding Order}"/>
                         <GridViewColumn Header="Nazwa"
                         DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Część ciała"

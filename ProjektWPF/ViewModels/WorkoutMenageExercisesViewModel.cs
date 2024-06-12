@@ -129,6 +129,7 @@ namespace ProjektWPF.ViewModels
         {
             DbPlanExercises.SaveModifiedPlanExercises(WorkoutExercisesPreviewList);
             DbWorkoutPlans.UpdateWorkoutData(SelectedWorkout.PlanId);
+            MessageBox.Show($"Plan '{SelectedWorkout.Name}' został zmieniony.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void AddExerciseToWorkout()
