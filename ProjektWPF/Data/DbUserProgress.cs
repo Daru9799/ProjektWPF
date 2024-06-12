@@ -23,7 +23,7 @@ namespace ProjektWPF.Data
         {
             using (var db = new MyDbContext())
             {
-                return db.user_progress.Where(up => up.UserId == userId).ToList();
+                return db.user_progress.Where(up => up.UserId == userId).OrderByDescending(up => up.Date).ToList();
             }
         }
 

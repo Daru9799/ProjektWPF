@@ -64,7 +64,7 @@ namespace ProjektWPF.Data
         {
             using (var db = new MyDbContext())
             {
-                var UserList = db.workout_sessions.Where(s => s.UserId == userId).ToList();
+                var UserList = db.workout_sessions.Where(s => s.UserId == userId).OrderByDescending(up => up.Date).ToList();
                 return UserList;
             }
         }
