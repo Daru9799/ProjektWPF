@@ -8,8 +8,8 @@
         mc:Ignorable="d"
         Background="Transparent"
         ResizeMode="CanResizeWithGrip"
-        Title="WorkoutAndFitness" Height="768" Width="1024"
-        MinHeight="768" MinWidth="1024"
+        Title="WorkoutAndFitness" Height="768" Width="1096"
+        MinHeight="768" MinWidth="1096"
         Icon="pack://application:,,,/Style/Img/logo.ico">
         
     <Window.DataContext>

@@ -44,9 +44,9 @@
                             Width="30"/>
                         <GridViewColumn Header="Nazwa"
                 DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Całkowity czas"
+                        <GridViewColumn Header="Całkowity czas[min]"
                 DisplayMemberBinding="{Binding TotalTime}" />
-                        <GridViewColumn Header="Spalone kalorie"
+                        <GridViewColumn Header="Spalone kalorie[Kcal]"
                 DisplayMemberBinding="{Binding TotalCaloriesBurned}" />
                         <GridViewColumn Header="Opis"
                 DisplayMemberBinding="{Binding Description}" />

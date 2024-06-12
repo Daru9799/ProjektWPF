@@ -21,6 +21,7 @@ namespace ProjektWPF.ViewModels
         private List<Exercise> exercisesList;
         private Exercise selectedExercise;
         private WorkoutExercisePreview selectedWorkoutExercise;
+        private string planSumUpText;
         private int durationValue = 0;
         public WorkoutPlan SelectedWorkout { set; get; }
 
@@ -29,8 +30,6 @@ namespace ProjektWPF.ViewModels
         public RelayCommand SaveExercisesChangesCommand { get; set; }
         public RelayCommand AddExerciseToWorkoutCommand { get; set; }
         public RelayCommand DeleteExerciseFromWorkoutCommand { get; set; }
-        public RelayCommand RefreshdWorkoutExerciseCommand {  get; set; }
-
         public RelayCommand MoveExerciseUpCommand { get; set; }
         public RelayCommand MoveExerciseDownCommand { get; set; }
 
@@ -41,7 +40,6 @@ namespace ProjektWPF.ViewModels
 
             ReturnToWorkoutPlansCommand = new RelayCommand(execute => { ReturnToWorkoutPlans(); }, canExecute => { return true; });
             SaveExercisesChangesCommand = new RelayCommand(execute => { SaveExerciseChanges(); }, canExecute => { return true; });
-            RefreshdWorkoutExerciseCommand = new RelayCommand(execute => { UpdateWorkoutExercises(); }, canExecute => { return true; });
             AddExerciseToWorkoutCommand = new RelayCommand(execute => { AddExerciseToWorkout(); }, 
                 canExecute => 
                 {
@@ -83,6 +81,7 @@ namespace ProjektWPF.ViewModels
             DurationValue = 0;
             var tmpList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
             WorkoutExercisesPreviewList = new ObservableCollection<WorkoutExercisePreview>(tmpList);
+            UpdatePlanSumUpText();
         }
 
         public void MoveUp()
@@ -102,10 +101,6 @@ namespace ProjektWPF.ViewModels
                 
                 // Ustawienie ponownie zaznaczonego elementu
                 SelectedWorkoutExercise = itemToMoveUp;
-
-
-                //Odświerzenie widoku listy
-                UpdateWorkoutExercises();
             }
         }
 
@@ -126,18 +121,8 @@ namespace ProjektWPF.ViewModels
 
                 // Ustawienie ponownie zaznaczonego elementu
                 SelectedWorkoutExercise = itemToMoveDown;
-
-                //Odświerzenie widoku listy
-                UpdateWorkoutExercises();
             }
 
-        }
-
-        public void UpdateWorkoutExercises()
-        {
-            var collectionView = CollectionViewSource.GetDefaultView(WorkoutExercisesPreviewList);
-            collectionView.Refresh();
-            OnPropertyChanged(nameof(SelectedWorkoutExercise));
         }
 
         public void SaveExerciseChanges()
@@ -151,6 +136,7 @@ namespace ProjektWPF.ViewModels
             var tmpOrder = workoutExercisesPreviewList.Count() + 1;
             var tmpWorkoutEP= new WorkoutExercisePreview(SelectedExercise,SelectedWorkout.PlanId,tmpOrder,DurationValue);
             WorkoutExercisesPreviewList.Add(tmpWorkoutEP);
+            UpdatePlanSumUpText();
         }
 
         public void DeleteExerciseFromWorkout()
@@ -160,7 +146,20 @@ namespace ProjektWPF.ViewModels
             {
                 WorkoutExercisesPreviewList[i].Order = i + 1;
             }
-            UpdateWorkoutExercises();
+            UpdatePlanSumUpText();
+        }
+
+        public void UpdatePlanSumUpText()
+        {
+            string tmpString = "Sumaryczny czas: ";
+            int tmpCzas = 0;
+            int tmpKcal = 0;
+            foreach(var i in WorkoutExercisesPreviewList)
+            {
+                tmpCzas += i.Duration.Value;
+                tmpKcal += i.Duration.Value * i.CaloriesBurnedPerMinute.Value;
+            }
+            PlanSumUpText = $"Sumaryczny czas: {tmpCzas}min, sumaryczne Kcal: {tmpKcal}";
         }
 
         public Exercise SelectedExercise
@@ -169,6 +168,7 @@ namespace ProjektWPF.ViewModels
             set
             {
                 selectedExercise = value;
+                SelectedWorkoutExercise = null;
                 OnPropertyChanged();
             }
         }
@@ -197,12 +197,13 @@ namespace ProjektWPF.ViewModels
         {
             get { return durationValue; }
             set 
-            { 
+            {
                 durationValue = value;
-                if (SelectedWorkoutExercise != null) 
-                { 
-                    SelectedWorkoutExercise.Duration = durationValue; 
-                    //UpdateWorkoutExercises();
+                if (SelectedWorkoutExercise != null)
+                {
+                    SelectedWorkoutExercise.Duration = durationValue;
+                    UpdatePlanSumUpText(); // <----
+
                 }
                 OnPropertyChanged();
             }
@@ -215,15 +216,30 @@ namespace ProjektWPF.ViewModels
             get { return selectedWorkoutExercise; }
             set
             {
-                selectedWorkoutExercise = value;
-                if (selectedWorkoutExercise != null)
+                if (selectedWorkoutExercise != value)
                 {
-                    DurationValue = SelectedWorkoutExercise.Duration.Value;
+                    selectedWorkoutExercise = value;
+                    if (selectedWorkoutExercise != null)
+                    {
+                        DurationValue = selectedWorkoutExercise.Duration ?? 0;
+                    }
+                    OnPropertyChanged();
                 }
-                OnPropertyChanged();
-                
             }
         }
+
+        
+
+        public string PlanSumUpText
+        {
+            get { return planSumUpText; }
+            set 
+            { 
+                planSumUpText = value;
+                OnPropertyChanged();
+            }
+        }
+
 
     }
 }

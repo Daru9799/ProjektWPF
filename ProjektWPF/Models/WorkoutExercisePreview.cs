@@ -4,17 +4,46 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjektWPF.Core;
+using ProjektWPF.ViewModels;
 
 namespace ProjektWPF.Models
 {
-    public class WorkoutExercisePreview
+    public class WorkoutExercisePreview: ViewModelBase
     {
+
         [Column("plan_exercises_id")]
         public int PlanExercisesId { get; set; }
         [Column("plan_id")]
         public int PlanId { get; set; }
-        public int? Order { get; set; }
-        public int? Duration { get; set; }
+       // public int? Order { get; set; }
+
+
+        private int? order;
+        public int? Order
+        {
+            get { return order; }
+            set 
+            { 
+                order = value; 
+                OnPropertyChanged();
+            }
+        }
+
+
+        private int? duration;
+        public int? Duration
+        {
+            get { return duration; }
+            set
+            {
+                duration = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        //public int? Duration { get; set; }
 
         [Column("exercise_id")]
         public int ExerciseId { get; set; }
