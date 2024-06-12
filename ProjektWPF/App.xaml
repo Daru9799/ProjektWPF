@@ -17,7 +17,7 @@
             <view:ProfilePanel/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ExercisesViewModel}">
-            <view:ExercisesPanel/>
+            <view:ExercisesPanel />
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:WorkoutsViewModel}">
             <view:WorkoutsPanel/>
