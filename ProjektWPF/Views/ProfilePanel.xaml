@@ -28,7 +28,7 @@
         </Grid.ColumnDefinitions>
         <Image Source="/Style/Img/backgroundImage.jpg" Stretch="UniformToFill" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
         <TextBlock Margin="20,5,20,5" FontSize="45" Grid.ColumnSpan="2" Text="{Binding Path=UserNameText, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}" Foreground="White"></TextBlock>
-        <Border Background="#90333333" CornerRadius="40" Margin="10" Grid.Row="1" Grid.Column="0">
+        <Border Background="#B0333333" CornerRadius="40" Margin="10" Grid.Row="1" Grid.Column="0">
             <StackPanel Grid.Row="1" Grid.Column="0">
                 <TextBlock  Text="Informacje osobiste" FontSize="30" Foreground="White" TextAlignment="Center"></TextBlock>
                 <Border Height="2" Background="White" Margin="20,10,20,10" VerticalAlignment="Center"/>
@@ -79,13 +79,13 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" >
-                    <Button Style="{StaticResource LogButtonStyle}" Command="{Binding EditClick}" Width="170" Height="40" Content="Zmień Dane" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,20,0,20"></Button>
+                    <Button Style="{StaticResource LogButtonStyle}" Command="{Binding EditClick}" Width="170" Height="40" Content="Zmień Dane" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,20,0,20"></Button>
                     <Button Style="{StaticResource LogButtonStyle}" Command="{Binding PasswordClick}" Width="170" Height="40" Content="Zmień Hasło" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,20,0,20"></Button>
                 </StackPanel>
                 
             </StackPanel>
         </Border>
-        <Border Background="#90333333" CornerRadius="40" Margin="10" Grid.Row="1" Grid.Column="1">
+        <Border Background="#B0333333" CornerRadius="40" Margin="10" Grid.Row="1" Grid.Column="1">
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <TextBlock  Text="Statystyki Aktywności" FontSize="30" Foreground="White" TextAlignment="Center"></TextBlock>
                 <Border Height="2" Background="White" Margin="20,10,20,10" VerticalAlignment="Center"/>

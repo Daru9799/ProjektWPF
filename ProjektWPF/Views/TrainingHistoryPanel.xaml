@@ -16,110 +16,108 @@
             </ResourceDictionary.MergedDictionaries>
             <core:BoolToColorConverter x:Key="BoolToColorConverter"/>
             <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+            <conv:DateOnlyConverter  x:Key="DateOnlyConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="1.8*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="20*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="1.8*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- Obraz w tle -->
-        <Image Source="/Style/Img/afterWorkout.jpg" Stretch="UniformToFill" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
+            <!-- Obraz w tle -->
+            <Image Source="/Style/Img/afterWorkout.jpg" Stretch="UniformToFill" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
+            
+            <!-- Nagłówek "ODBYTE TRENINGI" -->
+            <TextBlock Margin="40,25,0,5"  FontSize="65" Grid.ColumnSpan="3" Text="Odbyte Treningi" Foreground="white"/>
 
-        <!-- Nagłówek "ODBYTE TRENINGI" -->
-        <TextBlock Margin="40,15,20,5" FontSize="55" Grid.ColumnSpan="3" Text="Odbyte Treningi" Foreground="White"/>
+            <!-- Border z przeźroczystym tłem -->
+            <Border Background="Transparent" CornerRadius="40" Margin="10,10,10,10" Grid.Row="1" Grid.Column="1">
+                <!-- Lista treningów -->
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
 
-        <!-- Border z przeźroczystym tłem -->
-        <Border Background="Transparent" CornerRadius="40" Margin="10,10,10,10" Grid.Row="1" Grid.Column="1">
-            <!-- Lista treningów -->
-
-
-            <!--<ListView x:Name="ListViewProducts"
-                      ItemsSource="{Binding SessionsList}"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      Background="Transparent">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Date}" Width="150"/>
-                        <GridViewColumn Header="Time Spent (min)" DisplayMemberBinding="{Binding TimeSpent}" Width="150"/>
-                        <GridViewColumn Header="Calories Spent" DisplayMemberBinding="{Binding CaloriesBurned}" Width="150"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>-->
-
-
-            <ScrollViewer Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel Margin="20">
-                        <ListBox x:Name="ListViewProducts"
-                     ItemsSource="{Binding SessionsList}"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     BorderThickness="0"
-                     Background="Transparent"
-                     HorizontalContentAlignment="Center"
-                     IsHitTestVisible="False">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}">
-                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Border CornerRadius="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}" BorderThickness="1">
-                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <Border CornerRadius="10" Background="#90333333" Margin="10">
-                                                        <StackPanel Margin="10" HorizontalAlignment="Center" Width="200" Height="100">
-                                                            <TextBlock Text="{Binding Date}" FontSize="12" TextWrapping="Wrap" TextAlignment="Right" Foreground="White"/>
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
-                                                                <TextBlock FontSize="16" Foreground="White">
-                                                                    <TextBlock.Text>
-                                                                        <MultiBinding StringFormat="Spalone kalorie: {0} kcal">
-                                                                            <Binding Path="CaloriesBurned"/>
-                                                                        </MultiBinding>
-                                                                    </TextBlock.Text>
-                                                                </TextBlock>
+                <!--<ListView x:Name="ListViewProducts"
+                          ItemsSource="{Binding SessionsList}"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          Background="Transparent">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Date}" Width="150"/>
+                            <GridViewColumn Header="Time Spent (min)" DisplayMemberBinding="{Binding TimeSpent}" Width="150"/>
+                            <GridViewColumn Header="Calories Spent" DisplayMemberBinding="{Binding CaloriesBurned}" Width="150"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>-->
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Margin="20">
+                            <ListBox x:Name="ListViewProducts"
+                         ItemsSource="{Binding SessionsList}"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         HorizontalContentAlignment="Center"
+                         IsHitTestVisible="False">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Border CornerRadius="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}" BorderThickness="1">
+                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Border CornerRadius="10" Background="#C02A629A" Margin="10">
+                                                            <StackPanel Margin="10" HorizontalAlignment="Center" Width="200" Height="100">
+                                                            <TextBlock Text="{Binding Date, Converter={StaticResource DateOnlyConverter}}" FontSize="12" TextWrapping="Wrap" TextAlignment="Right" Foreground="White"/>
+                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+                                                                    <TextBlock FontSize="16" Foreground="White">
+                                                                        <TextBlock.Text>
+                                                                            <MultiBinding StringFormat="Spalone kalorie: {0} kcal">
+                                                                                <Binding Path="CaloriesBurned"/>
+                                                                            </MultiBinding>
+                                                                        </TextBlock.Text>
+                                                                    </TextBlock>
+                                                                </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+                                                                    <TextBlock FontSize="16" Foreground="White">
+                                                                        <TextBlock.Text>
+                                                                            <MultiBinding StringFormat="Spędzony czas: {0} min">
+                                                                                <Binding Path="TimeSpent"/>
+                                                                            </MultiBinding>
+                                                                        </TextBlock.Text>
+                                                                    </TextBlock>
+                                                                </StackPanel>
                                                             </StackPanel>
-                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
-                                                                <TextBlock FontSize="16" Foreground="White">
-                                                                    <TextBlock.Text>
-                                                                        <MultiBinding StringFormat="Spędzony czas: {0} min">
-                                                                            <Binding Path="TimeSpent"/>
-                                                                        </MultiBinding>
-                                                                    </TextBlock.Text>
-                                                                </TextBlock>
-                                                            </StackPanel>
-                                                        </StackPanel>
-                                                    </Border>
-                                                </StackPanel>
-                                            </Border>
-                                        </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                                                        </Border>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+
+
+
+
+
+
+
+
             </ScrollViewer>
-
-
-
-
-
-
-
-
-
         </Border>
+        
     </Grid>
 </UserControl>

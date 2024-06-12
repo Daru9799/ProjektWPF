@@ -17,6 +17,16 @@ namespace ProjektWPF.Data
                 return db.user_progress.ToList();
             }
         }
+
+        //Wszystkie dla danego usera
+        public static List<UserProgress> GetAllProgressForUser(int? userId)
+        {
+            using (var db = new MyDbContext())
+            {
+                return db.user_progress.Where(up => up.UserId == userId).ToList();
+            }
+        }
+
         //Ostatni wpis w user_progress
         public static UserProgress GetLatestProgressForUser(int? userId)
         {

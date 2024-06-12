@@ -25,7 +25,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Image Source="/Style/Img/Stats.jpg" Stretch="UniformToFill" Grid.RowSpan="4"/>
-        <Border Background="#90333333" CornerRadius="40" Margin="60,10,60,10" Grid.Row="0" Grid.Column="0">
+        <Border Background="#C02A629A" CornerRadius="40" Margin="60,10,60,10" Grid.Row="0" Grid.Column="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -57,7 +57,7 @@
             </Grid>
         </Border>
 
-        <Border Background="#90333333" CornerRadius="40" Margin="60,10,60,10" Grid.Row="1" Grid.Column="0">
+        <Border Background="#C02A629A" CornerRadius="40" Margin="60,10,60,10" Grid.Row="1" Grid.Column="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
