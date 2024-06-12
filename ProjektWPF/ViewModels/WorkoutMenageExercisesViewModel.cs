@@ -37,6 +37,7 @@ namespace ProjektWPF.ViewModels
         {
             this.mainViewModel = mainViewModel;
             ExercisesList = DbExercises.GetExercises();
+            ExercisesList = ExercisesList.OrderBy(x => x.Name).ToList(); // Sortowanie ćwiczeń Alfabetycznie po Nazwie
 
             ReturnToWorkoutPlansCommand = new RelayCommand(execute => { ReturnToWorkoutPlans(); }, canExecute => { return true; });
             SaveExercisesChangesCommand = new RelayCommand(execute => { SaveExerciseChanges(); }, canExecute => { return true; });
@@ -211,7 +212,6 @@ namespace ProjektWPF.ViewModels
         }
 
         
-
         public WorkoutExercisePreview SelectedWorkoutExercise
         {
             get { return selectedWorkoutExercise; }
@@ -228,8 +228,6 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-
-        
 
         public string PlanSumUpText
         {
