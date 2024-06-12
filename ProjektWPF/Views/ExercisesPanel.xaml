@@ -6,6 +6,10 @@
              xmlns:local="clr-namespace:ProjektWPF.Views"
              xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
              xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com" 
+             xmlns:core="clr-namespace:ProjektWPF.Core"
+
+
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="819.2">
 
@@ -14,10 +18,15 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Style/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <core:BoolToColorConverter x:Key="BoolToColorConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
+
     <Border Background="#2A629A" CornerRadius="50">
+        
+        
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
@@ -28,14 +37,14 @@
             <TextBlock Text="Ćwiczenia" FontSize="45" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0"/>
 
 
-            <ListView Grid.Row="1" 
+            <!--<ListView Grid.Row="1" 
           ItemsSource="{Binding ExercisesList}"
           SelectedItem="{Binding CurrentExercise}"
           
           Margin="50,10,50,10">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        <!-- Dodana AllowsColumnReorder -->
+                        --><!-- Dodana AllowsColumnReorder --><!--
                         <GridViewColumn >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -49,7 +58,59 @@
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </ListView>
+            </ListView>-->
+
+            <ScrollViewer Grid.Column="1" Grid.Row="1" Background="#2A629A" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Margin="0">
+                        <ListBox x:Name="ListViewProducts"
+                     ItemsSource="{Binding ExercisesList}"
+                     SelectedItem="{Binding CurrentExercise, Mode=TwoWay}"
+                                 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 
+                     BorderThickness="0"
+                     Background="Transparent"
+                     HorizontalContentAlignment="Center">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}">
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Border CornerRadius="10" Margin="5">
+                                                <Border.Effect>
+                                                    <DropShadowEffect ShadowDepth="1"/>
+                                                </Border.Effect>
+                                                <Image Margin="10" Width="240" Height="180" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
+                                            </Border>
+                                            <TextBlock Margin="0" Text="{Binding Name}" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Foreground="White"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
