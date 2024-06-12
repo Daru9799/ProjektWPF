@@ -15,7 +15,7 @@ namespace ProjektWPF.Core
         {
             if (value is bool isSelected && isSelected)
             {
-                return new SolidColorBrush(Colors.LightBlue); // Change this color as needed
+                return new SolidColorBrush(Color.FromRgb(0x2A, 0x62, 0x9A)); // Change this color as needed
             }
             return new SolidColorBrush(Colors.Transparent);
         }

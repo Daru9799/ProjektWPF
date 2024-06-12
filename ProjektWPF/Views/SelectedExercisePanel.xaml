@@ -19,9 +19,9 @@
     <Border Background="#21243D" CornerRadius="50">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="0.6*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -31,7 +31,7 @@
             <Border Grid.Row="1" Grid.Column="1" Background="#FFFFFF" CornerRadius="75" MaxWidth="800">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="0*"/>
                         <ColumnDefinition Width="143*"/>
                         <ColumnDefinition Width="70*"/>
                         <ColumnDefinition Width="149*"/>
