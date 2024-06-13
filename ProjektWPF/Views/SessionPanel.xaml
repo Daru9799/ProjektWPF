@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektWPF.Views"
+              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
 
@@ -32,7 +33,7 @@
                 
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Sesja Ćwiczeniowa" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="Sesja ćwiczń" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
 
             <!--<ListView Grid.Row="1" 
                       BorderBrush="Navy"
@@ -80,7 +81,7 @@
 
 
 
-                <Border Grid.Column="1" CornerRadius="55" Background="White" Margin="25">
+                <Border Grid.Column="1" CornerRadius="45" Background="White" Margin="25">
 
 
                     <Grid>
@@ -91,9 +92,9 @@
 
 
                       
-                            <Border Background="Black" CornerRadius="35" >
+                            <Border Background="Black" CornerRadius="45" >
 
-                            <TextBlock Text="Nazwa Ćwiczenia" Foreground="White" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding CurrentExerciseName}" Foreground="White" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                         </Border>
 
@@ -105,11 +106,11 @@
                             </Grid.ColumnDefinitions>
 
 
-
-                            <Image Source="/Style/Gifs/1.gif"  Margin="20,0,20,0"  />
+                            <TextBlock Grid.Column="0" Text="{Binding ExercisesCounter}" FontSize="25" Margin="20,5,0,0"/>
+                            <Image Margin="20,30,20,5" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
                             <TextBlock Text="00.00" FontSize="80" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                           
 
+                            <!--gif:ImageBehavior.AnimatedSource="{Binding GifPath1}"-->
 
                             <Grid Grid.Column="1">
                                 <Grid.ColumnDefinitions>
@@ -117,12 +118,9 @@
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="Następne Ćwiczenie: Pompki" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,20,0"  TextWrapping="Wrap" TextAlignment="Center" LineHeight="20"/>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,20,0"  TextWrapping="Wrap" TextAlignment="Center" LineHeight="20" Text="{Binding NextExerciseName}"/>
 
                             </Grid>
-
-
-
                         </Grid>
 
                     </Grid>

@@ -8,6 +8,8 @@ using ProjektWPF.Data;
 using ProjektWPF.Models;
 
 using System.Windows.Threading;
+using System.Windows.Input;
+using System.Web;
 
 namespace ProjektWPF.ViewModels
 {
@@ -17,6 +19,12 @@ namespace ProjektWPF.ViewModels
         private List<WorkoutExercisePreview> exercisesList;
         private DispatcherTimer timer;
         private DateTime TimeStart;
+        private WorkoutExercisePreview currentExercise;
+        private int currentExerciseIndex;
+        private string gifPath;
+        private string nextExerciseName;
+        private string previousExerciseName;
+        private string exercisesCounter;
 
         public SessionViewModel(WorkoutPlan wp)
         {
@@ -26,8 +34,12 @@ namespace ProjektWPF.ViewModels
 
             this.workoutPlan = wp;
             ExercisesList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
+            SetValues(ExercisesList);
+
         }
         
+
+      
 
         public List<WorkoutExercisePreview> ExercisesList
         {
@@ -54,5 +66,124 @@ namespace ProjektWPF.ViewModels
                 OnPropertyChanged();
             }
         }
+
+
+        public WorkoutExercisePreview CurrentExercise
+        {
+            get { return currentExercise; }
+            set
+            {
+                if (currentExercise != value)
+                {
+                    currentExercise = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string GifPath
+        {
+            get { return gifPath; }
+            set
+            {
+                if(gifPath != value)
+                {
+                    gifPath = value;
+                    OnPropertyChanged(nameof(GifPath));
+                }
+            }
+
+        }
+
+        public string NextExerciseName
+        {
+            get { return nextExerciseName; }
+            set { 
+                if(nextExerciseName != value)
+                {
+                    nextExerciseName = value;
+                    OnPropertyChanged(nameof(NextExerciseName));
+                }
+            }
+        }
+
+        public string CurrentExerciseName
+        {
+            get { return previousExerciseName; }
+            set
+            {
+                if(previousExerciseName != value)
+                {
+                    previousExerciseName = value;
+                    OnPropertyChanged(nameof(CurrentExerciseName));
+                }
+            }
+        }
+
+        public string ExercisesCounter
+        {
+            get { return exercisesCounter; }
+            set
+            {
+                if(exercisesCounter != value)
+                {
+                    exercisesCounter = value;
+                    OnPropertyChanged(nameof(ExercisesCounter));
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+        private ICommand nextExercise=null;
+
+        public ICommand NextExercise
+        {
+            get
+            {
+                if (nextExercise == null)
+                {
+                    nextExercise = new RelayCommand(arg =>{ Next(); },null) ;
+                }
+                return nextExercise;
+            }
+        }
+
+        private void Next()
+        {
+            if (currentExerciseIndex<exercisesList.Count-1)
+            {
+
+            }
+        }
+
+        private void SetValues(List<WorkoutExercisePreview> list)
+        {
+            CurrentExercise = list[0];
+            CurrentExerciseName = list[0].Name;
+            currentExerciseIndex = 0;
+            if(list.Count > 1)
+            {
+                NextExerciseName = list[1].Name;
+            }
+            GifPath = list[0].GifPath;
+            ExercisesCounter = $"{currentExerciseIndex+1}/{ExercisesList.Count}";
+
+        }
+
+
+
+
+     
+
+
+
+
+
     }
 }
