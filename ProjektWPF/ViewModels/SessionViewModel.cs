@@ -7,6 +7,9 @@ using ProjektWPF.Core;
 using ProjektWPF.Data;
 using ProjektWPF.Models;
 using System.Windows.Input;
+using System.IO.Packaging;
+using System.Drawing;
+using System.Web;
 
 namespace ProjektWPF.ViewModels
 {
@@ -14,7 +17,7 @@ namespace ProjektWPF.ViewModels
     {
         private WorkoutPlan workoutPlan;
         private List<WorkoutExercisePreview> exercisesList;
-
+        private  MainViewModel mainViewModel;
         private PersonalTimer exerciseTimer;
         private WorkoutExercisePreview currentExercise;
         private int currentExerciseIndex;
@@ -24,8 +27,9 @@ namespace ProjektWPF.ViewModels
         private string exercisesCounter;
         private string timerButtonText;
 
-        public SessionViewModel(WorkoutPlan wp)
+        public SessionViewModel(WorkoutPlan wp,MainViewModel mv)
         {
+            mainViewModel = mv;
             this.workoutPlan = wp;
             ExercisesList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
             exerciseTimer = new PersonalTimer();
@@ -34,7 +38,7 @@ namespace ProjektWPF.ViewModels
             TimerButtonText = "Start";
             SetValues(ExercisesList);
         }
-
+        #region Publiczne
         public List<WorkoutExercisePreview> ExercisesList
         {
             get { return exercisesList; }
@@ -128,6 +132,39 @@ namespace ProjektWPF.ViewModels
             }
         }
 
+        private bool isNextExerciseAvailable;
+        public bool IsNextExerciseAvailable
+        {
+            get { return isNextExerciseAvailable; }
+            set
+            {
+                if (isNextExerciseAvailable != value)
+                {
+                    isNextExerciseAvailable = value;
+                    OnPropertyChanged(nameof(IsNextExerciseAvailable));
+                }
+            }
+        }
+
+
+            private bool isStartStop;
+        public bool IsStartStop
+        {
+            get { return isStartStop; }
+            set
+            {
+                if (isStartStop != value)
+                {
+                    isStartStop = value;
+                    OnPropertyChanged(nameof(IsStartStop));
+                }
+            }
+        }
+
+
+
+        #endregion
+
         private ICommand nextExercise = null;
 
         public ICommand NextExercise
@@ -156,6 +193,26 @@ namespace ProjektWPF.ViewModels
             }
         }
 
+        private ICommand goBack = null;
+        public ICommand GoBack
+        {
+            get
+            {
+                if(goBack == null)
+                {
+                    goBack=new RelayCommand(arg => { ChangeView(); },null);
+                }
+                return goBack;
+            }
+        }
+
+        private void ChangeView()
+        {
+            mainViewModel.CheangeViewToWorkoutsPanel();
+        }
+
+
+
         private void Next()
         {
             if (currentExerciseIndex < exercisesList.Count - 1)
@@ -164,6 +221,11 @@ namespace ProjektWPF.ViewModels
                 SetValues(exercisesList);
                 RestartTimer();
             }
+            else
+            {
+                IsStartStop = false;
+            }
+
         }
 
         private void SetValues(List<WorkoutExercisePreview> list)
@@ -174,15 +236,17 @@ namespace ProjektWPF.ViewModels
             if (list.Count > currentExerciseIndex + 1)
             {
                 NextExerciseName ="Następne:\n"+ list[currentExerciseIndex + 1].Name;
+                IsNextExerciseAvailable = true;
+                IsStartStop = true;
             }
             else
             {
                 NextExerciseName = "Ostatnie!";
+                IsNextExerciseAvailable = false;
             }
 
             GifPath = list[currentExerciseIndex].GifPath;
             ExercisesCounter = $"{currentExerciseIndex + 1}/{ExercisesList.Count}";
-
             RestartTimer();
         }
 
@@ -197,6 +261,11 @@ namespace ProjektWPF.ViewModels
         {
             exerciseTimer.Toggle();
             TimerButtonText = exerciseTimer.IsRunning ? "Stop" : "Start";
+
+                if (exerciseTimer.FormattedTime == "00:00")
+                {
+                    Next();
+                }
         }
 
         private void ExerciseTimer_Tick(object sender, EventArgs e)

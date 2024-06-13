@@ -42,7 +42,7 @@ namespace ProjektWPF.Models
 
         public bool IsRunning => timer.IsEnabled;
 
-        public string FormattedTime
+        public string? FormattedTime
         {
             get
             {

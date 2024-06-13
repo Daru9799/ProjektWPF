@@ -178,7 +178,7 @@ namespace ProjektWPF.ViewModels
 
         public void CheangeViewToSessionView(WorkoutPlan wp) // <-- Funkcja potrzeba aby WorkoutsViewModel mógł zmienić CurrentView na SessionVm
         {
-            SessionVm = new SessionViewModel(wp);
+            SessionVm = new SessionViewModel(wp,this);
             CurrentView = SessionVm;
         }
 

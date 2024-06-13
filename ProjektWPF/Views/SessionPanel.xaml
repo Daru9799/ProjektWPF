@@ -108,7 +108,7 @@
 
                             <TextBlock Grid.Column="0" Text="{Binding ExercisesCounter}" FontSize="25" Margin="20,5,0,0"/>
                             <Image Margin="20,30,20,5" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
-                            <TextBlock Text="{Binding FormattedTime}" FontSize="80" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding FormattedTime}" FontSize="80" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding TextColor}"/>
 
                             <!--gif:ImageBehavior.AnimatedSource="{Binding GifPath1}"-->
 
@@ -146,13 +146,14 @@
                 </Grid.ColumnDefinitions>
                 <Button Content="Następne ćwiczenie" 
                     Command="{Binding  NextExercise}"
+                    IsEnabled="{Binding IsNextExerciseAvailable}"
                     Grid.Column="0" 
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch"  Style="{StaticResource GreenButtonStyle}"  Margin="5,5,5,5" FontSize="25"/>
 
-                <Button Content="{Binding TimerButtonText}" Command="{Binding ToggleTimerCommand}"  Margin="5,5,5,5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource OrangeButtonStyle}" FontSize="30"/>
+                <Button Content="{Binding TimerButtonText}" Command="{Binding ToggleTimerCommand}" IsEnabled="{Binding IsStartStop}" Margin="5,5,5,5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource OrangeButtonStyle}" FontSize="30"/>
 
-                <Button Content="Zakończ trening"  Margin="5,5,5,5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource CancelButtonStyle}" FontSize="30"/>
+                <Button Content="Opuść trening" Command="{Binding GoBack}"  Margin="5,5,5,5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource CancelButtonStyle}" FontSize="30"/>
 
             </Grid>
         </Grid>
