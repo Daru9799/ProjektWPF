@@ -67,16 +67,16 @@ namespace ProjektWPF.ViewModels
                 return _loginClick;
             }
         }
-        //Potem będzie tutaj logika logowania się i przypisywania Id, aktualnie jest to robione na sztywno
-        private void Login()
+        
+        private async void Login()
         {
-            int id = DbUsers.GetIdByName(this.Username);
+            int id = await DbUsers.GetIdByName(this.Username);
             if (id != 0)
             {
-                string hPassword = DbUsers.GetHashById(id);
+                string hPassword = await DbUsers.GetHashById(id);
                 if(PasswordEncryption.VerifyPassword(this.Password, hPassword))
                 {
-                    DbUsers.UpdateLastLogin(id); //Aktualizuje date ostatneigo logowania
+                    await DbUsers.UpdateLastLogin(id); //Aktualizuje date ostatneigo logowania
                     UserSession.CurrentUserId = id; //Utworzenie sesji 
                     //Czyszczenie pól
                     this.ErrorText = "";

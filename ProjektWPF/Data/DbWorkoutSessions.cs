@@ -18,6 +18,14 @@ namespace ProjektWPF.Data
                 return db.workout_sessions.ToList();
             }
         }
+        //Odbyte treningi filtrujac po dacie
+        public static List<WorkoutSession> GetWorkoutSessionsWithDateRange(int? userId, DateTime date1, DateTime date2)
+        {
+            using (var db = new MyDbContext())
+            {
+                return db.workout_sessions.Where(s => s.UserId == userId && s.Date >= date1 && s.Date <= date2).ToList();
+            }
+        }
 
         //Ilosc treningow w ostatnim tygodniu
         public static int CountTrainingsLastWeek(int? userId)

@@ -274,17 +274,17 @@ namespace ProjektWPF.ViewModels
         }
 
         //Główna funkcja po kliknieciu przycisku rejestruj
-        private void Register()
+        private async void Register()
         {
-            if(DbUsers.GetIdByName(this.Username) == 0) //Sprawdza czy nie ma takiego usera
+            if( await DbUsers.GetIdByName(this.Username) == 0) //Sprawdza czy nie ma takiego usera
             {
-                if(DbUsers.GetIdByEmail(this.Email) == 0)
+                if( await DbUsers.GetIdByEmail(this.Email) == 0)
                 {
                     string sex = GenderToEnum();
                     string hPassword = PasswordEncryption.HashPassword(this.Password);
                     User user1 = new User(0, this.Username, hPassword, this.Email, this.Age, sex, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), 0, 0, 0, DateTime.Now, DateTime.Now);
                     DbUsers.AddUserToDb(user1);
-                    int? id = DbUsers.GetIdByName(this.Username);
+                    int? id = await DbUsers.GetIdByName(this.Username);
                     CreateFirstMeasurement(id);
                     UserSession.CurrentUserId = id; //Tworze sesje dla zarejestrowanego
                 }

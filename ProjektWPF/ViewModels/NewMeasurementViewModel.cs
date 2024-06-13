@@ -115,9 +115,9 @@ namespace ProjektWPF.ViewModels
             return false;
         }
 
-        private void CreateNewMeasurement(int? id)
+        private async void CreateNewMeasurement(int? id)
         {
-            User user1 = DbUsers.GetUserFromDb(UserSession.CurrentUserId);
+            User user1 = await DbUsers.GetUserFromDb(UserSession.CurrentUserId);
 
             float? bmi = Calculator.CalculateBmi(float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), user1.Height);
             float? bodyFat = Calculator.CalculateBodyFat(float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), bmi, Calculator.CalculateAge(user1.BirthDate), Calculator.IsMale(user1.Gender));

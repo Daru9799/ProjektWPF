@@ -96,7 +96,7 @@ namespace ProjektWPF.ViewModels
 
             //przed zalogowaniem ustawiam zmienną CurrentUserId na null
             //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
-            UserSession.CurrentUserId = null;
+            UserSession.CurrentUserId = 1;
             UserSession.CurrentUserWeight = true;
 
             //Testy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

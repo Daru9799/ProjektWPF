@@ -181,9 +181,9 @@ namespace ProjektWPF.ViewModels
             }
         }
 
-        private void ChangeLogin()
+        private async void ChangeLogin()
         {
-            if (DbUsers.GetIdByName(this.Username) == 0) //Sprawdza czy nie ma takiego usera
+            if ( await DbUsers.GetIdByName(this.Username) == 0) //Sprawdza czy nie ma takiego usera
             {
                 DbUsers.UpdateUsername(UserSession.CurrentUserId, this.Username); //aktualizacja loginu
                 int? id = UserSession.CurrentUserId;
@@ -223,9 +223,9 @@ namespace ProjektWPF.ViewModels
             }
         }
 
-        private void ChangeEmail()
+        private async void ChangeEmail()
         {
-            if (DbUsers.GetIdByEmail(this.Email) == 0) //Sprawdza czy nie ma takiego maila
+            if (await DbUsers.GetIdByEmail(this.Email) == 0) //Sprawdza czy nie ma takiego maila
             {
                 DbUsers.UpdateEmail(UserSession.CurrentUserId, this.Email); //aktualizacja maila
                 int? id = UserSession.CurrentUserId;

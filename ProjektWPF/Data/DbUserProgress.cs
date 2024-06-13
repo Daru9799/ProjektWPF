@@ -27,6 +27,15 @@ namespace ProjektWPF.Data
             }
         }
 
+        //Pomiary filtrujac po dacie
+        public static List<UserProgress> GetProgressWithDateRange(int? userId, DateTime date1, DateTime date2)
+        {
+            using (var db = new MyDbContext())
+            {
+                return db.user_progress.Where(s => s.UserId == userId && s.Date >= date1 && s.Date <= date2).ToList();
+            }
+        }
+
         //Ostatni wpis w user_progress
         public static UserProgress GetLatestProgressForUser(int? userId)
         {

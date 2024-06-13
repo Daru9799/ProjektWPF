@@ -110,7 +110,7 @@
                     <Grid>
                         <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                             <Grid>
-                                <DatePickerTextBox x:Name="PART_TextBox" BorderThickness="0" Background="Transparent" Padding="5"/>
+                                <DatePickerTextBox x:Name="PART_TextBox" BorderThickness="0" Background="Transparent" Padding="5" Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, FallbackValue='Wybierz datę'}"/>
                                 <Button x:Name="PART_Button" Focusable="False" HorizontalAlignment="Right" VerticalAlignment="Center" Width="25" Margin="0,0,10,0">
                                     <Image Source="/Style/Img/calendar.png" Style="{StaticResource {x:Type Image}}" Width="23" Height="20"/>
                                 </Button>
@@ -298,5 +298,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    
 
 </ResourceDictionary>

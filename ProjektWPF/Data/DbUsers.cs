@@ -42,12 +42,12 @@ namespace ProjektWPF.Data
             }
         }
         //Uzyskanie Id uzytkownika o podanej nazwie (gdy nie istnieje taki zwraca 0)
-        public static int GetIdByName(string name)
+        public static async Task<int> GetIdByName(string name)
         {
             using (var db = new MyDbContext())
             {
-                var user = db.users.FirstOrDefault(u => u.Username == name);
-                if(user != null)
+                var user = await db.users.FirstOrDefaultAsync(u => u.Username == name);
+                if (user != null)
                 {
                     return user.UserId;
                 }
@@ -56,11 +56,11 @@ namespace ProjektWPF.Data
         }
 
         //Uzyskanie maila
-        public static int GetIdByEmail(string email)
+        public static async Task<int> GetIdByEmail(string email)
         {
             using (var db = new MyDbContext())
             {
-                var user = db.users.FirstOrDefault(u => u.Email == email);
+                var user = await db.users.FirstOrDefaultAsync(u => u.Email == email);
                 if (user != null)
                 {
                     return user.UserId;
@@ -70,11 +70,11 @@ namespace ProjektWPF.Data
         }
 
         //Uzyskanie hasha
-        public static string GetHashById(int? id)
+        public static async Task<string> GetHashById(int? id)
         {
             using (var db = new MyDbContext())
             {
-                var user = db.users.FirstOrDefault(u => u.UserId == id);
+                var user = await db.users.FirstOrDefaultAsync(u => u.UserId == id);
                 if (user != null)
                 {
                     string hash = user.Password;
@@ -85,33 +85,26 @@ namespace ProjektWPF.Data
         }
 
         //Zwraca konkretnego usera jako obiekt
-        public static User GetUserFromDb(int? id)
+        public static async Task<User> GetUserFromDb(int? id)
         {
             using (var db = new MyDbContext())
             {
-                var userToGet = db.users.FirstOrDefault(u => u.UserId == id);
-                if (userToGet != null)
-                {
-                    return userToGet;
-                } else
-                {
-                    return null;
-                }
-
+                var userToGet = await db.users.FirstOrDefaultAsync(u => u.UserId == id);
+                return userToGet;
             }
         }
 
         //Updatuje ostatnie logowanie
-        public static void UpdateLastLogin(int? id)
+        public static async Task UpdateLastLogin(int? id)
         {
             using (var db = new MyDbContext())
             {
-                var userToUpdate = db.users.FirstOrDefault(u => u.UserId == id);
+                var userToUpdate = await db.users.FirstOrDefaultAsync(u => u.UserId == id);
                 if (userToUpdate != null)
                 {
                     userToUpdate.LastLogin = DateTime.Now;
                     db.Entry(userToUpdate).Property(u => u.LastLogin).IsModified = true;
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             }
         }

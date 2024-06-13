@@ -116,10 +116,10 @@ namespace ProjektWPF.ViewModels
             }
         }
 
-        private void ChangePassword()
+        private async void ChangePassword()
         {
             int? id = UserSession.CurrentUserId;
-            string hPassword = DbUsers.GetHashById(id);
+            string hPassword = await DbUsers.GetHashById(id);
             if (PasswordEncryption.VerifyPassword(this.OldPassword, hPassword))
             {
                 string hashedNewPassword = PasswordEncryption.HashPassword(this.NewPassword);

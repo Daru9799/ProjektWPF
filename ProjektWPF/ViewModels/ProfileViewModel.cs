@@ -190,12 +190,12 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-        private void OnUserIdChanged(int? newUserId)
+        private async void OnUserIdChanged(int? newUserId)
         {
 
             if (newUserId != null)
             {
-                User user = DbUsers.GetUserFromDb(newUserId);
+                User user = await DbUsers.GetUserFromDb(newUserId);
                 this.UserNameText = "Witaj " + user.Username + "!";
                 this.EmailText = user.Email;
                 this.AgeText = Calculator.CalculateAge(user.BirthDate).ToString();
@@ -213,9 +213,9 @@ namespace ProjektWPF.ViewModels
             }
         }
 
-        private void OnUserWeightChanged(bool? x)
+        private async void OnUserWeightChanged(bool? x)
         {
-            User user = DbUsers.GetUserFromDb(UserSession.CurrentUserId);
+            User user = await DbUsers.GetUserFromDb(UserSession.CurrentUserId);
             if (UserSession.CurrentUserId != null)
             {
                 this.WeightText = user.Weight + " kg";

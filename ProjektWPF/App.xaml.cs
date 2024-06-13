@@ -19,14 +19,6 @@ namespace ProjektWPF
             //Usuwanie
             //DbUsers.DeleteUserFromDb(4); 
 
-            //Wyciaganie cwiczen z bazy do listy
-            Console.WriteLine("Ćwiczenia:");
-            var exercises = DbExercises.GetExercises();
-            foreach (var exercise in exercises)
-            {
-                Console.WriteLine(exercise.ToString());
-            }
-
             //Select z tabeli plan_exercises do listy
             Console.WriteLine("PlanExercises:");
             var planExercises = DbPlanExercises.GetPlanExercises();
