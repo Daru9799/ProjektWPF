@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 using ProjektWPF.Core;
 using ProjektWPF.Data;
 using ProjektWPF.Models;
-
-using System.Windows.Threading;
 using System.Windows.Input;
-using System.Web;
 
 namespace ProjektWPF.ViewModels
 {
@@ -17,56 +14,36 @@ namespace ProjektWPF.ViewModels
     {
         private WorkoutPlan workoutPlan;
         private List<WorkoutExercisePreview> exercisesList;
-        private DispatcherTimer timer;
-        private DateTime TimeStart;
+
+        private PersonalTimer exerciseTimer;
         private WorkoutExercisePreview currentExercise;
         private int currentExerciseIndex;
         private string gifPath;
         private string nextExerciseName;
         private string previousExerciseName;
         private string exercisesCounter;
+        private string timerButtonText;
 
         public SessionViewModel(WorkoutPlan wp)
         {
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += new EventHandler(UpdateTimer);
-
             this.workoutPlan = wp;
             ExercisesList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
+            exerciseTimer = new PersonalTimer();
+            exerciseTimer.Tick += ExerciseTimer_Tick;
+            exerciseTimer.TimerFinished += ExerciseTimer_TimerFinished;
+            TimerButtonText = "Start";
             SetValues(ExercisesList);
-
         }
-        
-
-      
 
         public List<WorkoutExercisePreview> ExercisesList
         {
             get { return exercisesList; }
-            set { 
-                exercisesList = value; 
-                OnPropertyChanged();
-            }
-        }
-
-        private void UpdateTimer(object sender, EventArgs e) // Funkcja która jest wykonywana co Tick timera 
-        {
-            TimeSpan tmpTime = System.DateTime.Now - TimeStart;
-            SolvingTime = tmpTime.ToString(@"hh\:mm\:ss");
-        }
-
-        private string solvingTime; //Zmienna odpowiedzialna za wyświetlanie czasu timera
-        public string SolvingTime 
-        {
-            get { return solvingTime; }
             set
             {
-                solvingTime = value;
+                exercisesList = value;
                 OnPropertyChanged();
             }
         }
-
 
         public WorkoutExercisePreview CurrentExercise
         {
@@ -86,20 +63,20 @@ namespace ProjektWPF.ViewModels
             get { return gifPath; }
             set
             {
-                if(gifPath != value)
+                if (gifPath != value)
                 {
                     gifPath = value;
                     OnPropertyChanged(nameof(GifPath));
                 }
             }
-
         }
 
         public string NextExerciseName
         {
             get { return nextExerciseName; }
-            set { 
-                if(nextExerciseName != value)
+            set
+            {
+                if (nextExerciseName != value)
                 {
                     nextExerciseName = value;
                     OnPropertyChanged(nameof(NextExerciseName));
@@ -112,7 +89,7 @@ namespace ProjektWPF.ViewModels
             get { return previousExerciseName; }
             set
             {
-                if(previousExerciseName != value)
+                if (previousExerciseName != value)
                 {
                     previousExerciseName = value;
                     OnPropertyChanged(nameof(CurrentExerciseName));
@@ -125,7 +102,7 @@ namespace ProjektWPF.ViewModels
             get { return exercisesCounter; }
             set
             {
-                if(exercisesCounter != value)
+                if (exercisesCounter != value)
                 {
                     exercisesCounter = value;
                     OnPropertyChanged(nameof(ExercisesCounter));
@@ -133,14 +110,25 @@ namespace ProjektWPF.ViewModels
             }
         }
 
+        public string FormattedTime
+        {
+            get { return exerciseTimer.FormattedTime; }
+        }
 
+        public string TimerButtonText
+        {
+            get { return timerButtonText; }
+            set
+            {
+                if (timerButtonText != value)
+                {
+                    timerButtonText = value;
+                    OnPropertyChanged(nameof(TimerButtonText));
+                }
+            }
+        }
 
-
-
-
-
-
-        private ICommand nextExercise=null;
+        private ICommand nextExercise = null;
 
         public ICommand NextExercise
         {
@@ -148,42 +136,77 @@ namespace ProjektWPF.ViewModels
             {
                 if (nextExercise == null)
                 {
-                    nextExercise = new RelayCommand(arg =>{ Next(); },null) ;
+                    nextExercise = new RelayCommand(arg => { Next(); }, null);
                 }
                 return nextExercise;
             }
         }
 
+        private ICommand toggleTimerCommand = null;
+
+        public ICommand ToggleTimerCommand
+        {
+            get
+            {
+                if (toggleTimerCommand == null)
+                {
+                    toggleTimerCommand = new RelayCommand(arg => { ToggleTimer(); }, null);
+                }
+                return toggleTimerCommand;
+            }
+        }
+
         private void Next()
         {
-            if (currentExerciseIndex<exercisesList.Count-1)
+            if (currentExerciseIndex < exercisesList.Count - 1)
             {
-
+                currentExerciseIndex++;
+                SetValues(exercisesList);
+                RestartTimer();
             }
         }
 
         private void SetValues(List<WorkoutExercisePreview> list)
         {
-            CurrentExercise = list[0];
-            CurrentExerciseName = list[0].Name;
-            currentExerciseIndex = 0;
-            if(list.Count > 1)
-            {
-                NextExerciseName = list[1].Name;
-            }
-            GifPath = list[0].GifPath;
-            ExercisesCounter = $"{currentExerciseIndex+1}/{ExercisesList.Count}";
+            CurrentExercise = list[currentExerciseIndex];
+            CurrentExerciseName = list[currentExerciseIndex].Name;
 
+            if (list.Count > currentExerciseIndex + 1)
+            {
+                NextExerciseName ="Następne:\n"+ list[currentExerciseIndex + 1].Name;
+            }
+            else
+            {
+                NextExerciseName = "Ostatnie!";
+            }
+
+            GifPath = list[currentExerciseIndex].GifPath;
+            ExercisesCounter = $"{currentExerciseIndex + 1}/{ExercisesList.Count}";
+
+            RestartTimer();
         }
 
 
+        private void RestartTimer()
+        {
+            exerciseTimer.Restart(CurrentExercise.AverageTime);
+            TimerButtonText = "Start";
+        }
 
+        private void ToggleTimer()
+        {
+            exerciseTimer.Toggle();
+            TimerButtonText = exerciseTimer.IsRunning ? "Stop" : "Start";
+        }
 
-     
+        private void ExerciseTimer_Tick(object sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(FormattedTime));
+        }
 
-
-
-
-
+        private void ExerciseTimer_TimerFinished(object sender, EventArgs e)
+        {
+            Next();
+        }
     }
 }
