@@ -69,9 +69,9 @@
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Margin="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}">
+                                    <Border Margin="10">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Border CornerRadius="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}" BorderThickness="1">
+                                            <Border CornerRadius="10" BorderThickness="1">
                                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                                     <Border CornerRadius="10" Background="#C02A629A" Margin="10">
                                                         <StackPanel Margin="10" HorizontalAlignment="Center" Width="200" Height="100">

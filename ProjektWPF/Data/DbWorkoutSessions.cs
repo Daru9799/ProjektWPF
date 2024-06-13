@@ -18,14 +18,6 @@ namespace ProjektWPF.Data
                 return db.workout_sessions.ToList();
             }
         }
-        //Odbyte treningi filtrujac po dacie
-        public static List<WorkoutSession> GetWorkoutSessionsWithDateRange(int? userId, DateTime date1, DateTime date2)
-        {
-            using (var db = new MyDbContext())
-            {
-                return db.workout_sessions.Where(s => s.UserId == userId && s.Date >= date1 && s.Date <= date2).ToList();
-            }
-        }
 
         //Ilosc treningow w ostatnim tygodniu
         public static int CountTrainingsLastWeek(int? userId)
@@ -84,6 +76,19 @@ namespace ProjektWPF.Data
                FROM workout_sessions AS s
                JOIN workout_plans AS p ON s.plan_id = p.plan_id
                WHERE s.user_id = {0} order by s.date DESC", userId).ToList();
+            }
+        }
+
+        //Odbyte treningi filtrujac po dacie
+        public static List<WorkoutSessionDetails> GetWorkoutSessionsWithDateRange(int? userId, DateTime date1, DateTime date2)
+        {
+            using (var db = new MyDbContext())
+            {
+                return db.Database.SqlQueryRaw<WorkoutSessionDetails>(
+                    @"SELECT p.name, s.date, s.time_spent, s.calories_burned
+               FROM workout_sessions AS s
+               JOIN workout_plans AS p ON s.plan_id = p.plan_id
+               WHERE s.user_id = {0} AND s.date >= {1} AND s.date <= {2} order by s.date DESC", userId, date1, date2).ToList();
             }
         }
     }

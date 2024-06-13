@@ -21,9 +21,9 @@
     </UserControl.Resources>
     <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="15*"/>
                 <RowDefinition Height="5*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="1.8*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
@@ -35,9 +35,26 @@
             <Image Source="/Style/Img/afterWorkout.jpg" Stretch="UniformToFill" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
             
             <!-- Nagłówek "ODBYTE TRENINGI" -->
-            <TextBlock Margin="40,25,0,5"  FontSize="65" Grid.ColumnSpan="3" Text="Odbyte Treningi" Foreground="white"/>
+            <TextBlock Margin="40,15,0,5"  FontSize="65" Grid.ColumnSpan="3" Text="Odbyte Treningi" Foreground="white"/>
 
-            <!-- Border z przeźroczystym tłem -->
+            <Grid Grid.Column="1" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="10" Background="#C02A629A" Margin="10,10,10,10" Grid.ColumnSpan="3"></Border>
+                <DatePicker Tag="Data od" Style="{StaticResource DatePickerStyle}" Background="White" Grid.Column="0" Margin="20,0,20,0" Height="50" VerticalAlignment="Center" FontSize="22" SelectedDate="{Binding Path=Date1, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                <DatePicker Tag="Data do" Style="{StaticResource DatePickerStyle}" Background="White" Grid.Column="1" Margin="20,0,20,0" Height="50" VerticalAlignment="Center" FontSize="22" SelectedDate="{Binding Path=Date2, Mode=TwoWay, Converter={StaticResource EmptyStringToNullConverter}, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                <StackPanel Grid.Column="2">
+                    <Button Style="{StaticResource GreenButtonStyle}"  Margin="10,20,20,5" Width="180" Height="50" Content="Filtruj" FontSize="30" Command="{Binding FilterClick}"></Button>
+                    <Button Style="{StaticResource OrangeButtonStyle}" Margin="10,5,20,20" Width="180" Height="50" Content="Usuń Filtr" FontSize="30" Command="{Binding DeleteFilterClick}"></Button>
+
+                </StackPanel>
+
+            </Grid>
+
+        <!-- Border z przeźroczystym tłem -->
             <Border Background="Transparent" CornerRadius="40" Margin="10,10,10,10" Grid.Row="1" Grid.Column="1">
                 <!-- Lista treningów -->
             <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -72,9 +89,9 @@
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Margin="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}">
+                                    <Border Margin="10">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Border CornerRadius="10" BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}" BorderThickness="1">
+                                            <Border CornerRadius="10" BorderThickness="1">
                                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                                     <Border CornerRadius="10" Background="#C02A629A" Margin="10">
                                                         <StackPanel Margin="10" HorizontalAlignment="Center" Width="200" Height="100">
