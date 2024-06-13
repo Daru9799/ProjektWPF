@@ -67,38 +67,24 @@ namespace ProjektWPF.Data
             }
         }
 
-
-        public static List<WorkoutSession> GetUserSessions(int? userId)
-        {
-            using (var db = new MyDbContext())
-            {
-                var UserList = db.workout_sessions.Where(s => s.UserId == userId).OrderByDescending(up => up.Date).ToList();
-                return UserList;
-            }
-        }
-
-        //public static List<WorkoutSessionDetailsDto> GetWorkoutSessionsWithPlanDetails()
+        //public static List<WorkoutSession> GetUserSessions(int? userId)
         //{
         //    using (var db = new MyDbContext())
         //    {
-        //        string query = @"
-        //    SELECT p.name, s.date, s.time_spent, s.calories_burned
-        //    FROM workout_sessions AS s
-        //    JOIN workout_plans AS p ON s.plan_id = p.plan_id;
-        //";
-
-        //        return db.Database.SqlQuery<WorkoutSessionDetailsDto>(query).ToList();
+        //        var UserList = db.workout_sessions.Where(s => s.UserId == userId).OrderByDescending(up => up.Date).ToList();
+        //        return UserList;
         //    }
-        
-
-
-        //public class WorkoutSessionDetailsDto
-        //{
-        //    public string PlanName { get; set; }
-        //    public DateTime Date { get; set; }
-        //    public int TimeSpent { get; set; }
-        //    public int CaloriesBurned { get; set; }
         //}
-
+        public static List<WorkoutSessionDetails> GetUserSessions(int? userId)
+        {
+            using (var db = new MyDbContext())
+            {
+                return db.Database.SqlQueryRaw<WorkoutSessionDetails>(
+                    @"SELECT p.name, s.date, s.time_spent, s.calories_burned
+               FROM workout_sessions AS s
+               JOIN workout_plans AS p ON s.plan_id = p.plan_id
+               WHERE s.user_id = {0}", userId).ToList();
+            }
+        }
     }
 }

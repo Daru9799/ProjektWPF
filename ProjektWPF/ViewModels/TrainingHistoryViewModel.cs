@@ -12,7 +12,7 @@ namespace ProjektWPF.ViewModels
     public  class TrainingHistoryViewModel : ViewModelBase
     {
         private int? _userId;
-        private List<WorkoutSession> sessionsList;
+        private List<WorkoutSessionDetails> sessionsList;
 
         public TrainingHistoryViewModel() {}
 
@@ -29,7 +29,7 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
-        public List<WorkoutSession> SessionsList
+        public List<WorkoutSessionDetails> SessionsList
         {
             get { return sessionsList; }
             set
