@@ -83,7 +83,7 @@ namespace ProjektWPF.Data
                     @"SELECT p.name, s.date, s.time_spent, s.calories_burned
                FROM workout_sessions AS s
                JOIN workout_plans AS p ON s.plan_id = p.plan_id
-               WHERE s.user_id = {0}", userId).ToList();
+               WHERE s.user_id = {0} order by s.date DESC", userId).ToList();
             }
         }
     }
