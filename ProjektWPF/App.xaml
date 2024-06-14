@@ -55,6 +55,9 @@
         <DataTemplate DataType="{x:Type viewModel:TrainingHistoryViewModel}">
             <view:TrainingHistoryPanel/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ConnectionErrorViewModel}">
+            <view:ConnectionErrorPanel/>
+        </DataTemplate>
 
 
         <Style TargetType="TextBlock">
