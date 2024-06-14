@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.TextFormatting;
 using ProjektWPF.Core;
@@ -18,7 +19,8 @@ namespace ProjektWPF.ViewModels
     {
         MainViewModel mainViewModel;
         private ObservableCollection<WorkoutExercisePreview> workoutExercisesPreviewList;
-        private List<Exercise> exercisesList;
+        private ObservableCollection<Exercise> exercisesList;
+        //public ObservableCollection<Exercise> FilteredExercises { get; set; }  // Binding listy ćiwczeń jest do tego teraz !!!!!!!!!!!!!!!!!!!
         private Exercise selectedExercise;
         private WorkoutExercisePreview selectedWorkoutExercise;
         private string planSumUpText;
@@ -36,8 +38,11 @@ namespace ProjektWPF.ViewModels
         public WorkoutMenageExercisesViewModel(MainViewModel mainViewModel)
         {
             this.mainViewModel = mainViewModel;
-            ExercisesList = DbExercises.GetExercises();
-            ExercisesList = ExercisesList.OrderBy(x => x.Name).ToList(); // Sortowanie ćwiczeń Alfabetycznie po Nazwie
+
+            ExercisesList = new ObservableCollection<Exercise>(DbExercises.GetExercises().OrderBy(x => x.Name));
+            FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
+            DiffLevelCheckBoxList = new List<CheckBox>();
+            BodyPartsCheckBoxList = new List<CheckBox>();
 
             ReturnToWorkoutPlansCommand = new RelayCommand(execute => { ReturnToWorkoutPlans(); }, canExecute => { return true; });
             SaveExercisesChangesCommand = new RelayCommand(execute => { SaveExerciseChanges(); }, canExecute => { return true; });
@@ -76,12 +81,15 @@ namespace ProjektWPF.ViewModels
 
         public void LoadWorkoutExercises(WorkoutPlan wp)
         {
+
             SelectedWorkout = wp;
             SelectedExercise = null;
             SelectedWorkoutExercise = null;
             DurationValue = 0;
             var tmpList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
             WorkoutExercisesPreviewList = new ObservableCollection<WorkoutExercisePreview>(tmpList);
+            FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
+            PopulateComboBox();
             UpdatePlanSumUpText();
         }
 
@@ -185,7 +193,7 @@ namespace ProjektWPF.ViewModels
             }
         }
 
-        public List<Exercise> ExercisesList
+        public ObservableCollection<Exercise> ExercisesList
         {
             get { return exercisesList; }
             set 
@@ -240,5 +248,120 @@ namespace ProjektWPF.ViewModels
         }
 
 
+        private List<CheckBox> diffLevelCheckBoxList;
+        public List<CheckBox> DiffLevelCheckBoxList
+        {
+            get { return diffLevelCheckBoxList; }
+            set 
+            { 
+                diffLevelCheckBoxList = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        private List<CheckBox> bodyPartsCheckBoxList;
+        public List<CheckBox> BodyPartsCheckBoxList
+        {
+            get { return bodyPartsCheckBoxList; }
+            set 
+            { 
+                bodyPartsCheckBoxList = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public void PopulateComboBox()
+        {
+            DiffLevelCheckBoxList.Clear();
+            BodyPartsCheckBoxList.Clear();
+
+            string[] diffLevelsText = { "Łatwy", "Średni", "Trudny" };
+            foreach (var el in diffLevelsText)
+            {
+                CheckBox tmpCheckBox = new CheckBox();
+                tmpCheckBox.Content = el;
+                tmpCheckBox.Checked += (s, e) => FilterExercises();
+                tmpCheckBox.Unchecked += (s, e) => FilterExercises();
+                DiffLevelCheckBoxList.Add(tmpCheckBox);
+            }
+
+            string[] bodyPartsText = { "Całe ciało", "Górna część ciała", "Dolna część ciała", "Ramiona",
+                                        "Klatka piersiowa", "Plecy", "Barki", "Nogi", "Pośladki", "Mięśnie brzucha" };
+            foreach (var el in bodyPartsText)
+            {
+                CheckBox tmpCheckBox = new CheckBox();
+                tmpCheckBox.Content = el;
+                tmpCheckBox.Checked += (s, e) => FilterExercises();
+                tmpCheckBox.Unchecked += (s, e) => FilterExercises();
+                BodyPartsCheckBoxList.Add(tmpCheckBox);
+            }
+
+        }
+
+
+        private ObservableCollection<Exercise> filteredExercises;
+
+        public ObservableCollection<Exercise> FilteredExercises
+        {
+            get { return filteredExercises; }
+            set 
+            { 
+                filteredExercises = value; 
+                OnPropertyChanged();
+            }
+        }
+
+
+
+        private void FilterExercises()
+        {
+            var selectedLevels = DiffLevelCheckBoxList
+                                .Where(cb => cb.IsChecked == true)
+                                .Select(cb => cb.Content.ToString())
+                                .ToList();
+
+            var selectedBodyParts =  BodyPartsCheckBoxList
+                                    .Where(cb => cb.IsChecked == true)
+                                    .Select(cb => cb.Content.ToString())
+                                    .ToList();
+
+            int countCheckedLevels = DiffLevelCheckBoxList.Where(cb => cb.IsChecked == true).Count();
+            int countCheckedBodyParts= BodyPartsCheckBoxList.Where(cb => cb.IsChecked == true).Count();
+
+            if (countCheckedLevels == 0 && countCheckedBodyParts == 0)
+            {
+                FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
+            }
+            else if(countCheckedLevels > 0 && countCheckedBodyParts == 0)
+            {
+                var filtered = ExercisesList.Where(e => selectedLevels.Contains(e.DifficultyLevel)).ToList();
+
+                FilteredExercises.Clear();
+                foreach (var exercise in filtered)
+                {
+                    FilteredExercises.Add(exercise);
+                }
+            }
+            else if(countCheckedLevels == 0 && countCheckedBodyParts > 0)
+            {
+                var filtered = ExercisesList.Where(e => selectedBodyParts.Contains(e.BodyPart)).ToList();
+
+                FilteredExercises.Clear();
+                foreach (var exercise in filtered)
+                {
+                    FilteredExercises.Add(exercise);
+                }
+            }
+            else
+            {
+                var filtered = ExercisesList.Where(e => (selectedLevels.Contains(e.DifficultyLevel) && selectedBodyParts.Contains(e.BodyPart)) ).ToList();
+
+                FilteredExercises.Clear();
+                foreach (var exercise in filtered)
+                {
+                    FilteredExercises.Add(exercise);
+                }
+            }
+        }
     }
 }
