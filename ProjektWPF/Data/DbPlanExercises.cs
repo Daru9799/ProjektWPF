@@ -30,6 +30,20 @@ namespace ProjektWPF.Data
             }
         }
 
+        public static void DeleteWorkoutExercises(int workoutID)
+        {
+            using (var db = new MyDbContext())
+            {
+                var workoutsToDelete = db.plan_exercises.Where(w => w.PlanId == workoutID).ToList();
+                foreach (var w in workoutsToDelete)
+                {
+                    db.plan_exercises.Remove(w);
+                }
+                db.SaveChanges();
+
+            }
+        }
+
         /*public static void DeleteWorkoutExercise(WorkoutExercisePreview wep)
         {
             using (var db = new MyDbContext())

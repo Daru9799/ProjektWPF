@@ -92,8 +92,24 @@ namespace ProjektWPF.ViewModels
             var result = MessageBox.Show($"Jesteś pewny że chcesz usunąć plan {selectedWorkoutPlan.Name}?", "Ostrzeżenie", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
-                DbWorkoutPlans.DeleteWorkoutPlan(SelectedWorkoutPlan);
-                Update(); // odświerzenie widoku Planów
+                try
+                {
+                    DbWorkoutPlans.DeleteWorkoutPlan(SelectedWorkoutPlan);
+                    DbPlanExercises.DeleteWorkoutExercises(SelectedWorkoutPlan.PlanId);
+                    Update(); // odświerzenie widoku Planów
+                }
+                catch (Exception ex)
+                {
+                    var result2 = MessageBox.Show($"Usunięcie tego planu usunie Sesje Treningowe z nim związane. Czy jesteś pewien, że chcesz usunąć ten plan?", "Ostrzeżenie", MessageBoxButton.YesNo, MessageBoxImage.Stop);
+                    if(result2 == MessageBoxResult.Yes)
+                    {
+                        DbWorkoutSessions.DeleteWorkoutSessions(SelectedWorkoutPlan.PlanId);
+                        DbPlanExercises.DeleteWorkoutExercises(SelectedWorkoutPlan.PlanId);
+                        DbWorkoutPlans.DeleteWorkoutPlan(SelectedWorkoutPlan);
+                        Update(); // odświerzenie widoku Planów
+                        UserSession.CurrentUserTrainingAdded += 1;
+                    }
+                }
             }
         }
 

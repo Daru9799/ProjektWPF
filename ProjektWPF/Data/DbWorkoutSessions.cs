@@ -28,6 +28,19 @@ namespace ProjektWPF.Data
                 db.SaveChanges();
             }
         }
+        public static void DeleteWorkoutSessions(int workoutID) // usuwanie wszystkich sesji powiązanych z planem treningowym
+        {
+            using (var db = new MyDbContext())
+            {
+                var workoutsToDelete = db.workout_sessions.Where(w => w.PlanId == workoutID).ToList();
+                foreach (var w in workoutsToDelete)
+                {
+                    db.workout_sessions.Remove(w);
+                }
+                db.SaveChanges();
+            }
+        }
+
 
         //Ilosc treningow w ostatnim tygodniu
         public static int CountTrainingsLastWeek(int? userId)

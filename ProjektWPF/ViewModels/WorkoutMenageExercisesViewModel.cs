@@ -208,14 +208,17 @@ namespace ProjektWPF.ViewModels
             get { return durationValue; }
             set 
             {
-                durationValue = value;
-                if (SelectedWorkoutExercise != null)
+                if (value > 0) // żeby czas nie mógł być ujemny ani zerowy
                 {
-                    SelectedWorkoutExercise.Duration = durationValue;
-                    UpdatePlanSumUpText(); // <----
+                    durationValue = value;
+                    if (SelectedWorkoutExercise != null)
+                    {
+                        SelectedWorkoutExercise.Duration = durationValue;
+                        UpdatePlanSumUpText();
 
+                    }
+                    OnPropertyChanged();
                 }
-                OnPropertyChanged();
             }
         }
 
@@ -310,8 +313,6 @@ namespace ProjektWPF.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
 
         private void FilterExercises()
         {
