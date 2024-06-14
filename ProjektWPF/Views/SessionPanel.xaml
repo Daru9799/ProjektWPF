@@ -30,7 +30,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
-                
+
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Sesja ćwiczeń" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
@@ -91,24 +91,25 @@
                         </Grid.RowDefinitions>
 
 
-                      
-                            <Border Background="Black" CornerRadius="45" >
+
+                        <Border Background="Black" CornerRadius="45" >
 
                             <TextBlock Text="{Binding CurrentExerciseName}" Foreground="White" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                         </Border>
 
 
-                            <Grid Grid.Row="1">
+                        <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5*"/>
                                 <ColumnDefinition Width="5*"/>
                             </Grid.ColumnDefinitions>
 
-
+                            <TextBlock   Text="{Binding Calories}" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30"/>
+                            <TextBlock Grid.Column="1"  Text="{Binding TotalTimeText}" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30"/>
                             <TextBlock Grid.Column="0" Text="{Binding ExercisesCounter}" FontSize="25" Margin="20,5,0,0"/>
                             <Image Margin="20,30,20,5" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
-                            <TextBlock Text="{Binding FormattedTime}" FontSize="80" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding TextColor}"/>
+                            <TextBlock Text="{Binding FormattedTime}" Visibility="{Binding IsTimerVisible}" FontSize="80" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding TextColor}"/>
 
                             <!--gif:ImageBehavior.AnimatedSource="{Binding GifPath1}"-->
 
@@ -144,9 +145,9 @@
                     <ColumnDefinition/>
 
                 </Grid.ColumnDefinitions>
-                <Button Content="Następne ćwiczenie" 
-                    Command="{Binding  NextExercise}"
-                    IsEnabled="{Binding IsNextExerciseAvailable}"
+                <Button Content="{Binding NextButtonText}" 
+                    Command="{Binding NextExercise}" 
+                    IsEnabled="{Binding IsNextButtonEnabled}"
                     Grid.Column="0" 
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch"  Style="{StaticResource GreenButtonStyle}"  Margin="5,5,5,5" FontSize="25"/>

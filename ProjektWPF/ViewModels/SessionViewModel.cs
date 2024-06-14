@@ -18,7 +18,7 @@ namespace ProjektWPF.ViewModels
     {
         private WorkoutPlan workoutPlan;
         private List<WorkoutExercisePreview> exercisesList;
-        private  MainViewModel mainViewModel;
+        private MainViewModel mainViewModel;
         private PersonalTimer exerciseTimer;
         private WorkoutExercisePreview currentExercise;
         private int currentExerciseIndex;
@@ -27,8 +27,12 @@ namespace ProjektWPF.ViewModels
         private string previousExerciseName;
         private string exercisesCounter;
         private string timerButtonText;
+        private int? calories = 0;
+        private string? caloriesText;
+        private int? totalTime = 0;
+        private string? totalTimeText;
 
-        public SessionViewModel(WorkoutPlan wp,MainViewModel mv)
+        public SessionViewModel(WorkoutPlan wp, MainViewModel mv)
         {
             mainViewModel = mv;
             this.workoutPlan = wp;
@@ -60,6 +64,32 @@ namespace ProjektWPF.ViewModels
                     currentExercise = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+
+        public string TotalTimeText
+        {
+            get { return totalTimeText; }
+            set
+            {
+                if (value != totalTimeText)
+                {
+                    totalTimeText = value;
+                    OnPropertyChanged(nameof(TotalTimeText));
+                }
+            }
+        }
+
+        public string Calories
+        {
+            get
+            {
+                return caloriesText;
+            }
+            set
+            {
+                caloriesText = value;
+                OnPropertyChanged(nameof(Calories));
             }
         }
 
@@ -117,8 +147,12 @@ namespace ProjektWPF.ViewModels
 
         public string FormattedTime
         {
-            get { return exerciseTimer.FormattedTime; }
+            get
+            {
+                return IsTimerVisible ? exerciseTimer.FormattedTime : "";
+            }
         }
+
 
         public string TimerButtonText
         {
@@ -133,22 +167,7 @@ namespace ProjektWPF.ViewModels
             }
         }
 
-        private bool isNextExerciseAvailable;
-        public bool IsNextExerciseAvailable
-        {
-            get { return isNextExerciseAvailable; }
-            set
-            {
-                if (isNextExerciseAvailable != value)
-                {
-                    isNextExerciseAvailable = value;
-                    OnPropertyChanged(nameof(IsNextExerciseAvailable));
-                }
-            }
-        }
-
-
-            private bool isStartStop;
+        private bool isStartStop;
         public bool IsStartStop
         {
             get { return isStartStop; }
@@ -162,8 +181,49 @@ namespace ProjektWPF.ViewModels
             }
         }
 
+        private bool isTimerVisible = true;
 
+        public bool IsTimerVisible
+        {
+            get { return isTimerVisible; }
+            set
+            {
+                if (isTimerVisible != value)
+                {
+                    isTimerVisible = value;
+                    OnPropertyChanged(nameof(IsTimerVisible));
+                    OnPropertyChanged(nameof(FormattedTime));
+                }
+            }
+        }
 
+        private string nextButtonText = "Następne ćwiczenie";
+        public string NextButtonText
+        {
+            get { return nextButtonText; }
+            set
+            {
+                if (nextButtonText != value)
+                {
+                    nextButtonText = value;
+                    OnPropertyChanged(nameof(NextButtonText));
+                }
+            }
+        }
+
+        private bool isNextButtonEnabled = true;
+        public bool IsNextButtonEnabled
+        {
+            get { return isNextButtonEnabled; }
+            set
+            {
+                if (isNextButtonEnabled != value)
+                {
+                    isNextButtonEnabled = value;
+                    OnPropertyChanged(nameof(IsNextButtonEnabled));
+                }
+            }
+        }
         #endregion
 
         private ICommand nextExercise = null;
@@ -174,11 +234,12 @@ namespace ProjektWPF.ViewModels
             {
                 if (nextExercise == null)
                 {
-                    nextExercise = new RelayCommand(arg => { Next(); }, null);
+                    nextExercise = new RelayCommand(arg => { Next(); }, arg => IsNextButtonEnabled);
                 }
                 return nextExercise;
             }
         }
+
 
         private ICommand toggleTimerCommand = null;
 
@@ -199,9 +260,9 @@ namespace ProjektWPF.ViewModels
         {
             get
             {
-                if(goBack == null)
+                if (goBack == null)
                 {
-                    goBack=new RelayCommand(arg => { ChangeView(); },null);
+                    goBack = new RelayCommand(arg => { ChangeView(); }, null);
                 }
                 return goBack;
             }
@@ -219,6 +280,10 @@ namespace ProjektWPF.ViewModels
             SoundPlayer player = new SoundPlayer("Style\\MP3\\finishedExercise.wav");
             player.Load();
             player.Play();
+
+            calories += CalculateCalories();
+            totalTime += CalulateTime();
+
             if (currentExerciseIndex < exercisesList.Count - 1)
             {
                 currentExerciseIndex++;
@@ -228,33 +293,39 @@ namespace ProjektWPF.ViewModels
             else
             {
                 IsStartStop = false;
+                ShowResults();
+                IsNextButtonEnabled = false;
             }
 
+            Console.WriteLine(calories);
+            Console.WriteLine(totalTime);
         }
+
 
         private void SetValues(List<WorkoutExercisePreview> list)
         {
             CurrentExercise = list[currentExerciseIndex];
             CurrentExerciseName = list[currentExerciseIndex].Name;
             IsStartStop = true;
+            IsTimerVisible = true;
 
             if (list.Count > currentExerciseIndex + 1)
             {
-                NextExerciseName ="Następne:\n"+ list[currentExerciseIndex + 1].Name;
-                IsNextExerciseAvailable = true;
-                
+                NextExerciseName = "Następne:\n" + list[currentExerciseIndex + 1].Name;
             }
             else
             {
                 if (list.Count == 1)
                 {
                     NextExerciseName = "";
+
                 }
                 else
                 {
                     NextExerciseName = "Ostatnie!";
-                    IsNextExerciseAvailable = false;
+                    // IsNextExerciseAvailable = false;
                 }
+                NextButtonText = "Podsumowanie";
             }
 
             GifPath = list[currentExerciseIndex].GifPath;
@@ -274,10 +345,10 @@ namespace ProjektWPF.ViewModels
             exerciseTimer.Toggle();
             TimerButtonText = exerciseTimer.IsRunning ? "Stop" : "Start";
 
-                if (exerciseTimer.FormattedTime == "00:00")
-                {
-                    Next();
-                }
+            if (exerciseTimer.FormattedTime == "00:00")
+            {
+                Next();
+            }
         }
 
         private void ExerciseTimer_Tick(object sender, EventArgs e)
@@ -289,5 +360,40 @@ namespace ProjektWPF.ViewModels
         {
             Next();
         }
+
+
+
+        private int? CalculateCalories()
+        {
+            int t = (int)Math.Round((decimal)((CurrentExercise.Duration * 60 - exerciseTimer.TimeInSeconds) / 60));
+            return CurrentExercise.CaloriesBurnedPerMinute * t;
+        }
+
+        private int? CalulateTime()
+        {
+            return (int)Math.Round((decimal)((CurrentExercise.Duration * 60 - exerciseTimer.TimeInSeconds) / 60));
+        }
+
+
+        private void ShowResults()
+        {
+            IsTimerVisible = false;
+            GifPath = "";
+            NextExerciseName = "";
+            CurrentExerciseName = "Podsumowanie";
+            ExercisesCounter = "";
+            TotalTimeText = $"Czas ćwiczeń: {totalTime} min";
+            Calories = $"Spalone kalorie: {calories} kcal";
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }
