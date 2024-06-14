@@ -27,6 +27,7 @@ namespace ProjektWPF.ViewModels
         public MeasurementViewModel()
         {
             UserSession.UserIdChanged += OnUserIdChanged;
+            UserSession.UserWeightChanged += OnUserWeightChanged;
         }
 
         private void OnUserIdChanged(int? newUserId)
@@ -114,6 +115,16 @@ namespace ProjektWPF.ViewModels
             this.ProgressesList = DbUserProgress.GetAllProgressForUser(UserSession.CurrentUserId);
             this.Date1 = null;
             this.Date2 = null;
+        }
+
+        private void OnUserWeightChanged(bool? x)
+        {
+            if (UserSession.CurrentUserId != null)
+            {
+                this.ProgressesList = DbUserProgress.GetAllProgressForUser(UserSession.CurrentUserId);
+                this.Date1 = null;
+                this.Date2 = null;
+            }
         }
     }
 }

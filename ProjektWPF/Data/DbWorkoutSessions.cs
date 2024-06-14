@@ -18,6 +18,16 @@ namespace ProjektWPF.Data
                 return db.workout_sessions.ToList();
             }
         }
+        //Dodawanie nowej sesji do bazy
+        public static void AddWorkoutSession(int userId, int planId, DateTime date, int timeSpent, int burnedCalories)
+        {
+            using (var db = new MyDbContext())
+            {
+                WorkoutSession ws = new WorkoutSession(0, userId, planId, date, timeSpent, burnedCalories);
+                db.workout_sessions.Add(ws);
+                db.SaveChanges();
+            }
+        }
 
         //Ilosc treningow w ostatnim tygodniu
         public static int CountTrainingsLastWeek(int? userId)

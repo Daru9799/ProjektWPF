@@ -39,5 +39,20 @@ namespace ProjektWPF.Models
                 }
             }
         }
+
+        private static int? _currentUserTrainingAdded;
+        public static event Action<int?> UserTrainingAdded;
+        public static int? CurrentUserTrainingAdded
+        {
+            get => _currentUserTrainingAdded;
+            set
+            {
+                if (_currentUserTrainingAdded != value)
+                {
+                    _currentUserTrainingAdded = value;
+                    UserTrainingAdded?.Invoke(CurrentUserTrainingAdded);
+                }
+            }
+        }
     }
 }

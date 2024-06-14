@@ -81,8 +81,8 @@ namespace ProjektWPF.ViewModels
         private MainViewModel _mainViewModel;
         public ProgressViewModel(MainViewModel mainViewModel)
         {
-            UserSession.UserIdChanged += OnUserIdChanged;
             UserSession.UserWeightChanged += OnUserWeightChanged;
+            UserSession.UserTrainingAdded += OnUserTrainingAdded;
             _mainViewModel = mainViewModel;
         }
 
@@ -135,10 +135,9 @@ namespace ProjektWPF.ViewModels
             }
         }
 
-        private void OnUserIdChanged(int? id)
+        private async void OnUserTrainingAdded(int? x)
         {
-            //Na razie tu ale potem przerzuci sie do aktualizacji po odbytym treningu
-            if (id != null)
+            if (UserSession.CurrentUserId != null)
             {
                 this.WeekStatsText = DbWorkoutSessions.CountTrainingsLastWeek(UserSession.CurrentUserId).ToString();
                 this.MonthStatsText = DbWorkoutSessions.CountTrainingsLastMonth(UserSession.CurrentUserId).ToString();
@@ -202,5 +201,7 @@ namespace ProjektWPF.ViewModels
                 }
             }
         }
+
+        
     }
 }

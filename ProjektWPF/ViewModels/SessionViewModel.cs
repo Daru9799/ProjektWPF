@@ -384,6 +384,11 @@ namespace ProjektWPF.ViewModels
             ExercisesCounter = "";
             TotalTimeText = $"Czas ćwiczeń: {totalTime} min";
             Calories = $"Spalone kalorie: {calories} kcal";
+
+            //Dodawanie odbytej sesji do bazy i wywolanie zdarzenia ktore zaaktualizuje interfejsy  
+            //Nie trzeba nic aktualizowac w profilu z tego poziomu bo ogarniają to już triggery
+            DbWorkoutSessions.AddWorkoutSession(UserSession.CurrentUserId.Value, this.workoutPlan.PlanId, DateTime.Now, totalTime.Value, calories.Value);
+            UserSession.CurrentUserTrainingAdded += 1;
         }
 
 

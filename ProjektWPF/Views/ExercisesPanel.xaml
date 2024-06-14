@@ -115,7 +115,7 @@
                                                             <RowDefinition Height="1*"/>
                                                         </Grid.RowDefinitions>
 
-                                                        <Image Grid.Row="0" Margin="0" Width="240" Height="180" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
+                                                        <Image Style="{StaticResource {x:Type Image}}" Grid.Row="0" Margin="0" Width="240" Height="180" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
 
                                                         <TextBlock Grid.Row="1" Margin="0,0,0,0" Text="{Binding Name}" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Foreground="#2A629A"/>
 

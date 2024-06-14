@@ -20,6 +20,7 @@ namespace ProjektWPF.ViewModels
             _mainViewModel = mainViewModel;
             UserSession.UserIdChanged += OnUserIdChanged;
             UserSession.UserWeightChanged += OnUserWeightChanged;
+            UserSession.UserTrainingAdded += OnUserTrainingAdded;
         }
         private string? _userNameText { get; set; }
         private string? _emailText { get; set; }
@@ -203,11 +204,7 @@ namespace ProjektWPF.ViewModels
                 this.GenderText = ConvertGender(user.Gender);
                 this.HeightText = user.Height + " cm";
                 _mainViewModel.TrainingHistoryVm.UserId = newUserId;
-
-                //Te dane bedzie trzeba jakos inaczej wydobyc gdyz beda ulegac ciaglej aktualizacji ale na razie wstawiam tak
-                this.TotalWorkoutsText = user.TotalWorkouts.ToString();
-                this.TotalCaloriesBurnedText = user.TotalCaloriesBurned + " kcal";
-                this.TotalTimeSpent = user.TotalTimeSpent + " min";
+                
 
                 this.JoinDateText = user.JoinDate.ToString("d");
             }
@@ -219,6 +216,17 @@ namespace ProjektWPF.ViewModels
             if (UserSession.CurrentUserId != null)
             {
                 this.WeightText = user.Weight + " kg";
+            }
+        }
+
+        private async void OnUserTrainingAdded(int? x)
+        {
+            User user = await DbUsers.GetUserFromDb(UserSession.CurrentUserId);
+            if (UserSession.CurrentUserId != null)
+            {
+                this.TotalWorkoutsText = user.TotalWorkouts.ToString();
+                this.TotalCaloriesBurnedText = user.TotalCaloriesBurned + " kcal";
+                this.TotalTimeSpent = user.TotalTimeSpent + " min";
             }
         }
 

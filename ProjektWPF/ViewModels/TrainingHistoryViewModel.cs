@@ -15,7 +15,10 @@ namespace ProjektWPF.ViewModels
         private int? _userId;
         private List<WorkoutSessionDetails> sessionsList;
 
-        public TrainingHistoryViewModel() {}
+        public TrainingHistoryViewModel() 
+        {
+            UserSession.UserTrainingAdded += OnUserTrainingAdded;
+        }
 
         public int? UserId
         {
@@ -112,11 +115,17 @@ namespace ProjektWPF.ViewModels
 
         private void DeleteFilter()
         {
-            this.SessionsList = DbWorkoutSessions.GetUserSessions(_userId);
+            this.SessionsList = DbWorkoutSessions.GetUserSessions(this.UserId);
             this.Date1 = null;
             this.Date2 = null;
         }
 
-
+        private async void OnUserTrainingAdded(int? x)
+        {
+            if (UserSession.CurrentUserId != null)
+            {
+                SessionsList = DbWorkoutSessions.GetUserSessions(this.UserId);
+            }
+        }
     }
 }

@@ -103,6 +103,7 @@ namespace ProjektWPF.ViewModels
                 //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
                 UserSession.CurrentUserId = 1;
                 UserSession.CurrentUserWeight = true;
+                UserSession.CurrentUserTrainingAdded = 0;
 
                 //Testy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //DbWorkoutPlans.UpdateWorkoutData(1); //Działa !

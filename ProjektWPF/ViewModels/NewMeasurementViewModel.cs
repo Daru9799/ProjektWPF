@@ -89,17 +89,6 @@ namespace ProjektWPF.ViewModels
             DbUsers.UpdateWeight(UserSession.CurrentUserId, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")));
             //Dodanie nowego wpisu
             CreateNewMeasurement(UserSession.CurrentUserId);
-
-            //Aktualizacja stanu okien XD
-            if(UserSession.CurrentUserWeight == true)
-            {
-                UserSession.CurrentUserWeight = false;
-            } 
-            else
-            {
-                UserSession.CurrentUserWeight = true;
-            }
-            
             Cancel();
         }
 
@@ -125,6 +114,15 @@ namespace ProjektWPF.ViewModels
             float roundedBodyFat = (float)Math.Round(bodyFat.Value, 1);
             UserProgress newMeasurement = new UserProgress(0, (int)id, DateTime.Now, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")), roundedBodyFat, roundedBmi);
             DbUserProgress.AddMeasurementToDb(newMeasurement);
+            //Aktualizacja stanu okien XD
+            if (UserSession.CurrentUserWeight == true)
+            {
+                UserSession.CurrentUserWeight = false;
+            }
+            else
+            {
+                UserSession.CurrentUserWeight = true;
+            }
         }
 
 
