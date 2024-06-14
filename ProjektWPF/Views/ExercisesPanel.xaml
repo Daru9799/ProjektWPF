@@ -72,28 +72,30 @@
                     <RowDefinition Height="0.2*"/>
                 </Grid.RowDefinitions>
 
-                <Border Background="#FFFFFF" CornerRadius="75" MaxWidth="800" Grid.Column="1" Grid.Row="1">
+                <Border Background="Transparent" CornerRadius="75"  Grid.Column="1" Grid.Row="1">
                     <Grid>
                         
                             <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="6*"/>
-                            <ColumnDefinition Width="0.5*"/>
+                       
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.2*"/>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="0.2*"/>
+                        
                         </Grid.RowDefinitions>
-                        <ScrollViewer  VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1">
+
+                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
                                 <StackPanel Margin="0">
                                     <ListBox x:Name="ListViewProducts"
-                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
                          ItemsSource="{Binding ExercisesList}"
                          SelectedItem="{Binding CurrentExercise, Mode=TwoWay}"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+
                                  
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+
                                  
                          BorderThickness="0"
                          Background="Transparent"
@@ -105,16 +107,23 @@
                                         </ListBox.ItemsPanel>
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <Border Margin="10">
-                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <Border CornerRadius="10" Margin="5">
-                                                            <Border.Effect>
-                                                                <DropShadowEffect ShadowDepth="1"/>
-                                                            </Border.Effect>
-                                                            <Image Margin="10" Width="240" Height="180" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
-                                                        </Border>
-                                                        <TextBlock Margin="0" Text="{Binding Name}" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Foreground="black"/>
-                                                    </StackPanel>
+                                                <Border Margin="10" Background="White" CornerRadius="25" Height="250" Width="270">
+
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="4*"/>
+                                                            <RowDefinition Height="1*"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Image Grid.Row="0" Margin="0" Width="240" Height="180" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
+
+                                                        <TextBlock Grid.Row="1" Margin="0,0,0,0" Text="{Binding Name}" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Foreground="#2A629A"/>
+
+                                                    </Grid>
+
+
+
+
                                                 </Border>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
