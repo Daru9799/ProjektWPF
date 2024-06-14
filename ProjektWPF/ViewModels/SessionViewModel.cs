@@ -241,8 +241,16 @@ namespace ProjektWPF.ViewModels
             }
             else
             {
-                NextExerciseName = "Ostatnie!";
-                IsNextExerciseAvailable = false;
+                if (list.Count == 1)
+                {
+                    NextExerciseName = "";
+                    IsStartStop = true; ;
+                }
+                else
+                {
+                    NextExerciseName = "Ostatnie!";
+                    IsNextExerciseAvailable = false;
+                }
             }
 
             GifPath = list[currentExerciseIndex].GifPath;
@@ -253,7 +261,7 @@ namespace ProjektWPF.ViewModels
 
         private void RestartTimer()
         {
-            exerciseTimer.Restart(CurrentExercise.AverageTime);
+            exerciseTimer.Restart(CurrentExercise.Duration);
             TimerButtonText = "Start";
         }
 
