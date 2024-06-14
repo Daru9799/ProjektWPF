@@ -36,7 +36,7 @@ namespace ProjektWPF.ViewModels
             SessionViewCommand = new RelayCommand(execute => { mainViewModel.CheangeViewToSessionView(selectedWorkoutPlan); }, 
                 canExecute => 
                 {
-                    if (SelectedWorkoutPlan == null) return false;
+                    if ((SelectedWorkoutPlan == null) || (SelectedWorkoutPlanExercises.Count == 0)) return false;
                     else return true;
                 });
 

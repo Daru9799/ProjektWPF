@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 using ProjektWPF.Core;
 using ProjektWPF.Data;
 using ProjektWPF.Models;
@@ -31,6 +32,7 @@ namespace ProjektWPF.ViewModels
         public NewMeasurementViewModel NewMeasurementVm { get; set; }
         public MeasurementViewModel MeasurementVm { get; set; }
         public TrainingHistoryViewModel TrainingHistoryVm { get; set; }
+        public ConnectionErrorViewModel ConnectionErrorVm { get; set; }
 
         // Deklaracja RelayCommand do przycisków -------------------
         public RelayCommand LoginViewCommand { get; set; }
@@ -59,48 +61,56 @@ namespace ProjektWPF.ViewModels
         {
             //Podpięcie śledzenia zmian w ID usera z sesji
             UserSession.UserIdChanged += OnUserIdChanged;
-            
-            LoginVm = new LoginViewModel();
-            RegisterVm = new RegisterViewModel();
-            ProfileVm = new ProfileViewModel(this);
-            ExercisesVm = new ExercisesViewModel(this);
-            WorkoutsVm = new WorkoutsViewModel(this);
-            //SessionVm = new SessionViewModel(null);
-            ProgressVm = new ProgressViewModel(this);
-            WorkoutsAddVm = new WorkoutsAddViewModel(this);
-            WorkoutModifyVm = new WorkoutModifyViewModel(this);
-            WorkoutMenageExercisesVm = new WorkoutMenageExercisesViewModel(this);
-            SelectedExerciseVm = new SelectedExerciseViewModel(this);
-            ProfileEditVm = new ProfileEditViewModel(this);
-            ProfilePasswordVm = new ProfileChangePasswordViewModel(this);
-            NewMeasurementVm = new NewMeasurementViewModel(this);
-            MeasurementVm = new MeasurementViewModel();
-            TrainingHistoryVm = new TrainingHistoryViewModel();
+            ConnectionErrorVm = new ConnectionErrorViewModel();
+            try
+            {
+                LoginVm = new LoginViewModel();
+                RegisterVm = new RegisterViewModel();
+                ProfileVm = new ProfileViewModel(this);
+                ExercisesVm = new ExercisesViewModel(this);
+                WorkoutsVm = new WorkoutsViewModel(this);
+                //SessionVm = new SessionViewModel(null);
+                ProgressVm = new ProgressViewModel(this);
+                WorkoutsAddVm = new WorkoutsAddViewModel(this);
+                WorkoutModifyVm = new WorkoutModifyViewModel(this);
+                WorkoutMenageExercisesVm = new WorkoutMenageExercisesViewModel(this);
+                SelectedExerciseVm = new SelectedExerciseViewModel(this);
+                ProfileEditVm = new ProfileEditViewModel(this);
+                ProfilePasswordVm = new ProfileChangePasswordViewModel(this);
+                NewMeasurementVm = new NewMeasurementViewModel(this);
+                MeasurementVm = new MeasurementViewModel();
+                TrainingHistoryVm = new TrainingHistoryViewModel();
 
 
-            LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
-            RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
-            ProfileViewCommand = new RelayCommand(arg => { CurrentView = ProfileVm; }, null);
-            ExercisesViewCommand = new RelayCommand(arg => { CurrentView = ExercisesVm; }, null);
-            WorkoutsViewCommand = new RelayCommand(arg => { CurrentView = WorkoutsVm; WorkoutsVm.Update(); }, null);
-            ProgressViewCommand = new RelayCommand(arg => { CurrentView = ProgressVm; }, null);
-            MeasurementViewCommand = new RelayCommand(arg => { CurrentView = MeasurementVm; }, null);
-            TrainingHistoryViewCommand = new RelayCommand(arg => { CurrentView = TrainingHistoryVm; }, null);
-            //SessionViewCommand = new RelayCommand(arg => { CurrentView = SessionVm; }, null);
+                LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
+                RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
+                ProfileViewCommand = new RelayCommand(arg => { CurrentView = ProfileVm; }, null);
+                ExercisesViewCommand = new RelayCommand(arg => { CurrentView = ExercisesVm; }, null);
+                WorkoutsViewCommand = new RelayCommand(arg => { CurrentView = WorkoutsVm; WorkoutsVm.Update(); }, null);
+                ProgressViewCommand = new RelayCommand(arg => { CurrentView = ProgressVm; }, null);
+                MeasurementViewCommand = new RelayCommand(arg => { CurrentView = MeasurementVm; }, null);
+                TrainingHistoryViewCommand = new RelayCommand(arg => { CurrentView = TrainingHistoryVm; }, null);
+                //SessionViewCommand = new RelayCommand(arg => { CurrentView = SessionVm; }, null);
 
 
-            //Ustawienie poczatkowego widoku na ekran logowania
-            CurrentView = LoginVm;
-            LoginFrontButton = true;
-            ProfileFrontButton = true;
+                //Ustawienie poczatkowego widoku na ekran logowania
+                CurrentView = LoginVm;
+                LoginFrontButton = true;
+                ProfileFrontButton = true;
 
-            //przed zalogowaniem ustawiam zmienną CurrentUserId na null
-            //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
-            UserSession.CurrentUserId = 1;
-            UserSession.CurrentUserWeight = true;
+                //przed zalogowaniem ustawiam zmienną CurrentUserId na null
+                //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
+                UserSession.CurrentUserId = 1;
+                UserSession.CurrentUserWeight = true;
 
-            //Testy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //DbWorkoutPlans.UpdateWorkoutData(1); //Działa !
+                //Testy !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //DbWorkoutPlans.UpdateWorkoutData(1); //Działa !
+            } 
+            catch(InvalidOperationException ex)
+            {
+                CurrentView = ConnectionErrorVm; //Jesli po uruchomieniu aplikacji serwer nie dziala to przelacza na okno z informacją o tym
+            }
+
         }
 
         //Funkcja reagująca na zamiany w id usera (sprawdza czy jestesmy zalogowani czy nie)
