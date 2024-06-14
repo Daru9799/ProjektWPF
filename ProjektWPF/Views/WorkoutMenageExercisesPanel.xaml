@@ -105,18 +105,30 @@
                 </ListView>
             </ScrollViewer>
 
-
-            <Button Grid.Column="1" 
-                    Grid.Row="5"
-                    Height="50"
-                    Width="200"
-                    Content="Dodaj" 
-                    Command="{Binding AddExerciseToWorkoutCommand}"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="190,5,20,73"
-                    FontSize="27"
-                    Style="{StaticResource GreenButtonStyle}"/>
+            <StackPanel Grid.Column="1" 
+                Grid.Row="5">
+                <Button
+                        Height="50"
+                        Width="200"
+                        Content="Dodaj" 
+                        Command="{Binding AddExerciseToWorkoutCommand}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="190,5,20,10"
+                        FontSize="27"
+                        Style="{StaticResource GreenButtonStyle}"/>
+                <Button
+                        Content="Usuń" 
+                        Height="50"
+                        Width="200"
+                        FontSize="27"
+                        Command="{Binding DeleteExerciseFromWorkoutCommand}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="190,0,20,0"
+                        Style="{StaticResource CancelButtonStyle}"/>
+            </StackPanel>
+            
 
             <StackPanel Grid.Column="2" 
                         Grid.Row="5">
@@ -175,16 +187,7 @@
                     FontSize="30"
                     Width="300"
                     Height="50"/>
-            <Button Grid.Column="1" Grid.Row="5"
-                Content="Usuń" 
-                Height="50"
-                Width="200"
-                FontSize="27"
-                Command="{Binding DeleteExerciseFromWorkoutCommand}"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Margin="190,64,20,14"
-                Style="{StaticResource CancelButtonStyle}"/>
+            
             <ComboBox Grid.Column="1" Grid.Row="5" 
                       HorizontalAlignment="Left" Margin="10,34,0,0"  
                       VerticalAlignment="Top" Width="120"

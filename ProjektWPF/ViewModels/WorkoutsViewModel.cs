@@ -107,6 +107,7 @@ namespace ProjektWPF.ViewModels
                         DbPlanExercises.DeleteWorkoutExercises(SelectedWorkoutPlan.PlanId);
                         DbWorkoutPlans.DeleteWorkoutPlan(SelectedWorkoutPlan);
                         Update(); // odświerzenie widoku Planów
+                        DbUsers.UpdateStats(UserSession.CurrentUserId);
                         UserSession.CurrentUserTrainingAdded += 1;
                     }
                 }
@@ -171,7 +172,5 @@ namespace ProjektWPF.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
     }
 }

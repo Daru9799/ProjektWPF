@@ -183,5 +183,22 @@ namespace ProjektWPF.Data
                 }
             }
         }
+
+        //Aktualizacja statów po usunieciu wielu rekordow w workout_sessions
+        public static void UpdateStats(int? id)
+        {
+            using (var db = new MyDbContext())
+            {
+                var userToUpdate = db.users.FirstOrDefault(u => u.UserId == id);
+                if (userToUpdate != null)
+                {
+                    userToUpdate.TotalWorkouts = db.workout_sessions.Count(ws => ws.UserId == id);
+                    userToUpdate.TotalTimeSpent = db.workout_sessions.Where(ws => ws.UserId == id).Sum(ws => (int)ws.TimeSpent);
+                    userToUpdate.TotalCaloriesBurned = db.workout_sessions.Where(ws => ws.UserId == id).Sum(ws => (int)ws.CaloriesBurned);
+                    db.Entry(userToUpdate).Property(u => u.TotalWorkouts).IsModified = true;
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

@@ -277,10 +277,6 @@ namespace ProjektWPF.ViewModels
 
         private void Next()
         {
-            SoundPlayer player = new SoundPlayer("Style\\MP3\\finishedExercise.wav");
-            player.Load();
-            player.Play();
-
             calories += CalculateCalories();
             totalTime += CalulateTime();
 
