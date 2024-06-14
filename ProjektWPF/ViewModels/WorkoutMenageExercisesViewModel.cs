@@ -24,7 +24,7 @@ namespace ProjektWPF.ViewModels
         private Exercise selectedExercise;
         private WorkoutExercisePreview selectedWorkoutExercise;
         private string planSumUpText;
-        private int durationValue = 0;
+        private int durationValue = 1;
         public WorkoutPlan SelectedWorkout { set; get; }
 
 
