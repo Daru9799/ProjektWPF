@@ -232,19 +232,19 @@ namespace ProjektWPF.ViewModels
         {
             CurrentExercise = list[currentExerciseIndex];
             CurrentExerciseName = list[currentExerciseIndex].Name;
+            IsStartStop = true;
 
             if (list.Count > currentExerciseIndex + 1)
             {
                 NextExerciseName ="Następne:\n"+ list[currentExerciseIndex + 1].Name;
                 IsNextExerciseAvailable = true;
-                IsStartStop = true;
+                
             }
             else
             {
                 if (list.Count == 1)
                 {
                     NextExerciseName = "";
-                    IsStartStop = true; ;
                 }
                 else
                 {
