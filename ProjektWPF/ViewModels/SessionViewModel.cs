@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.IO.Packaging;
 using System.Drawing;
 using System.Web;
+using System.Media;
 
 namespace ProjektWPF.ViewModels
 {
@@ -215,6 +216,9 @@ namespace ProjektWPF.ViewModels
 
         private void Next()
         {
+            SoundPlayer player = new SoundPlayer("Style\\MP3\\finishedExercise.wav");
+            player.Load();
+            player.Play();
             if (currentExerciseIndex < exercisesList.Count - 1)
             {
                 currentExerciseIndex++;

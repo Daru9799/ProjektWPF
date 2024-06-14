@@ -52,6 +52,7 @@
     <None Remove="Style\Img\weight.png" />
     <None Remove="Style\Img\weightBackground.jpg" />
     <None Remove="Style\Img\workouts.png" />
+    <None Remove="Style\MP3\finishedExercise.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -128,6 +129,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Style\Img\workouts.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Style\MP3\finishedExercise.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
