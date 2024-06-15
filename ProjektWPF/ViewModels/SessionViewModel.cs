@@ -383,8 +383,11 @@ namespace ProjektWPF.ViewModels
 
             //Dodawanie odbytej sesji do bazy i wywolanie zdarzenia ktore zaaktualizuje interfejsy  
             //Nie trzeba nic aktualizowac w profilu z tego poziomu bo ogarniają to już triggery
-            DbWorkoutSessions.AddWorkoutSession(UserSession.CurrentUserId.Value, this.workoutPlan.PlanId, DateTime.Now, totalTime.Value, calories.Value);
-            UserSession.CurrentUserTrainingAdded += 1;
+            if (totalTime > 0)
+            {
+                DbWorkoutSessions.AddWorkoutSession(UserSession.CurrentUserId.Value, this.workoutPlan.PlanId, DateTime.Now, totalTime.Value, calories.Value);
+                UserSession.CurrentUserTrainingAdded += 1;
+            }
         }
 
 

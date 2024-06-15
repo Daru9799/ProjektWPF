@@ -8,8 +8,6 @@
              xmlns:conv="clr-namespace:ProjektWPF.ViewModels.Converters"
              xmlns:gif="http://wpfanimatedgif.codeplex.com" 
              xmlns:core="clr-namespace:ProjektWPF.Core"
-
-
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="819.2">
 
@@ -24,9 +22,6 @@
 
 
     <Border Background="#2A629A" CornerRadius="50">
-        
-        
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
@@ -34,7 +29,13 @@
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="LISTA DOSTĘPNYCH ĆWICZEŃ" FontSize="45" Foreground="white" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="LISTA DOSTĘPNYCH ĆWICZEŃ" FontSize="45" Foreground="white" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0"/>
 
 
             <!--<ListView Grid.Row="1" 
@@ -44,7 +45,9 @@
           Margin="50,10,50,10">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        --><!-- Dodana AllowsColumnReorder --><!--
+                        -->
+            <!-- Dodana AllowsColumnReorder -->
+            <!--
                         <GridViewColumn >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -59,44 +62,20 @@
                     </GridView>
                 </ListView.View>
             </ListView>-->
-            
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="0.5*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="0.2*"/>
-                </Grid.RowDefinitions>
 
-                <Border Background="Transparent" CornerRadius="75"  Grid.Column="1" Grid.Row="1">
+            <Grid Grid.Row="1" Grid.Column="1">
+
+                <Border Background="Transparent" CornerRadius="75">
                     <Grid>
-                        
-                            <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*"/>
-                       
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.2*"/>
-                        
-                        </Grid.RowDefinitions>
-
+          
                         <ScrollViewer VerticalScrollBarVisibility="Hidden">
-
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"  >
                                 <StackPanel Margin="0">
                                     <ListBox x:Name="ListViewProducts"
-                         ItemsSource="{Binding ExercisesList}"
+                         ItemsSource="{Binding FilteredExercises}"
                          SelectedItem="{Binding CurrentExercise, Mode=TwoWay}"
                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-
-                                 
-
-                                 
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"                                                             
                          BorderThickness="0"
                          Background="Transparent"
                          HorizontalContentAlignment="Center">
@@ -107,23 +86,12 @@
                                         </ListBox.ItemsPanel>
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <Border Margin="10" Background="White" CornerRadius="25" Height="250" Width="270">
-
+                                                <Border Margin="10" Background="White" CornerRadius="25" Height="250" Width="280">
                                                     <Grid>
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="4*"/>
-                                                            <RowDefinition Height="1*"/>
-                                                        </Grid.RowDefinitions>
+                                                        <Image Style="{StaticResource {x:Type Image}}"  Margin="0" Width="240" Height="180" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
 
-                                                        <Image Style="{StaticResource {x:Type Image}}" Grid.Row="0" Margin="0" Width="240" Height="180" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
-
-                                                        <TextBlock Grid.Row="1" Margin="0,0,0,0" Text="{Binding Name}" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Foreground="#2A629A"/>
-
+                                                        <TextBlock  Margin="0,10,0,0" Text="{Binding Name}" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Foreground="#2A629A"/>
                                                     </Grid>
-
-
-
-
                                                 </Border>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
@@ -132,29 +100,12 @@
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
-
-        </Border>
-            
-        </Grid>
-            
+                </Border>
+            </Grid>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <Button Grid.Row="2" 
+            <!--<Button Grid.Row="2" 
+                    Grid.Column="1"
                     Width="350"
                     Height="50"
                     VerticalAlignment="Center"
@@ -163,8 +114,64 @@
                     Content="Pokaż szczegóły"
                     Style="{StaticResource GreenButtonStyle}"
                     FontSize="24" 
-                    Command="{Binding DetailClikc}"/>
+                    Command="{Binding DetailClikc}"/>-->
+
+
+
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="5*"/>
+                    <ColumnDefinition  Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+
+
+       
+
+
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Poziom trudności" FontSize="20" Foreground="White" VerticalAlignment="Center" Margin="0,0,2,0" HorizontalAlignment="Right"/>
+
+
+                    <ComboBox 
+                        Grid.Column="1" 
+                        ItemsSource="{Binding DiffLevelCheckBoxList}"
+ 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center"
+                        Margin="2,0,0,0">
+                    </ComboBox>
+
+                </Grid>
+
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Część ciała" FontSize="20" Foreground="White" VerticalAlignment="Center" Margin="0,0,2,0" HorizontalAlignment="Right"/>
+
+
+                    <ComboBox 
+              Grid.Column="1" 
+              ItemsSource="{Binding BodyPartsCheckBoxList}"
+ 
+              HorizontalAlignment="Left" 
+              VerticalAlignment="Center"
+              Margin="2,0,0,0">
+                    </ComboBox>
+
+                </Grid>
+            </Grid>
         </Grid>
     </Border>
-
 </UserControl>

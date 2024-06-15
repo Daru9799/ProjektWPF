@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ProjektWPF.Core;
 using ProjektWPF.Data;
@@ -12,8 +12,6 @@ namespace ProjektWPF.ViewModels
 {
     public class ExercisesViewModel : ViewModelBase
     {
-        public event EventHandler<ExerciseChangedEventArgs> CurrentExerciseChanged;
-
         private MainViewModel _mainViewModel;
         private List<Exercise> exercisesList;
         private Exercise? currentExercise = null;
@@ -22,7 +20,12 @@ namespace ProjektWPF.ViewModels
         {
             _mainViewModel = mainViewModel;
             ExercisesList = DbExercises.GetExercises();
-            CurrentExercise = ExercisesList[0];
+            FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
+            //CurrentExercise = ExercisesList[0];
+
+            DiffLevelCheckBoxList = new List<CheckBox>();
+            BodyPartsCheckBoxList = new List<CheckBox>();
+            PopulateComboBox();
         }
 
         public List<Exercise> ExercisesList
@@ -44,45 +47,157 @@ namespace ProjektWPF.ViewModels
                 {
                     currentExercise = value;
                     OnPropertyChanged();
-                    OnCurrentExerciseChanged(new ExerciseChangedEventArgs(value));
+                    ChangeViewToSelected();
                 }
             }
-        }
-
-        protected virtual void OnCurrentExerciseChanged(ExerciseChangedEventArgs e)
-        {
-            CurrentExerciseChanged?.Invoke(this, e);
         }
 
         private void ChangeViewToSelected()
         {
-            _mainViewModel.ChangerViewToSelectedExercise();
-            _mainViewModel.SelectedExerciseVm.Update(CurrentExercise?.ExerciseId);
+            try
+            {
+                if (CurrentExercise != null)
+                {
+                    _mainViewModel.ChangerViewToSelectedExercise();
+                    _mainViewModel.SelectedExerciseVm.Update(CurrentExercise.ExerciseId);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error changing view: {ex.Message}");
+            }
         }
 
+        //private ICommand? _detailsClick = null;
+        //public ICommand? DetailClick
+        //{
+        //    get
+        //    {
+        //        if (_detailsClick == null)
+        //        {
+        //            _detailsClick = new RelayCommand(arg => { ChangeViewToSelected(); }, null);
+        //        }
+        //        return _detailsClick;
+        //    }
+        //}
 
-        private ICommand? _detailsClikc = null;
-
-        public ICommand? DetailClikc
+        private ObservableCollection<Exercise> filteredExercises;
+        public ObservableCollection<Exercise> FilteredExercises
         {
-            get
+            get { return filteredExercises; }
+            set
             {
-                if (_detailsClikc == null)
+                filteredExercises = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<CheckBox> diffLevelCheckBoxList;
+        public List<CheckBox> DiffLevelCheckBoxList
+        {
+            get { return diffLevelCheckBoxList; }
+            set
+            {
+                diffLevelCheckBoxList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<CheckBox> bodyPartsCheckBoxList;
+        public List<CheckBox> BodyPartsCheckBoxList
+        {
+            get { return bodyPartsCheckBoxList; }
+            set
+            {
+                bodyPartsCheckBoxList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void PopulateComboBox()
+        {
+            DiffLevelCheckBoxList.Clear();
+            BodyPartsCheckBoxList.Clear();
+
+            string[] diffLevelsText = { "Łatwy", "Średni", "Trudny" };
+            foreach (var el in diffLevelsText)
+            {
+                CheckBox tmpCheckBox = new CheckBox
                 {
-                    _detailsClikc = new RelayCommand(arg => { ChangeViewToSelected(); }, null);
+                    Content = el
+                };
+                tmpCheckBox.Checked += (s, e) => FilterExercises();
+                tmpCheckBox.Unchecked += (s, e) => FilterExercises();
+                DiffLevelCheckBoxList.Add(tmpCheckBox);
+            }
+
+            string[] bodyPartsText = { "Całe ciało", "Górna część ciała", "Dolna część ciała", "Ramiona",
+                                        "Klatka piersiowa", "Plecy", "Barki", "Nogi", "Pośladki", "Mięśnie brzucha" };
+            foreach (var el in bodyPartsText)
+            {
+                CheckBox tmpCheckBox = new CheckBox
+                {
+                    Content = el
+                };
+                tmpCheckBox.Checked += (s, e) => FilterExercises();
+                tmpCheckBox.Unchecked += (s, e) => FilterExercises();
+                BodyPartsCheckBoxList.Add(tmpCheckBox);
+            }
+        }
+
+        private void FilterExercises()
+        {
+            var selectedLevels = DiffLevelCheckBoxList
+                                .Where(cb => cb.IsChecked == true)
+                                .Select(cb => cb.Content.ToString())
+                                .ToList();
+
+            var selectedBodyParts = BodyPartsCheckBoxList
+                                    .Where(cb => cb.IsChecked == true)
+                                    .Select(cb => cb.Content.ToString())
+                                    .ToList();
+
+            int countCheckedLevels = DiffLevelCheckBoxList.Count(cb => cb.IsChecked == true);
+            int countCheckedBodyParts = BodyPartsCheckBoxList.Count(cb => cb.IsChecked == true);
+
+            if (countCheckedLevels == 0 && countCheckedBodyParts == 0)
+            {
+                FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
+            }
+            else if (countCheckedLevels > 0 && countCheckedBodyParts == 0)
+            {
+                var filtered = ExercisesList.Where(e => selectedLevels.Contains(e.DifficultyLevel)).ToList();
+
+                FilteredExercises.Clear();
+                foreach (var exercise in filtered)
+                {
+                    FilteredExercises.Add(exercise);
                 }
-                return _detailsClikc;
+            }
+            else if (countCheckedLevels == 0 && countCheckedBodyParts > 0)
+            {
+                var filtered = ExercisesList.Where(e => selectedBodyParts.Contains(e.BodyPart)).ToList();
+
+                FilteredExercises.Clear();
+                foreach (var exercise in filtered)
+                {
+                    FilteredExercises.Add(exercise);
+                }
+            }
+            else
+            {
+                var filtered = ExercisesList.Where(e => selectedLevels.Contains(e.DifficultyLevel) && selectedBodyParts.Contains(e.BodyPart)).ToList();
+
+                FilteredExercises.Clear();
+                foreach (var exercise in filtered)
+                {
+                    FilteredExercises.Add(exercise);
+                }
             }
         }
     }
-
-    public class ExerciseChangedEventArgs : EventArgs
-    {
-        public Exercise? NewExercise { get; }
-
-        public ExerciseChangedEventArgs(Exercise? newExercise)
-        {
-            NewExercise = newExercise;
-        }
-    }
 }
+
+
+
+
