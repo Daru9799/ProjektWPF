@@ -127,5 +127,6 @@ namespace ProjektWPF.ViewModels
                 SessionsList = DbWorkoutSessions.GetUserSessions(this.UserId);
             }
         }
+        
     }
 }

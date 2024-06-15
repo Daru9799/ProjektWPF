@@ -198,8 +198,7 @@ namespace ProjektWPF.ViewModels
         }
 
 
-
-        private void ClearFilters()
+        public void ClearFilters()
         {
             foreach (var checkBox in DiffLevelCheckBoxList.Concat(BodyPartsCheckBoxList))
             {

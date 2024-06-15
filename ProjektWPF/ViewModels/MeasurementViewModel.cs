@@ -126,5 +126,6 @@ namespace ProjektWPF.ViewModels
                 this.Date2 = null;
             }
         }
+
     }
 }

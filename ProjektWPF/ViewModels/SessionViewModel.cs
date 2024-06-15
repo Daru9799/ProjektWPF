@@ -390,14 +390,5 @@ namespace ProjektWPF.ViewModels
             }
         }
 
-
-
-
-
-
-
-
-
-
     }
 }

@@ -86,7 +86,7 @@ namespace ProjektWPF.ViewModels
                 LoginViewCommand = new RelayCommand(arg => { CurrentView = LoginVm; }, null);
                 RegisterViewCommand = new RelayCommand(arg => { CurrentView = RegisterVm; }, null);
                 ProfileViewCommand = new RelayCommand(arg => { CurrentView = ProfileVm; }, null);
-                ExercisesViewCommand = new RelayCommand(arg => { CurrentView = ExercisesVm; }, null);
+                ExercisesViewCommand = new RelayCommand(arg => { CurrentView = ExercisesVm; ExercisesVm.ClearFilters(); }, null);
                 WorkoutsViewCommand = new RelayCommand(arg => { CurrentView = WorkoutsVm; WorkoutsVm.Update(); }, null);
                 ProgressViewCommand = new RelayCommand(arg => { CurrentView = ProgressVm; }, null);
                 MeasurementViewCommand = new RelayCommand(arg => { CurrentView = MeasurementVm; }, null);
