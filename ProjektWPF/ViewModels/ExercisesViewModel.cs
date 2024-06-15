@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ProjektWPF.Core;
@@ -194,6 +195,17 @@ namespace ProjektWPF.ViewModels
                     FilteredExercises.Add(exercise);
                 }
             }
+        }
+
+
+
+        private void ClearFilters()
+        {
+            foreach (var checkBox in DiffLevelCheckBoxList.Concat(BodyPartsCheckBoxList))
+            {
+                checkBox.IsChecked = false;
+            }
+            FilterExercises();
         }
     }
 }

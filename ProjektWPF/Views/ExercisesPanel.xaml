@@ -124,12 +124,6 @@
                     <ColumnDefinition  Width="5*"/>
                 </Grid.ColumnDefinitions>
 
-
-
-       
-
-
-
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
