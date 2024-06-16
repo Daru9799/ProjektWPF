@@ -61,18 +61,13 @@ namespace ProjektWPF.Data
             }
         }*/
 
-        public static void SaveModifiedPlanExercises(ObservableCollection<WorkoutExercisePreview> wep)
+        public static void SaveModifiedPlanExercises(ObservableCollection<WorkoutExercisePreview> wep, int workoutID)
         {
-            List<PlanExercises> tmpList = new List<PlanExercises>();
-            foreach(var i in wep)
-            {
-                tmpList.Add(new PlanExercises(i));
-            }
-            var tmp1 = tmpList;
+            
             using (var db = new MyDbContext())
             {
                 // Pobierz wszystkie wpisy PlanExercises z bazy danych związane z bieżącym planem
-                var existingPlanExercises = db.plan_exercises.Where(pe => pe.PlanId == wep[0].PlanId).ToList();
+                var existingPlanExercises = db.plan_exercises.Where(pe => pe.PlanId == workoutID).ToList();
 
                 // Przetwórz każdy element w kolekcji WorkoutExercisePreview
                 foreach (var item in wep)

@@ -43,7 +43,7 @@ namespace ProjektWPF.ViewModels
             TimerButtonText = "Start";
             SetValues(ExercisesList);
         }
-        #region Publiczne
+        #region Publiczne   
         public List<WorkoutExercisePreview> ExercisesList
         {
             get { return exercisesList; }

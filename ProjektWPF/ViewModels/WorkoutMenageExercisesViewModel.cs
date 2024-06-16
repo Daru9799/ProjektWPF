@@ -9,6 +9,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.TextFormatting;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
+
+
 using ProjektWPF.Core;
 using ProjektWPF.Data;
 using ProjektWPF.Models;
@@ -136,7 +140,7 @@ namespace ProjektWPF.ViewModels
 
         public void SaveExerciseChanges()
         {
-            DbPlanExercises.SaveModifiedPlanExercises(WorkoutExercisesPreviewList);
+            DbPlanExercises.SaveModifiedPlanExercises(WorkoutExercisesPreviewList, SelectedWorkout.PlanId);
             DbWorkoutPlans.UpdateWorkoutData(SelectedWorkout.PlanId);
             MessageBox.Show($"Plan '{SelectedWorkout.Name}' został zmieniony.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
         }

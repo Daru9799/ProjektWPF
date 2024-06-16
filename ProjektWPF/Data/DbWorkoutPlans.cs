@@ -64,20 +64,34 @@ namespace ProjektWPF.Data
         {
             using (var db = new MyDbContext())
             {
-                //Pobranie zsumowanych wartości 
-                List<Double> sumCalories = db.Database.SqlQueryRaw<Double>("SELECT Sum(ex.calories_burned_per_minute*pe.duration) " +
-                    "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
-                    "where plan_id = {0};", workoutID).ToList();
+                if (db.plan_exercises.Where(pe => pe.PlanId == workoutID).ToList().Count()!= 0) 
+                {
+                    //Pobranie zsumowanych wartości 
+                    var tmp = db.Database.SqlQueryRaw<Double>("SELECT Sum(ex.calories_burned_per_minute*pe.duration) " +
+                        "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
+                        "where plan_id = {0};", workoutID).ToList();
+                    List<Double> sumCalories = db.Database.SqlQueryRaw<Double>("SELECT Sum(ex.calories_burned_per_minute*pe.duration) " +
+                        "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
+                        "where plan_id = {0};", workoutID).ToList();
 
-                List<Double> sumTime = db.Database.SqlQueryRaw<Double>("SELECT Sum(pe.duration) " +
-                    "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
-                    "where plan_id = {0};", workoutID).ToList();
+                    List<Double> sumTime = db.Database.SqlQueryRaw<Double>("SELECT Sum(pe.duration) " +
+                        "FROM plan_exercises pe join exercises ex on pe.exercise_id = ex.exercise_id " +
+                        "where plan_id = {0};", workoutID).ToList();
 
-                //Update WorkoutPlan
-                db.Database.ExecuteSqlRaw(
-                "UPDATE workout_plans SET total_time = {0}, total_calories_burned = {1} " +
-                "WHERE plan_id = {2};", sumTime[0], sumCalories[0], workoutID);
+                    //Update WorkoutPlan
+                    db.Database.ExecuteSqlRaw(
+                    "UPDATE workout_plans SET total_time = {0}, total_calories_burned = {1} " +
+                    "WHERE plan_id = {2};", sumTime[0], sumCalories[0], workoutID);
+                }
+                else // Przypadek w którym aktualizujemy WorkoutPlan, a plan nie ma ćwiczeń
+                {
+                    db.Database.ExecuteSqlRaw(
+                    "UPDATE workout_plans SET total_time = {0}, total_calories_burned = {1} " +
+                    "WHERE plan_id = {2};", 0, 0, workoutID);
+                    
+                }
                 db.SaveChanges();
+
             }
         }
 
