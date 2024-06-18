@@ -61,8 +61,9 @@ namespace ProjektWPF.ViewModels
         public MainViewModel() 
         {
             //Podpięcie śledzenia zmian w ID usera z sesji
-            UserSession.UserIdChanged += OnUserIdChanged;
             ConnectionErrorVm = new ConnectionErrorViewModel();
+            UserSession.UserIdChanged += OnUserIdChanged;
+            UserSession.SqlError += OnSqlError;
             try
             {
                 LoginVm = new LoginViewModel();
@@ -101,7 +102,7 @@ namespace ProjektWPF.ViewModels
 
                 //przed zalogowaniem ustawiam zmienną CurrentUserId na null
                 //POLECAM DO TESTOW USTAWIAC NA DOWOLNE ID WTEDY TRAKTUJE JAK ZALOGOWANEGO
-                UserSession.CurrentUserId = null;
+                UserSession.CurrentUserId = 1;
                 UserSession.CurrentUserWeight = true;
                 UserSession.CurrentUserTrainingAdded = 0;
 
@@ -110,9 +111,13 @@ namespace ProjektWPF.ViewModels
             } 
             catch(InvalidOperationException ex)
             {
-                CurrentView = ConnectionErrorVm; //Jesli po uruchomieniu aplikacji serwer nie dziala to przelacza na okno z informacją o tym
+                UserSession.CurrentSqlError += 1; //Jesli po uruchomieniu aplikacji serwer nie dziala to przelacza na okno z informacją o tym
             }
+        }
 
+        private void OnSqlError(int? error)
+        {
+            CurrentView = ConnectionErrorVm;
         }
 
         //Funkcja reagująca na zamiany w id usera (sprawdza czy jestesmy zalogowani czy nie)

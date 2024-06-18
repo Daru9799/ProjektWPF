@@ -70,27 +70,34 @@ namespace ProjektWPF.ViewModels
         
         private async void Login()
         {
-            int id = await DbUsers.GetIdByName(this.Username);
-            if (id != 0)
+            try
             {
-                string hPassword = await DbUsers.GetHashById(id);
-                if(PasswordEncryption.VerifyPassword(this.Password, hPassword))
+                int id = await DbUsers.GetIdByName(this.Username);
+                if (id != 0)
                 {
-                    await DbUsers.UpdateLastLogin(id); //Aktualizuje date ostatneigo logowania
-                    UserSession.CurrentUserId = id; //Utworzenie sesji 
-                    //Czyszczenie pól
-                    this.ErrorText = "";
-                    this.Username = null;
-                    this.Password = null;
+                    string hPassword = await DbUsers.GetHashById(id);
+                    if (PasswordEncryption.VerifyPassword(this.Password, hPassword))
+                    {
+                        await DbUsers.UpdateLastLogin(id); //Aktualizuje date ostatneigo logowania
+                        UserSession.CurrentUserId = id; //Utworzenie sesji 
+                                                        //Czyszczenie pól
+                        this.ErrorText = "";
+                        this.Username = null;
+                        this.Password = null;
+                    }
+                    else
+                    {
+                        this.ErrorText = "Błędne hasło!";
+                    }
                 }
                 else
                 {
-                    this.ErrorText = "Błędne hasło!";
+                    this.ErrorText = "Konto o podanej nazwie nie istnieje!";
                 }
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                this.ErrorText = "Konto o podanej nazwie nie istnieje!";
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
             }
         }
     }

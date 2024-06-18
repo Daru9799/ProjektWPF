@@ -71,10 +71,17 @@ namespace ProjektWPF.ViewModels
 
         public void Update()
 		{
-            WorkoutPlansItemSource = DbWorkoutPlans.GetCurrentUserWorkouts();
-            SelectedWorkoutPlan = null;
-            SelectedExercise = null;
-            OnPropertyChanged();
+            try
+            {
+                WorkoutPlansItemSource = DbWorkoutPlans.GetCurrentUserWorkouts();
+                SelectedWorkoutPlan = null;
+                SelectedExercise = null;
+                OnPropertyChanged();
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         /*public void DeleteWorkoutExercise()
@@ -98,7 +105,7 @@ namespace ProjektWPF.ViewModels
                     DbPlanExercises.DeleteWorkoutExercises(SelectedWorkoutPlan.PlanId);
                     Update(); // odświerzenie widoku Planów
                 }
-                catch (Exception ex)
+                catch (MySqlConnector.MySqlException ex)
                 {
                     var result2 = MessageBox.Show($"Usunięcie tego planu usunie Sesje Treningowe z nim związane. Czy jesteś pewien, że chcesz usunąć ten plan?", "Ostrzeżenie", MessageBoxButton.YesNo, MessageBoxImage.Stop);
                     if(result2 == MessageBoxResult.Yes)
@@ -110,6 +117,10 @@ namespace ProjektWPF.ViewModels
                         DbUsers.UpdateStats(UserSession.CurrentUserId);
                         UserSession.CurrentUserTrainingAdded += 1;
                     }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
                 }
             }
         }
@@ -145,9 +156,16 @@ namespace ProjektWPF.ViewModels
 			set 
 			{ 
 				selectedWorkoutPlan = value;
-                if(selectedWorkoutPlan== null) SelectedWorkoutPlanExercises = new List<WorkoutExercisePreview>();
-                else SelectedWorkoutPlanExercises = DbPlanExercises.GetWorkoutExercises(selectedWorkoutPlan.PlanId);
-                OnPropertyChanged();
+                try
+                {
+                    if (selectedWorkoutPlan == null) SelectedWorkoutPlanExercises = new List<WorkoutExercisePreview>();
+                    else SelectedWorkoutPlanExercises = DbPlanExercises.GetWorkoutExercises(selectedWorkoutPlan.PlanId);
+                    OnPropertyChanged();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+                }
 			}
 		}
 

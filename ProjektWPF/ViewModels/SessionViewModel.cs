@@ -36,12 +36,22 @@ namespace ProjektWPF.ViewModels
         {
             mainViewModel = mv;
             this.workoutPlan = wp;
-            ExercisesList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
+            try
+            {
+                ExercisesList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
             exerciseTimer = new PersonalTimer();
             exerciseTimer.Tick += ExerciseTimer_Tick;
             exerciseTimer.TimerFinished += ExerciseTimer_TimerFinished;
             TimerButtonText = "Start";
-            SetValues(ExercisesList);
+            if(ExercisesList != null) 
+            {
+                SetValues(ExercisesList);
+            }
         }
         #region Publiczne   
         public List<WorkoutExercisePreview> ExercisesList
@@ -385,8 +395,15 @@ namespace ProjektWPF.ViewModels
             //Nie trzeba nic aktualizowac w profilu z tego poziomu bo ogarniają to już triggery
             if (totalTime > 0)
             {
-                DbWorkoutSessions.AddWorkoutSession(UserSession.CurrentUserId.Value, this.workoutPlan.PlanId, DateTime.Now, totalTime.Value, calories.Value);
-                UserSession.CurrentUserTrainingAdded += 1;
+                try
+                {
+                    DbWorkoutSessions.AddWorkoutSession(UserSession.CurrentUserId.Value, this.workoutPlan.PlanId, DateTime.Now, totalTime.Value, calories.Value);
+                    UserSession.CurrentUserTrainingAdded += 1;
+                }
+                catch (InvalidOperationException ex)
+                {
+                    UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+                }
             }
         }
 

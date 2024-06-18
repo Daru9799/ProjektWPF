@@ -33,11 +33,17 @@ namespace ProjektWPF.ViewModels
         {
             if (this.Description == null) this.Description = "";
             var newWorkoutPlan = new WorkoutPlan(0, this.Name, UserSession.CurrentUserId.Value, 0, 0, this.Description, DateTime.Now);
-            DbWorkoutPlans.AddWorkoutPlan(newWorkoutPlan);
-            MessageBox.Show($"Plan {this.Name} został dodany.","Informacja",MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Name = "";
-            this.Description = "";
-            
+            try
+            {
+                DbWorkoutPlans.AddWorkoutPlan(newWorkoutPlan);
+                MessageBox.Show($"Plan {this.Name} został dodany.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Name = "";
+                this.Description = "";
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         public void ReturnToWorkoutPlans()

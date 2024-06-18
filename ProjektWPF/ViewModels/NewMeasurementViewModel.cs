@@ -85,11 +85,18 @@ namespace ProjektWPF.ViewModels
         
         public void AddNewWeight()
         {
-            //Aktualizacja wagi usera 
-            DbUsers.UpdateWeight(UserSession.CurrentUserId, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")));
-            //Dodanie nowego wpisu
-            CreateNewMeasurement(UserSession.CurrentUserId);
-            Cancel();
+            try
+            {
+                //Aktualizacja wagi usera 
+                DbUsers.UpdateWeight(UserSession.CurrentUserId, float.Parse(this.Weight, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL")));
+                //Dodanie nowego wpisu
+                CreateNewMeasurement(UserSession.CurrentUserId);
+                Cancel();
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         private bool CanAddNewWeight()

@@ -193,44 +193,66 @@ namespace ProjektWPF.ViewModels
         }
         private async void OnUserIdChanged(int? newUserId)
         {
-
-            if (newUserId != null)
+            try
             {
-                User user = await DbUsers.GetUserFromDb(newUserId);
-                this.UserNameText = "Witaj " + user.Username + "!";
-                this.EmailText = user.Email;
-                this.AgeText = Calculator.CalculateAge(user.BirthDate).ToString();
-                this.WeightText = user.Weight + " kg";
-                this.GenderText = ConvertGender(user.Gender);
-                this.HeightText = user.Height + " cm";
-                _mainViewModel.TrainingHistoryVm.UserId = newUserId;
-                
+                if (newUserId != null)
+                {
+                    User user = await DbUsers.GetUserFromDb(newUserId);
+                    this.UserNameText = "Witaj " + user.Username + "!";
+                    this.EmailText = user.Email;
+                    this.AgeText = Calculator.CalculateAge(user.BirthDate).ToString();
+                    this.WeightText = user.Weight + " kg";
+                    this.GenderText = ConvertGender(user.Gender);
+                    this.HeightText = user.Height + " cm";
+                    _mainViewModel.TrainingHistoryVm.UserId = newUserId;
 
-                this.JoinDateText = user.JoinDate.ToString("d");
 
-                this.TotalWorkoutsText = user.TotalWorkouts.ToString();
-                this.TotalCaloriesBurnedText = user.TotalCaloriesBurned + " kcal";
-                this.TotalTimeSpent = user.TotalTimeSpent + " min";
+                    this.JoinDateText = user.JoinDate.ToString("d");
+
+                    this.TotalWorkoutsText = user.TotalWorkouts.ToString();
+                    this.TotalCaloriesBurnedText = user.TotalCaloriesBurned + " kcal";
+                    this.TotalTimeSpent = user.TotalTimeSpent + " min";
+                }
             }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
+            
         }
 
         private async void OnUserWeightChanged(bool? x)
         {
-            User user = await DbUsers.GetUserFromDb(UserSession.CurrentUserId);
-            if (UserSession.CurrentUserId != null)
+            try
             {
-                this.WeightText = user.Weight + " kg";
+                User user = await DbUsers.GetUserFromDb(UserSession.CurrentUserId);
+                if (UserSession.CurrentUserId != null)
+                {
+                    this.WeightText = user.Weight + " kg";
+                }
             }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
+            
         }
 
         private async void OnUserTrainingAdded(int? x)
         {
-            User user = await DbUsers.GetUserFromDb(UserSession.CurrentUserId);
-            if (UserSession.CurrentUserId != null)
+            try
             {
-                this.TotalWorkoutsText = user.TotalWorkouts.ToString();
-                this.TotalCaloriesBurnedText = user.TotalCaloriesBurned + " kcal";
-                this.TotalTimeSpent = user.TotalTimeSpent + " min";
+                User user = await DbUsers.GetUserFromDb(UserSession.CurrentUserId);
+                if (UserSession.CurrentUserId != null)
+                {
+                    this.TotalWorkoutsText = user.TotalWorkouts.ToString();
+                    this.TotalCaloriesBurnedText = user.TotalCaloriesBurned + " kcal";
+                    this.TotalTimeSpent = user.TotalTimeSpent + " min";
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
             }
         }
 

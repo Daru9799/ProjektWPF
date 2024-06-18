@@ -42,9 +42,15 @@ namespace ProjektWPF.ViewModels
         public WorkoutMenageExercisesViewModel(MainViewModel mainViewModel)
         {
             this.mainViewModel = mainViewModel;
-
-            ExercisesList = new ObservableCollection<Exercise>(DbExercises.GetExercises().OrderBy(x => x.Name));
-            FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
+            try
+            {
+                ExercisesList = new ObservableCollection<Exercise>(DbExercises.GetExercises().OrderBy(x => x.Name));
+                FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
             DiffLevelCheckBoxList = new List<CheckBox>();
             BodyPartsCheckBoxList = new List<CheckBox>();
 
@@ -90,11 +96,18 @@ namespace ProjektWPF.ViewModels
             SelectedExercise = null;
             SelectedWorkoutExercise = null;
             DurationValue = 0;
-            var tmpList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
-            WorkoutExercisesPreviewList = new ObservableCollection<WorkoutExercisePreview>(tmpList);
-            FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
-            PopulateComboBox();
-            UpdatePlanSumUpText();
+            try
+            {
+                var tmpList = DbPlanExercises.GetWorkoutExercises(wp.PlanId);
+                WorkoutExercisesPreviewList = new ObservableCollection<WorkoutExercisePreview>(tmpList);
+                FilteredExercises = new ObservableCollection<Exercise>(ExercisesList);
+                PopulateComboBox();
+                UpdatePlanSumUpText();
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         public void MoveUp()
@@ -140,17 +153,31 @@ namespace ProjektWPF.ViewModels
 
         public void SaveExerciseChanges()
         {
-            DbPlanExercises.SaveModifiedPlanExercises(WorkoutExercisesPreviewList, SelectedWorkout.PlanId);
-            DbWorkoutPlans.UpdateWorkoutData(SelectedWorkout.PlanId);
-            MessageBox.Show($"Plan '{SelectedWorkout.Name}' został zmieniony.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
+            try
+            {
+                DbPlanExercises.SaveModifiedPlanExercises(WorkoutExercisesPreviewList, SelectedWorkout.PlanId);
+                DbWorkoutPlans.UpdateWorkoutData(SelectedWorkout.PlanId);
+                MessageBox.Show($"Plan '{SelectedWorkout.Name}' został zmieniony.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         public void AddExerciseToWorkout()
         {
-            var tmpOrder = workoutExercisesPreviewList.Count() + 1;
-            var tmpWorkoutEP= new WorkoutExercisePreview(SelectedExercise,SelectedWorkout.PlanId,tmpOrder,DurationValue);
-            WorkoutExercisesPreviewList.Add(tmpWorkoutEP);
-            UpdatePlanSumUpText();
+            try
+            {
+                var tmpOrder = workoutExercisesPreviewList.Count() + 1;
+                var tmpWorkoutEP = new WorkoutExercisePreview(SelectedExercise, SelectedWorkout.PlanId, tmpOrder, DurationValue);
+                WorkoutExercisesPreviewList.Add(tmpWorkoutEP);
+                UpdatePlanSumUpText();
+            }
+            catch (System.ArgumentNullException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         public void DeleteExerciseFromWorkout()

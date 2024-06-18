@@ -101,7 +101,14 @@ namespace ProjektWPF.ViewModels
 
         private void Filter()
         {
-            this.SessionsList = DbWorkoutSessions.GetWorkoutSessionsWithDateRange(UserSession.CurrentUserId, this.Date1.Value, this.Date2.Value);
+            try
+            {
+                this.SessionsList = DbWorkoutSessions.GetWorkoutSessionsWithDateRange(UserSession.CurrentUserId, this.Date1.Value, this.Date2.Value);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         private bool CanFilter()
@@ -115,7 +122,14 @@ namespace ProjektWPF.ViewModels
 
         private void DeleteFilter()
         {
-            this.SessionsList = DbWorkoutSessions.GetUserSessions(this.UserId);
+            try
+            {
+                this.SessionsList = DbWorkoutSessions.GetUserSessions(this.UserId);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
             this.Date1 = null;
             this.Date2 = null;
         }
@@ -124,7 +138,14 @@ namespace ProjektWPF.ViewModels
         {
             if (UserSession.CurrentUserId != null)
             {
-                SessionsList = DbWorkoutSessions.GetUserSessions(this.UserId);
+                try
+                {
+                    SessionsList = DbWorkoutSessions.GetUserSessions(this.UserId);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+                }
             }
         }
         

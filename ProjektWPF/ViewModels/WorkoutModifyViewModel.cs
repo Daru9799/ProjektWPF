@@ -46,9 +46,15 @@ namespace ProjektWPF.ViewModels
         public void ModifyWorkoutPlan()
         {
             if (this.Description == null) this.Description = "";
-            DbWorkoutPlans.ModifyWorkoutPlan(workoutPlan);
-            MessageBox.Show($"Plan {this.Name} został zmieniony.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+            try
+            {
+                DbWorkoutPlans.ModifyWorkoutPlan(workoutPlan);
+                MessageBox.Show($"Plan {this.Name} został zmieniony.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }        }
 
         public string? Name
         {

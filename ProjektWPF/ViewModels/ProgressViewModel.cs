@@ -107,44 +107,58 @@ namespace ProjektWPF.ViewModels
 
         private void OnUserWeightChanged(bool? x)
         {
-            UserProgress currentProgress = DbUserProgress.GetLatestProgressForUser(UserSession.CurrentUserId);
-            if(currentProgress != null)
+            try
             {
-                this.WeightText = "Aktualna waga: " + currentProgress.Weight + " kg";
-                this.LastMeasurementText = currentProgress.Date.Value.ToString("d");
-                this.BmiText = "BMI: " + currentProgress.Bmi;
-                this.BodyFatText = "Tkanka Tłuszcz: " + currentProgress.BodyFatPercentage + "%";
-
-                float? oldWeight = DbUserProgress.GetSecondLatestWeightForUser(UserSession.CurrentUserId);
-                if (oldWeight != null)
+                UserProgress currentProgress = DbUserProgress.GetLatestProgressForUser(UserSession.CurrentUserId);
+                if (currentProgress != null)
                 {
-                    float? difference = Calculator.CalculateWeightDifference(oldWeight, currentProgress.Weight);
-                    if (difference >0) 
+                    this.WeightText = "Aktualna waga: " + currentProgress.Weight + " kg";
+                    this.LastMeasurementText = currentProgress.Date.Value.ToString("d");
+                    this.BmiText = "BMI: " + currentProgress.Bmi;
+                    this.BodyFatText = "Tkanka Tłuszcz: " + currentProgress.BodyFatPercentage + "%";
+
+                    float? oldWeight = DbUserProgress.GetSecondLatestWeightForUser(UserSession.CurrentUserId);
+                    if (oldWeight != null)
                     {
-                        this.WeightDifferenceText = $"Zmiana wagi: +{difference:F1} kg";
+                        float? difference = Calculator.CalculateWeightDifference(oldWeight, currentProgress.Weight);
+                        if (difference > 0)
+                        {
+                            this.WeightDifferenceText = $"Zmiana wagi: +{difference:F1} kg";
+                        }
+                        else
+                        {
+                            this.WeightDifferenceText = $"Zmiana wagi: {difference:F1} kg";
+                        }
                     }
                     else
                     {
-                        this.WeightDifferenceText = $"Zmiana wagi: {difference:F1} kg";
+                        this.WeightDifferenceText = "Zmiana wagi: 0 kg";
                     }
                 }
-                else
-                {
-                    this.WeightDifferenceText = "Zmiana wagi: 0 kg";
-                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
             }
         }
 
         private async void OnUserTrainingAdded(int? x)
         {
-            if (UserSession.CurrentUserId != null)
+            try
             {
-                this.WeekStatsText = DbWorkoutSessions.CountTrainingsLastWeek(UserSession.CurrentUserId).ToString();
-                this.MonthStatsText = DbWorkoutSessions.CountTrainingsLastMonth(UserSession.CurrentUserId).ToString();
-                this.YearStatsText = DbWorkoutSessions.CountTrainingsLastYear(UserSession.CurrentUserId).ToString();
+                if (UserSession.CurrentUserId != null)
+                {
+                    this.WeekStatsText = DbWorkoutSessions.CountTrainingsLastWeek(UserSession.CurrentUserId).ToString();
+                    this.MonthStatsText = DbWorkoutSessions.CountTrainingsLastMonth(UserSession.CurrentUserId).ToString();
+                    this.YearStatsText = DbWorkoutSessions.CountTrainingsLastYear(UserSession.CurrentUserId).ToString();
 
-                int bestPlan = DbWorkoutSessions.GetMostFrequentPlanIdForUser(UserSession.CurrentUserId);
-                this.BestPlanText = DbWorkoutPlans.GetWorkoutName(bestPlan);
+                    int bestPlan = DbWorkoutSessions.GetMostFrequentPlanIdForUser(UserSession.CurrentUserId);
+                    this.BestPlanText = DbWorkoutPlans.GetWorkoutName(bestPlan);
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
             }
         }
 

@@ -106,15 +106,22 @@ namespace ProjektWPF.ViewModels
 
         public void Update(int? workoutId)
         {
-            if (workoutId != null)
+            try
             {
-                Exercise exercise = DbExercises.GetOneExcercise(workoutId);
-                this.ExerciseTitle = exercise.Name;
-                this.ExerciseBodyPart = exercise.BodyPart;
-                this.ExerciseDescription = exercise.Description;
-                this.ExerciseCalories = exercise.CaloriesBurnedPerMinute.ToString() + " kcal/min";
-                this.ExerciseDifficultyLevel = exercise.DifficultyLevel;
-                this.ExerciseGifPath = exercise.GifPath;
+                if (workoutId != null)
+                {
+                    Exercise exercise = DbExercises.GetOneExcercise(workoutId);
+                    this.ExerciseTitle = exercise.Name;
+                    this.ExerciseBodyPart = exercise.BodyPart;
+                    this.ExerciseDescription = exercise.Description;
+                    this.ExerciseCalories = exercise.CaloriesBurnedPerMinute.ToString() + " kcal/min";
+                    this.ExerciseDifficultyLevel = exercise.DifficultyLevel;
+                    this.ExerciseGifPath = exercise.GifPath;
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
             }
         }
 

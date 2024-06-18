@@ -26,14 +26,7 @@ namespace ProjektWPF.Data
                 using (var db = new MyDbContext())
                 {
                     var exerciseToGet = db.exercises.FirstOrDefault(e => e.ExerciseId == id);
-                    if (exerciseToGet != null)
-                    {
-                        return exerciseToGet;
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    return exerciseToGet;
                 }
             }
         }

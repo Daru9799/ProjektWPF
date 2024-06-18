@@ -183,17 +183,25 @@ namespace ProjektWPF.ViewModels
 
         private async void ChangeLogin()
         {
-            if ( await DbUsers.GetIdByName(this.Username) == 0) //Sprawdza czy nie ma takiego usera
+            try
             {
-                DbUsers.UpdateUsername(UserSession.CurrentUserId, this.Username); //aktualizacja loginu
-                int? id = UserSession.CurrentUserId;
-                UserSession.CurrentUserId = null;
-                UserSession.CurrentUserId = id;
+                if (await DbUsers.GetIdByName(this.Username) == 0) //Sprawdza czy nie ma takiego usera
+                {
+                    DbUsers.UpdateUsername(UserSession.CurrentUserId, this.Username); //aktualizacja loginu
+                    int? id = UserSession.CurrentUserId;
+                    UserSession.CurrentUserId = null;
+                    UserSession.CurrentUserId = id;
+                }
+                else
+                {
+                    this.ErrorText = "Użytkownik o podanej nazwie istnieje!";
+                }
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                this.ErrorText = "Użytkownik o podanej nazwie istnieje!";
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
             }
+
         }
 
         private bool CanChangeLogin()
@@ -225,16 +233,23 @@ namespace ProjektWPF.ViewModels
 
         private async void ChangeEmail()
         {
-            if (await DbUsers.GetIdByEmail(this.Email) == 0) //Sprawdza czy nie ma takiego maila
+            try
             {
-                DbUsers.UpdateEmail(UserSession.CurrentUserId, this.Email); //aktualizacja maila
-                int? id = UserSession.CurrentUserId;
-                UserSession.CurrentUserId = null;
-                UserSession.CurrentUserId = id;
+                if (await DbUsers.GetIdByEmail(this.Email) == 0) //Sprawdza czy nie ma takiego maila
+                {
+                    DbUsers.UpdateEmail(UserSession.CurrentUserId, this.Email); //aktualizacja maila
+                    int? id = UserSession.CurrentUserId;
+                    UserSession.CurrentUserId = null;
+                    UserSession.CurrentUserId = id;
+                }
+                else
+                {
+                    this.ErrorText = "Użytkownik o podanym adresie email istnieje!";
+                }
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                this.ErrorText = "Użytkownik o podanym adresie email istnieje!";
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
             }
         }
 
@@ -267,10 +282,17 @@ namespace ProjektWPF.ViewModels
 
         private void ChangeHeight()
         {
-            DbUsers.UpdateHeight(UserSession.CurrentUserId, float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL"))); //aktualizacja wzrostu
-            int? id = UserSession.CurrentUserId;
-            UserSession.CurrentUserId = null;
-            UserSession.CurrentUserId = id;
+            try
+            {
+                DbUsers.UpdateHeight(UserSession.CurrentUserId, float.Parse(this.Height, NumberStyles.Float, CultureInfo.GetCultureInfo("pl-PL"))); //aktualizacja wzrostu
+                int? id = UserSession.CurrentUserId;
+                UserSession.CurrentUserId = null;
+                UserSession.CurrentUserId = id;
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         private bool CanChangeHeight()

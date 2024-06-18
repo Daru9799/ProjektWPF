@@ -54,5 +54,21 @@ namespace ProjektWPF.Models
                 }
             }
         }
+
+        private static int? _currentSqlError = 0;
+        public static event Action<int?> SqlError;
+
+        public static int? CurrentSqlError
+        {
+            get => _currentSqlError;
+            set
+            {
+                if (_currentSqlError != value)
+                {
+                    _currentSqlError = value;
+                    SqlError?.Invoke(CurrentSqlError);
+                }
+            }
+        }
     }
 }

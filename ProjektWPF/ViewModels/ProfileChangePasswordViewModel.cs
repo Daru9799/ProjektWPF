@@ -119,19 +119,26 @@ namespace ProjektWPF.ViewModels
         private async void ChangePassword()
         {
             int? id = UserSession.CurrentUserId;
-            string hPassword = await DbUsers.GetHashById(id);
-            if (PasswordEncryption.VerifyPassword(this.OldPassword, hPassword))
+            try
             {
-                string hashedNewPassword = PasswordEncryption.HashPassword(this.NewPassword);
-                DbUsers.UpdatePassword(UserSession.CurrentUserId, hashedNewPassword); //aktualizacja hasła
-                this.OldPassword = null;
-                this.NewPassword = null;
-                UserSession.CurrentUserId = null;
-                UserSession.CurrentUserId = id;
+                string hPassword = await DbUsers.GetHashById(id);
+                if (PasswordEncryption.VerifyPassword(this.OldPassword, hPassword))
+                {
+                    string hashedNewPassword = PasswordEncryption.HashPassword(this.NewPassword);
+                    DbUsers.UpdatePassword(UserSession.CurrentUserId, hashedNewPassword); //aktualizacja hasła
+                    this.OldPassword = null;
+                    this.NewPassword = null;
+                    UserSession.CurrentUserId = null;
+                    UserSession.CurrentUserId = id;
+                }
+                else
+                {
+                    this.ErrorText = "Podano złe hasło!";
+                }
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                this.ErrorText = "Podano złe hasło!";
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
             }
         }
 

@@ -35,7 +35,14 @@ namespace ProjektWPF.ViewModels
 
             if (newUserId != null)
             {
-                this.ProgressesList = DbUserProgress.GetAllProgressForUser(newUserId);
+                try
+                {
+                    this.ProgressesList = DbUserProgress.GetAllProgressForUser(newUserId);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+                }
                 this.Date1 = null;
                 this.Date2 = null;
             }
@@ -98,7 +105,14 @@ namespace ProjektWPF.ViewModels
 
         private void Filter()
         {
-            this.ProgressesList = DbUserProgress.GetProgressWithDateRange(UserSession.CurrentUserId, this.Date1.Value, this.Date2.Value);
+            try
+            {
+                this.ProgressesList = DbUserProgress.GetProgressWithDateRange(UserSession.CurrentUserId, this.Date1.Value, this.Date2.Value);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
         }
 
         private bool CanFilter()
@@ -112,7 +126,14 @@ namespace ProjektWPF.ViewModels
 
         private void DeleteFilter()
         {
-            this.ProgressesList = DbUserProgress.GetAllProgressForUser(UserSession.CurrentUserId);
+            try
+            {
+                this.ProgressesList = DbUserProgress.GetAllProgressForUser(UserSession.CurrentUserId);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+            }
             this.Date1 = null;
             this.Date2 = null;
         }
@@ -121,7 +142,14 @@ namespace ProjektWPF.ViewModels
         {
             if (UserSession.CurrentUserId != null)
             {
-                this.ProgressesList = DbUserProgress.GetAllProgressForUser(UserSession.CurrentUserId);
+                try
+                {
+                    this.ProgressesList = DbUserProgress.GetAllProgressForUser(UserSession.CurrentUserId);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    UserSession.CurrentSqlError += 1; //Jesli serwer nie dziala to przelacza na okno z informacją o tym
+                }
                 this.Date1 = null;
                 this.Date2 = null;
             }
