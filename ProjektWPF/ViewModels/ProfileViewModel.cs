@@ -207,6 +207,10 @@ namespace ProjektWPF.ViewModels
                 
 
                 this.JoinDateText = user.JoinDate.ToString("d");
+
+                this.TotalWorkoutsText = user.TotalWorkouts.ToString();
+                this.TotalCaloriesBurnedText = user.TotalCaloriesBurned + " kcal";
+                this.TotalTimeSpent = user.TotalTimeSpent + " min";
             }
         }
 
