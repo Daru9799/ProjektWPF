@@ -24,7 +24,7 @@ namespace ProjektWPF.ViewModels
             this.mainViewModel = mainViewModel;
             ModifyWorkoutCommand = new RelayCommand(execute => { ModifyWorkoutPlan(); },
                 canExecute => {
-                    if (this.Name != null) return true;
+                    if (this.Name != null && this.Name.Count() < 100 && ((this.Description?.Count() ?? 0) < (Math.Pow(2, 16)) - 1)) return true;
                     else return false;
                 });
             ReturnToWorkoutPlansCommand = new RelayCommand(execute => { ReturnToWorkoutPlans(); }, canExecute => { return true; });

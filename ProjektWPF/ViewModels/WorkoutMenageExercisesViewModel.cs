@@ -239,7 +239,7 @@ namespace ProjektWPF.ViewModels
             get { return durationValue; }
             set 
             {
-                if (value > 0) // żeby czas nie mógł być ujemny ani zerowy
+                if (value > 0 && value <= 9999999) // żeby czas nie mógł być ujemny ani zerowy
                 {
                     durationValue = value;
                     if (SelectedWorkoutExercise != null)
@@ -249,7 +249,7 @@ namespace ProjektWPF.ViewModels
 
                     }
                     OnPropertyChanged();
-                }
+                } 
             }
         }
 
