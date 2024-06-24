@@ -397,6 +397,7 @@ namespace ProjektWPF.ViewModels
             {
                 try
                 {
+                    RestartTimer();
                     DbWorkoutSessions.AddWorkoutSession(UserSession.CurrentUserId.Value, this.workoutPlan.PlanId, DateTime.Now, totalTime.Value, calories.Value);
                     UserSession.CurrentUserTrainingAdded += 1;
                 }
